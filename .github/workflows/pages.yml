@@ -39,6 +39,7 @@ jobs:
         run: |
           sed -i 's#/crypto-test/#/base-portfolio/#g' vite.config.js
           npm run demo:build
+          sed -i 's#</head>#<meta name="talentapp:project_verification" content="c4dddfa0d0c65483fa7cd312956c5db3215320c0671ea2fefeee801a03938bc23ff9604c0c181c39767029f6d3325ad38c1167265aeee2e5dd0117e426d924e9">\n</head>#' dist/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
