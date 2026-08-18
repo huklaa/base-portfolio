@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="A read-only Base mainnet portfolio and activity explorer. No wallet connection, signatures, approvals, or transactions." />
+  <title>Base Portfolio Explorer</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Base Portfolio Explorer home"><span class="base-dot">—</span><span>BASE PORTFOLIO</span></a>
+      <div class="creator-links">
+        <a href="https://x.com/1kipcak" target="_blank" rel="noreferrer">@1kipcak</a>
+        <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">READ-ONLY BASE MAINNET ANALYTICS</div>
+          <h1>See your Base journey,<br><span>not just your balance.</span></h1>
+          <p class="lead">Portfolio, token allocation, activity, gas, NFTs, milestones and a shareable Base card — all from a public address.</p>
+          <div class="trust-pill">🔒 Read-only — No wallet connection. No signatures. No approvals.</div>
+        </div>
+        <div class="hero-orb" aria-hidden="true"><div class="orb-mark">—</div></div>
+      </section>
+
+      <section class="search-panel card">
+        <label for="addressInput">Base address</label>
+        <div class="search-row">
+          <input id="addressInput" autocomplete="off" spellcheck="false" placeholder="0x…" aria-label="Base address" />
+          <button id="analyzeBtn" class="primary">Analyze</button>
+        </div>
+        <div id="status" class="status">Paste any public EVM address. Nothing is signed or sent.</div>
+      </section>
+
+      <section id="dashboard" class="dashboard hidden">
+        <div class="section-heading">
+          <div><div class="eyebrow">OVERVIEW</div><h2>Your Base snapshot</h2></div>
+          <a id="explorerAddress" class="text-link" target="_blank" rel="noreferrer">Open in explorer ↗</a>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric card"><span>Portfolio value</span><strong id="portfolioValue">—</strong><small id="portfolioSub">ETH + priced ERC-20</small></article>
+          <article class="metric card"><span>Activity score</span><strong id="activityScore">—</strong><small id="activityLevel">Independent heuristic</small></article>
+          <article class="metric card"><span>Transactions</span><strong id="txCount">—</strong><small>Up to 10,000 indexed txs</small></article>
+          <article class="metric card"><span>Active days</span><strong id="activeDays">—</strong><small id="firstSeen">First activity —</small></article>
+          <article class="metric card"><span>Contracts used</span><strong id="contractsUsed">—</strong><small>Unique contract destinations</small></article>
+          <article class="metric card"><span>Estimated gas spent</span><strong id="gasSpent">—</strong><small id="gasUsd">Historical ETH amount</small></article>
+        </div>
+
+        <div class="two-col">
+          <article class="card section-card">
+            <div class="card-head"><div><div class="eyebrow">PORTFOLIO</div><h3>Token breakdown</h3></div><span id="tokenCount" class="badge">0 assets</span></div>
+            <div id="tokenBreakdown" class="token-list"></div>
+          </article>
+          <article class="card section-card">
+            <div class="card-head"><div><div class="eyebrow">ALLOCATION</div><h3>Cost basis & target</h3></div></div>
+            <div class="form-grid">
+              <label>Optional cost basis (USD)<input id="costBasis" type="number" min="0" step="0.01" placeholder="e.g. 1500" /></label>
+              <label>Target stablecoin allocation (%)<input id="targetStable" type="number" min="0" max="100" step="1" value="30" /></label>
+            </div>
+            <div class="allocation-stats">
+              <div><span>P / L</span><strong id="pnlValue">—</strong></div>
+              <div><span>Current stablecoin share</span><strong id="stableShare">—</strong></div>
+              <div><span>Target difference</span><strong id="targetDiff">—</strong></div>
+            </div>
+          </article>
+        </div>
+
+        <article class="card section-card">
+          <div class="card-head"><div><div class="eyebrow">ACTIVITY</div><h3>Recent Base activity</h3></div><span class="badge">Latest 20</span></div>
+          <div id="recentActivity" class="activity-list"></div>
+        </article>
+
+        <div class="two-col">
+          <article class="card section-card">
+            <div class="card-head"><div><div class="eyebrow">JOURNEY</div><h3>Onchain timeline</h3></div></div>
+            <div id="timeline" class="timeline"></div>
+          </article>
+          <article class="card section-card">
+            <div class="card-head"><div><div class="eyebrow">NFTS</div><h3>Base collectibles</h3></div><span id="nftCount" class="badge">0 NFTs</span></div>
+            <div id="nftGrid" class="nft-grid"></div>
+          </article>
+        </div>
+
+        <article class="card section-card share-section">
+          <div class="share-copy">
+            <div class="eyebrow">SHARE</div><h3>Generate your Base Card</h3>
+            <p>Create a clean PNG summary of your Base activity. The card contains public analytics only.</p>
+            <button id="downloadCard" class="primary">Download Base Card</button>
+          </div>
+          <canvas id="shareCanvas" width="1200" height="630" aria-label="Shareable Base activity card"></canvas>
+        </article>
+      </section>
+
+      <section class="tools-section">
+        <div class="section-heading"><div><div class="eyebrow">USEFUL LINKS</div><h2>Explore Base</h2></div></div>
+        <div class="tools-grid">
+          <a class="tool card" href="https://www.base.org/" target="_blank" rel="noreferrer"><strong>Base</strong><span>Official Base site ↗</span></a>
+          <a class="tool card" href="https://base.blockscout.com/" target="_blank" rel="noreferrer"><strong>Block Explorer</strong><span>Transactions & contracts ↗</span></a>
+          <a class="tool card" href="https://docs.base.org/" target="_blank" rel="noreferrer"><strong>Base Docs</strong><span>Developer documentation ↗</span></a>
+          <a class="tool card" href="https://www.base.org/ecosystem" target="_blank" rel="noreferrer"><strong>Ecosystem</strong><span>Discover apps on Base ↗</span></a>
+          <a class="tool card" href="https://www.base.org/" target="_blank" rel="noreferrer"><strong>Base App</strong><span>Discover the onchain app ↗</span></a>
+          <a class="tool card" href="https://github.com/base" target="_blank" rel="noreferrer"><strong>GitHub</strong><span>Open-source Base projects ↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Independent read-only community tool. Not affiliated with Coinbase or Base.</span>
+      <span>Built by <a href="https://x.com/1kipcak" target="_blank" rel="noreferrer">@1kipcak</a> · <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a></span>
+    </footer>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
