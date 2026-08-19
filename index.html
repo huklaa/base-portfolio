@@ -72,7 +72,17 @@
         </div>
 
         <article class="card section-card">
-          <div class="card-head"><div><div class="eyebrow">ACTIVITY</div><h3>Recent Base activity</h3></div><span class="badge">Latest 20</span></div>
+          <div class="card-head">
+            <div><div class="eyebrow">ACTIVITY</div><h3>Recent Base activity</h3></div>
+            <span class="badge">Latest 20</span>
+          </div>
+          <div class="activity-filters" id="activityFilters">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Transfer">Transfer</button>
+            <button class="filter-btn" data-filter="Swap">Swap</button>
+            <button class="filter-btn" data-filter="NFT">NFT</button>
+            <button class="filter-btn" data-filter="Contract Interaction">Contract Interaction</button>
+          </div>
           <div id="recentActivity" class="activity-list"></div>
         </article>
 

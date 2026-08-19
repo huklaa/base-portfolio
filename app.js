@@ -3,7 +3,7 @@ const ADDRESS_RE = /^0x[a-fA-F0-9]{40}$/;
 const STABLES = new Set(['USDC','USDT','DAI','USDS','EURC','USD+','USDBC','USDbC','USDG','PYUSD','GHO','USDe']);
 
 const $ = (id) => document.getElementById(id);
-const state = { address:'', info:null, tokens:[], nfts:[], txs:[], recent:[], totalValue:0, ethValue:0, stableValue:0, metrics:null };
+const state = { address:'', info:null, tokens:[], nfts:[], txs:[], recent:[], currentFilter:'All', totalValue:0, ethValue:0, stableValue:0, metrics:null };
 
 function short(a, left=6, right=4){ if(!a) return '—'; return `${a.slice(0,left)}…${a.slice(-right)}`; }
 function money(v){ const n=Number(v||0); if(!Number.isFinite(n)) return '$0.00'; if(n>=1_000_000) return `$${(n/1_000_000).toFixed(2)}M`; if(n>=10_000) return `$${n.toLocaleString(undefined,{maximumFractionDigits:0})}`; if(n>=1) return `$${n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`; return `$${n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:6})}`; }
@@ -128,10 +128,22 @@ function classifyTx(tx){
   return 'Transfer';
 }
 
+function matchesFilter(tx, filter){
+  if(!filter || filter === 'All') return true;
+  const type = classifyTx(tx);
+  if(filter === 'Transfer') return type === 'Transfer';
+  if(filter === 'Swap') return type === 'Swap';
+  if(filter === 'NFT') return type === 'NFT mint' || type.includes('NFT');
+  if(filter === 'Contract Interaction') return type === 'Contract' || type === 'Contract Interaction' || Boolean(tx.to?.is_contract);
+  return false;
+}
+
 function renderRecent(){
   const root=$('recentActivity'); root.innerHTML='';
   if(!state.recent.length){ root.innerHTML='<div class="empty">No recent transactions returned by the explorer.</div>'; return; }
-  for(const tx of state.recent){
+  const filtered = state.recent.filter(tx => matchesFilter(tx, state.currentFilter));
+  if(!filtered.length){ root.innerHTML=`<div class="empty">No recent transactions matching "${escapeHtml(state.currentFilter)}".</div>`; return; }
+  for(const tx of filtered){
     const type=classifyTx(tx); const target=tx.to?.name||tx.to?.ens_domain_name||short(tx.to?.hash||''); const method=tx.method||target||'Transaction';
     const row=document.createElement('div'); row.className='activity-row';
     row.innerHTML=`<div class="activity-type">${escapeHtml(type)}</div><div class="activity-method">${escapeHtml(method)}${target&&target!==method?` · ${escapeHtml(target)}`:''}</div><div class="activity-date">${escapeHtml(dateText(tx.timestamp))}</div><a class="tx-link" href="${BLOCKSCOUT}/tx/${encodeURIComponent(tx.hash)}" target="_blank" rel="noreferrer">${short(tx.hash,5,4)} ↗</a>`;
@@ -201,6 +213,19 @@ $('analyzeBtn').addEventListener('click',analyze);
 $('addressInput').addEventListener('keydown',e=>{if(e.key==='Enter') analyze();});
 $('costBasis').addEventListener('input',renderAllocation);$('targetStable').addEventListener('input',renderAllocation);
 $('downloadCard').addEventListener('click',downloadCard);
+
+const activityFilters = $('activityFilters');
+if(activityFilters){
+  activityFilters.addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if(!btn) return;
+    const filter = btn.dataset.filter;
+    if(!filter) return;
+    state.currentFilter = filter;
+    activityFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+    renderRecent();
+  });
+}
 
 const initial=new URLSearchParams(location.search).get('address');
 if(initial&&ADDRESS_RE.test(initial)){$('addressInput').value=initial;analyze();}
