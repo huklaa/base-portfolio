@@ -133,8 +133,8 @@ function matchesFilter(tx, filter){
   const type = classifyTx(tx);
   if(filter === 'Transfer') return type === 'Transfer';
   if(filter === 'Swap') return type === 'Swap';
-  if(filter === 'NFT') return type === 'NFT mint' || type.includes('NFT');
-  if(filter === 'Contract Interaction') return type === 'Contract' || type === 'Contract Interaction' || Boolean(tx.to?.is_contract);
+  if(filter === 'NFT') return type === 'NFT mint' || type === 'NFT' || type.includes('NFT');
+  if(filter === 'Contract Interaction') return type === 'Contract' || type === 'Approval' || type === 'Contract Interaction';
   return false;
 }
 
@@ -192,12 +192,20 @@ function drawShareCard(){
 
 function downloadCard(){ drawShareCard(); const a=document.createElement('a');a.href=$('shareCanvas').toDataURL('image/png');a.download=`base-card-${state.address.slice(2,8)}.png`;a.click(); }
 
+function resetFilterUI(){
+  state.currentFilter='All';
+  const activityFilters=$('activityFilters');
+  if(activityFilters){
+    activityFilters.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter==='All'));
+  }
+}
+
 async function analyze(){
   const address=$('addressInput').value.trim();
   if(!ADDRESS_RE.test(address)){ setStatus('Enter a valid 0x address (40 hexadecimal characters).',true); return; }
   $('analyzeBtn').disabled=true; setStatus('Reading public Base data…');
   try{
-    state.address=address; await loadAddress(address); buildPortfolio(); buildMetrics();
+    state.address=address; resetFilterUI(); await loadAddress(address); buildPortfolio(); buildMetrics();
     $('explorerAddress').href=`${BLOCKSCOUT}/address/${address}`;
     renderMetrics();renderTokens();renderRecent();renderTimeline();renderNFTs();drawShareCard();
     $('dashboard').classList.remove('hidden');
