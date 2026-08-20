@@ -37,7 +37,7 @@
     const last=globalThis.BaseStablecoinFlow?.last;
     if(!last) return null;
     const clean=s=>({transferCount:s.count,inboundTransfers:s.inbound,outboundTransfers:s.outbound,inboundUsd:s.inUsd,outboundUsd:s.outUsd,netFlowUsd:s.netUsd,topCounterparties:s.counterparties.slice(0,10).map(([address,count])=>({address,count})),stablecoinMixUsd:Object.fromEntries(s.symbols)});
-    return {current30d:clean(last.current),previous30d:clean(last.previous),fetchedTransferRecords:last.transfers.length,scope:'fetched recent ERC-20 transfer history'};
+    return {current30d:clean(last.current),previous30d:clean(last.previous),fetchedTransferRecords:last.transfers.length,verifiedContracts:last.verifiedContracts||[],scope:'fetched recent ERC-20 transfer history filtered by explicit Base stablecoin contract allowlist'};
   }
   function smartAccountExport(){
     const last=globalThis.BaseSmartAccount?.last;
@@ -61,8 +61,8 @@
       behaviorDelta:deltaExport(state.txs),
       stablecoinFlow:stablecoinExport(),
       smartAccount:smartAccountExport(),
-      methodology:{activityScore:'local heuristic',economicFingerprint:'local explainable heuristic',builderAttribution:'exact ERC-8021 16-byte marker validation with schema-0 decoding',behaviorDelta:'latest 30 days compared with previous 30 days',stablecoinFlow:'recent Blockscout ERC-20 transfer records filtered to recognized stablecoin symbols',smartAccount:'best-effort Blockscout account-abstraction indexer evidence; recognized Coinbase Smart Wallet factories are explicit allowlisted addresses'},
-      limits:{transactionHistoryCap:10000,source:'Base Blockscout public APIs',erc8021Parsing:'schema 0 decoded; unsupported schema IDs detected without speculative decoding',stablecoinHistory:'limited to fetched paginated transfer records; not complete lifetime accounting',smartAccountCoverage:'absence of an indexer record is inconclusive and contract code alone is not treated as Base Account proof'},
+      methodology:{activityScore:'local heuristic',economicFingerprint:'local explainable heuristic',builderAttribution:'exact ERC-8021 16-byte marker validation with schema-0 decoding',behaviorDelta:'latest 30 days compared with previous 30 days',stablecoinFlow:'recent Blockscout ERC-20 transfer records filtered by explicit verified Base stablecoin contract addresses; token symbols alone are not trusted',smartAccount:'best-effort Blockscout account-abstraction indexer evidence; recognized Coinbase Smart Wallet factories are explicit allowlisted addresses'},
+      limits:{transactionHistoryCap:10000,source:'Base Blockscout public APIs',erc8021Parsing:'schema 0 decoded; unsupported schema IDs detected without speculative decoding',stablecoinHistory:'limited to fetched paginated transfer records and explicit contract allowlist; not complete lifetime accounting',smartAccountCoverage:'absence of an indexer record is inconclusive and contract code alone is not treated as Base Account proof'},
       safety:{readOnly:true,walletConnection:false,signatures:false,approvals:false,transactions:false},
       attribution:{project:'Base Portfolio Explorer',creatorX:'@1kipcak',creatorGitHub:'huklaa'}
     };
