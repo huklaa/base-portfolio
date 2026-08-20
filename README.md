@@ -17,79 +17,54 @@ The project is evolving from a simple portfolio viewer into a Base-native wallet
 - Supports optional manual cost basis, P/L, stablecoin share, and target-allocation comparison.
 - Shows the latest Base transactions with transaction type, timestamp, and direct Blockscout link.
 - Calculates an independent Base Activity Score from transaction count, active days, unique contract interactions, asset diversity, and NFT ownership.
-- Builds a **Base Economic Fingerprint** from public transaction history:
-  - app/contract diversity,
-  - repeat contract usage,
-  - top-app concentration,
-  - activity cadence,
-  - wallet longevity,
-  - detectable ERC-8021 Builder Code attribution signals.
-- Assigns an explainable behavioral archetype such as Protocol Explorer, App Loyalist, Base Power User, or Attributed Builder Explorer.
-- Shows an **App Relationship Map** with the wallet's most-used contract destinations and interaction counts.
-- Adds a **Wallet Behavior Delta** comparing the latest 30 days with the previous 30 days:
-  - transaction activity trend,
-  - active-day trend,
-  - contract/app diversity trend,
-  - gas-spend trend,
-  - newly discovered contract destinations,
-  - previously used destinations revisited,
-  - a plain-language summary of the behavioral change.
-- Adds a visual **Base App Graph**:
-  - wallet → contract relationship edges,
-  - interaction-weighted edge strength,
-  - first and last interaction dates,
-  - repeat-vs-one-time relationships,
-  - top relationship share,
-  - best-effort public contract labels from Blockscout.
-- Generates plain-language behavioral insights rather than hiding the result behind a single opaque score.
+- Builds a **Base Economic Fingerprint** from public transaction history: app diversity, repeat usage, top-app concentration, cadence, longevity, and detectable ERC-8021 attribution signals.
+- Assigns explainable behavioral archetypes such as Protocol Explorer, App Loyalist, Base Power User, or Attributed Builder Explorer.
+- Adds a **Wallet Behavior Delta** comparing the latest 30 days with the previous 30 days for transactions, active days, app diversity, gas spend, newly discovered apps, and revisited apps.
+- Adds a visual **Base App Graph** with wallet → contract relationships, interaction-weighted edges, first/last interaction dates, repeat usage, top relationship share, explorer links, and best-effort Blockscout contract labels.
+- Adds **Stablecoin & Payment Behavior** from recent indexed ERC-20 transfer history:
+  - 30-day inbound and outbound stablecoin flow,
+  - net priced flow,
+  - stable transfer count and 30-day change,
+  - recurring/top counterparties,
+  - stablecoin mix by transfer flow.
+- Generates plain-language behavioral insights rather than hiding results behind a single opaque score.
 - Shows first activity, first contract interaction, first detectable Builder Code attribution, NFT ownership milestone, and latest indexed activity in an onchain timeline.
-- Estimates historical gas spent in ETH from indexed transactions and shows its approximate value at the current ETH exchange rate.
+- Estimates historical gas spent in ETH from indexed normal transactions.
 - Displays currently indexed Base NFTs.
 - Generates a downloadable shareable Base Card containing public wallet analytics and the wallet archetype.
-- Exports a **machine-readable JSON public profile** for builders and agents, including chain metadata, activity, Economic Fingerprint, Behavior Delta, methodology flags, data limits, and safety metadata.
+- Exports a **machine-readable JSON public profile (v1.1)** for builders and agents, including activity, Economic Fingerprint, Behavior Delta, stablecoin flow when available, methodology flags, data limits, and safety metadata.
 - Generates a shareable address URL without connecting the wallet.
-- Includes useful links to Base, Base documentation, ecosystem resources, Blockscout, and GitHub.
 
-## Why the Economic Fingerprint exists
+## Why this exists
 
-Most portfolio products focus on balances, P/L, alerts, or broad multi-chain wallet tracking. This project is intentionally Base-first and focuses on explainable economic behavior: whether a wallet explores many apps, repeatedly returns to the same apps, concentrates activity in one destination, stays active over time, and carries Base-native transaction-attribution signals.
+Most portfolio products focus on balances, P/L, alerts, or broad multi-chain tracking. This project is intentionally Base-first and focuses on explainable economic behavior: which apps a wallet uses, which ones it returns to, how concentrated its activity is, how behavior changes over time, how stable value moves through it, and which Base-native attribution signals are publicly visible.
 
-The fingerprint is deliberately descriptive rather than judgmental. It is designed to become useful for users, builders, growth teams, and eventually agents that need a compact public summary of Base behavior.
-
-The Behavior Delta adds a second dimension: not only **what kind of Base user is this wallet?**, but also **how is its behavior changing right now?** The App Graph makes those relationships visible, and the JSON profile makes the analysis reusable outside the page.
+The analysis is descriptive rather than judgmental. It is intended to become useful for users, builders, growth teams, and agents that need a compact public summary of Base behavior.
 
 ## Privacy and safety
 
-This app is deliberately read-only.
-
-It does **not**:
-
-- connect a wallet,
-- request a signature,
-- request a private key,
-- request an approval,
-- execute a swap,
-- transfer assets,
-- or submit any blockchain transaction.
-
-Only a public EVM address is required.
+This app is deliberately read-only. It does **not** connect a wallet, request a signature/private key/approval, execute a swap, transfer assets, or submit any blockchain transaction. Only a public EVM address is required.
 
 ## Data sources
 
-- Base Blockscout public APIs for address, token, NFT, transaction, and best-effort contract label data.
+- Base Blockscout public APIs for address, token, NFT, normal transaction, token-transfer, and best-effort contract label data.
 - Base mainnet, chain ID `8453`.
 
-Explorer APIs may rate-limit requests or return partial data. Transaction-derived activity metrics are capped at the first 10,000 transactions returned by the explorer endpoint and the UI clearly labels this when applicable.
+Explorer APIs may rate-limit requests or return partial data. Normal-transaction activity metrics are capped at the first 10,000 transactions returned by the explorer endpoint. Stablecoin flow is limited to the recent paginated ERC-20 transfer records fetched by the client and is not lifetime accounting.
 
 ## Scores and classifications
 
 The Activity Score, Economic Fingerprint dimensions, behavioral archetypes, and Behavior Delta summaries are local heuristics created for this project. They are **not official Base, Coinbase, credit, risk, reward, eligibility, airdrop, or reputation scores**.
 
-ERC-8021 detection is a best-effort check for the attribution sentinel in indexed transaction calldata. A zero count does not prove that an app or wallet never used Builder Codes, and a detected suffix should be treated as a public attribution signal rather than an identity claim.
+ERC-8021 detection is currently a best-effort attribution-sentinel signal, not a complete canonical suffix decoder. A zero count does not prove that an app or wallet never used Builder Codes.
+
+## Methodology
+
+See `METHODOLOGY.md` for formulas, data scope, assumptions, and known limitations.
 
 ## Quality checks
 
-The repository includes standalone Node tests for the 30-day Behavior Delta and App Graph aggregation logic, plus GitHub Actions syntax/test checks for the browser modules.
+The repository includes standalone Node tests for Behavior Delta, App Graph aggregation, and stablecoin-flow summaries, plus GitHub Actions syntax/test checks for the browser modules.
 
 ## Creator
 
