@@ -1,0 +1,42 @@
+name: Product feedback
+description: Share feedback about Base Portfolio Explorer
+title: "[Feedback] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying Base Portfolio Explorer. Please do not paste private keys, seed phrases, signatures, or other secrets.
+  - type: dropdown
+    id: feedback_type
+    attributes:
+      label: Feedback type
+      options:
+        - Something was confusing
+        - Analysis looked incomplete or incorrect
+        - Feature request
+        - Builder / API use case
+        - Mobile usability
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What did you notice?
+      description: Describe the problem, idea, or use case. A public wallet address is optional; do not share anything private.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What would make this more useful?
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I did not include a private key, seed phrase, password, signature, or other secret.
+          required: true
