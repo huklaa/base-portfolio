@@ -25,6 +25,7 @@ jobs:
           node --check stablecoin-flow.js
           node --check smart-account.js
           node --check userop-attribution.js
+          node --check evidence-coverage.js
           node --check public-export.js
           node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
       - name: Builder attribution tests
@@ -39,3 +40,5 @@ jobs:
         run: node tests/smart-account.test.mjs
       - name: UserOperation attribution tests
         run: node tests/userop-attribution.test.mjs
+      - name: Evidence coverage tests
+        run: node tests/evidence-coverage.test.mjs
