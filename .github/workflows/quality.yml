@@ -1,0 +1,44 @@
+name: Quality checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Syntax check
+        run: |
+          node --check app.js
+          node --check builder-attribution.js
+          node --check behavior-delta.js
+          node --check app-graph.js
+          node --check stablecoin-flow.js
+          node --check smart-account.js
+          node --check userop-attribution.js
+          node --check evidence-coverage.js
+          node --check public-export.js
+          node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
+      - name: Builder attribution tests
+        run: node tests/builder-attribution.test.mjs
+      - name: Behavior delta tests
+        run: node tests/behavior-delta.test.mjs
+      - name: App graph tests
+        run: node tests/app-graph.test.mjs
+      - name: Stablecoin flow tests
+        run: node tests/stablecoin-flow.test.mjs
+      - name: Smart account tests
+        run: node tests/smart-account.test.mjs
+      - name: UserOperation attribution tests
+        run: node tests/userop-attribution.test.mjs
+      - name: Evidence coverage tests
+        run: node tests/evidence-coverage.test.mjs

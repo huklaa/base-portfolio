@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="A read-only Base mainnet portfolio and activity explorer. No wallet connection, signatures, approvals, or transactions." />
+  <meta name="description" content="A read-only Base mainnet portfolio, activity and wallet-behavior explorer. No wallet connection, signatures, approvals, or transactions." />
   <title>Base Portfolio Explorer</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -20,9 +20,9 @@
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <div class="eyebrow">READ-ONLY BASE MAINNET ANALYTICS</div>
+          <div class="eyebrow">READ-ONLY BASE MAINNET INTELLIGENCE</div>
           <h1>See your Base journey,<br><span>not just your balance.</span></h1>
-          <p class="lead">Portfolio, token allocation, activity, gas, NFTs, milestones and a shareable Base card — all from a public address.</p>
+          <p class="lead">Portfolio, wallet behavior, app relationships, activity, gas, NFTs, milestones and a shareable Base card — all from a public address.</p>
           <div class="trust-pill">🔒 Read-only — No wallet connection. No signatures. No approvals.</div>
         </div>
         <div class="hero-orb" aria-hidden="true"><div class="orb-mark">—</div></div>
@@ -52,6 +52,33 @@
           <article class="metric card"><span>Estimated gas spent</span><strong id="gasSpent">—</strong><small id="gasUsd">Historical ETH amount</small></article>
         </div>
 
+        <article class="card section-card fingerprint-card">
+          <div class="card-head">
+            <div><div class="eyebrow">BASE ECONOMIC FINGERPRINT</div><h3>How this wallet actually behaves</h3></div>
+            <span id="walletArchetype" class="archetype-badge">—</span>
+          </div>
+          <p class="section-intro">An explainable, Base-native behavior profile derived only from public transaction history. It is not a credit, risk, reputation, reward or eligibility score.</p>
+          <div class="fingerprint-layout">
+            <div id="fingerprintBars" class="fingerprint-bars"></div>
+            <div class="fingerprint-stats">
+              <div><span>Repeat contract rate</span><strong id="repeatContractRate">—</strong><small>How often the wallet returns to apps it already used</small></div>
+              <div><span>Top-app concentration</span><strong id="contractConcentration">—</strong><small>Share of contract interactions going to the #1 destination</small></div>
+              <div><span>Activity cadence</span><strong id="activityCadence">—</strong><small>Average active days per month since first seen</small></div>
+              <div><span>ERC-8021 signals</span><strong id="builderCodeSignals">—</strong><small>Strict exact-marker attribution transactions</small></div>
+            </div>
+          </div>
+          <div class="fingerprint-bottom">
+            <div>
+              <div class="eyebrow">EXPLAINABLE INSIGHTS</div>
+              <div id="economicInsights" class="insight-list"></div>
+            </div>
+            <div>
+              <div class="eyebrow">APP RELATIONSHIP MAP</div>
+              <div id="appRelationships" class="relationship-list"></div>
+            </div>
+          </div>
+        </article>
+
         <div class="two-col">
           <article class="card section-card">
             <div class="card-head"><div><div class="eyebrow">PORTFOLIO</div><h3>Token breakdown</h3></div><span id="tokenCount" class="badge">0 assets</span></div>
@@ -72,7 +99,7 @@
         </div>
 
         <article class="card section-card">
-          <div class="card-head"><div><div class="eyebrow">ACTIVITY</div><h3>Recent Base activity</h3></div><span class="badge">Latest 20</span></div>
+          <div class="card-head"><div><div class="eyebrow">WALLET ACTIVITY</div><h3>Latest Base transactions</h3></div><span class="badge">Latest 20</span></div>
           <div id="recentActivity" class="activity-list"></div>
         </article>
 
@@ -90,7 +117,7 @@
         <article class="card section-card share-section">
           <div class="share-copy">
             <div class="eyebrow">SHARE</div><h3>Generate your Base Card</h3>
-            <p>Create a clean PNG summary of your Base activity. The card contains public analytics only.</p>
+            <p>Create a clean PNG summary of your Base activity and behavior fingerprint. The card contains public analytics only.</p>
             <button id="downloadCard" class="primary">Download Base Card</button>
           </div>
           <canvas id="shareCanvas" width="1200" height="630" aria-label="Shareable Base activity card"></canvas>
@@ -112,9 +139,17 @@
 
     <footer>
       <span>Independent read-only community tool. Not affiliated with Coinbase or Base.</span>
-      <span>Built by <a href="https://x.com/1kipcak" target="_blank" rel="noreferrer">@1kipcak</a> · <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a></span>
+      <span>Built by <a href="https://x.com/1kipcak" target="_blank" rel="noreferrer">@1kipcak</a> · <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a> · <a href="https://github.com/huklaa/base-portfolio/issues/new?template=product-feedback.yml" target="_blank" rel="noreferrer">Send feedback</a></span>
     </footer>
   </div>
   <script src="./app.js"></script>
+  <script src="./builder-attribution.js"></script>
+  <script src="./behavior-delta.js"></script>
+  <script src="./app-graph.js"></script>
+  <script src="./stablecoin-flow.js"></script>
+  <script src="./smart-account.js"></script>
+  <script src="./userop-attribution.js"></script>
+  <script src="./evidence-coverage.js"></script>
+  <script src="./public-export.js"></script>
 </body>
 </html>

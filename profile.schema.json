@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huklaa.github.io/base-portfolio/profile.schema.json",
+  "title": "Base Portfolio Explorer Public Profile",
+  "description": "Machine-readable, read-only public analytics for a Base address.",
+  "type": "object",
+  "required": ["schema", "version", "generatedAt", "chain", "address", "portfolio", "activity", "economicFingerprint", "builderAttribution", "userOpBuilderAttribution", "behaviorDelta", "stablecoinFlow", "smartAccount", "methodology", "limits", "safety", "attribution"],
+  "properties": {
+    "schema": {"const": "base-portfolio-public-profile"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "chain": {
+      "type": "object",
+      "required": ["name", "chainId", "explorer"],
+      "properties": {
+        "name": {"const": "Base"},
+        "chainId": {"const": 8453},
+        "explorer": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "address": {"type": "string", "pattern": "^0x[0-9a-fA-F]{40}$"},
+    "portfolio": {
+      "type": "object",
+      "required": ["totalValueUsd", "stablecoinValueUsd", "fungibleAssetCount", "nftCount"],
+      "properties": {
+        "totalValueUsd": {"type": "number", "minimum": 0},
+        "stablecoinValueUsd": {"type": "number", "minimum": 0},
+        "fungibleAssetCount": {"type": "integer", "minimum": 0},
+        "nftCount": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "activity": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "economicFingerprint": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "builderAttribution": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "userOpBuilderAttribution": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "behaviorDelta": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "stablecoinFlow": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "smartAccount": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["status", "erc4337Indexed", "walletFamily", "recognizedCoinbaseSmartWallet", "factory", "factoryLabel", "entryPoint", "entryPointLabel", "indexedOperations", "creationTransaction", "source"],
+          "properties": {
+            "status": {"enum": ["indexed", "not-indexed", "unavailable"]},
+            "erc4337Indexed": {"type": "boolean"},
+            "walletFamily": {"type": "string"},
+            "recognizedCoinbaseSmartWallet": {"type": "boolean"},
+            "factory": {"type": ["string", "null"]},
+            "factoryLabel": {"type": ["string", "null"]},
+            "entryPoint": {"type": ["string", "null"]},
+            "entryPointLabel": {"type": ["string", "null"]},
+            "indexedOperations": {"type": "integer", "minimum": 0},
+            "creationTransaction": {"type": ["string", "null"]},
+            "source": {"type": "string"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "methodology": {"type": "object"},
+    "limits": {"type": "object"},
+    "safety": {
+      "type": "object",
+      "required": ["readOnly", "walletConnection", "signatures", "approvals", "transactions"],
+      "properties": {
+        "readOnly": {"const": true},
+        "walletConnection": {"const": false},
+        "signatures": {"const": false},
+        "approvals": {"const": false},
+        "transactions": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "attribution": {
+      "type": "object",
+      "required": ["project", "creatorX", "creatorGitHub"],
+      "properties": {
+        "project": {"const": "Base Portfolio Explorer"},
+        "creatorX": {"type": "string"},
+        "creatorGitHub": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
