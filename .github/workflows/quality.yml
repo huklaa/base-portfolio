@@ -29,6 +29,7 @@ jobs:
           node --check userop-attribution.js
           node --check evidence-coverage.js
           node --check public-export.js
+          node --check share-tools.js
           node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
       - name: Builder attribution tests
         run: node tests/builder-attribution.test.mjs
@@ -46,3 +47,5 @@ jobs:
         run: node tests/userop-attribution.test.mjs
       - name: Evidence coverage tests
         run: node tests/evidence-coverage.test.mjs
+      - name: Share tools tests
+        run: node tests/share-tools.test.mjs
