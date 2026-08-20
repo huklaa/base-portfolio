@@ -1,6 +1,7 @@
 (function(){
   const DAY=86400;
   function lower(v){return String(v||'').toLowerCase()}
+  function currentAddress(){try{return typeof state!=='undefined'?state.address||'':''}catch{return ''}}
   function legacyToTransfer(tx,meta){
     return {
       timestamp:tx.timeStamp?new Date(Number(tx.timeStamp)*1000).toISOString():null,
@@ -19,12 +20,13 @@
         const r=await fetch(`https://base.blockscout.com/api?${q}`,{headers:{accept:'application/json'}});if(!r.ok)throw new Error(`legacy token API ${r.status}`);
         const j=await r.json(),batch=Array.isArray(j?.result)?j.result:[];pages++;
         for(const tx of batch)items.push(legacyToTransfer(tx,meta));
-        const oldest=batch.length?Math.min(...batch.map(x=>Number(x.timeStamp||0)).filter(Boolean)):0;
+        const times=batch.map(x=>Number(x.timeStamp||0)).filter(Boolean);const oldest=times.length?Math.min(...times):0;
         if(!batch.length||batch.length<1000||(oldest&&oldest<=sinceTs)){reached=true;break}
       }
       if(!reached)complete=false;
     }
-    items.coverage={pages,maxPages:12,sinceTs,oldestTimestamp:0,complete,source:'legacy-account-api-fallback'};
+    const times=items.map(x=>Date.parse(x.timestamp||'')/1000).filter(Number.isFinite);
+    items.coverage={pages,maxPages:12,sinceTs,oldestTimestamp:times.length?Math.min(...times):0,complete,source:'legacy-account-api-fallback'};
     return items;
   }
   function renderStableFallback(transfers,address){
@@ -40,7 +42,7 @@
     globalThis.BaseEvidenceCoverage?.render?.();
   }
   async function recoverStable(){
-    const status=document.getElementById('stableFlowStatus');const address=globalThis.state?.address||'';
+    const status=document.getElementById('stableFlowStatus'),address=currentAddress();
     if(!status||!address||globalThis.BaseStablecoinFlow?.last||status.dataset.fallbackRunning==='1')return;
     if(!/unavailable|failed to fetch/i.test(status.textContent||''))return;
     status.dataset.fallbackRunning='1';
@@ -51,10 +53,17 @@
     const root=document.getElementById('timeline');if(!root)return;let seen=false;
     [...root.querySelectorAll('.timeline-item')].forEach(item=>{const title=item.querySelector('strong')?.textContent||'';if(!title.includes('First strict ERC-8021 attribution'))return;if(seen)item.remove();else seen=true});
   }
+  function reconcileUserOps(){
+    const last=globalThis.BaseUserOpAttribution?.last;if(!last||last.status!=='indexed')return;
+    const fetched=Number(last.fetched||0),scan=last.scan||{};
+    const total=document.getElementById('uoTotal'),share=document.getElementById('uoShare');
+    if(total)total.textContent=fetched.toLocaleString();
+    if(share){const count=Number(scan.count||0);share.textContent=`${(fetched?count/fetched*100:0).toFixed(2)}% of fetched UserOps`}
+  }
   function init(){
     const status=document.getElementById('stableFlowStatus');if(status)new MutationObserver(()=>recoverStable()).observe(status,{childList:true,subtree:true});
     const timeline=document.getElementById('timeline');if(timeline)new MutationObserver(()=>dedupeTimeline()).observe(timeline,{childList:true,subtree:true});
-    setTimeout(()=>{recoverStable();dedupeTimeline()},1200);
+    setInterval(()=>{recoverStable();dedupeTimeline();reconcileUserOps()},1200);
   }
-  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline};if(typeof document!=='undefined')init();
+  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps};if(typeof document!=='undefined')init();
 })();
