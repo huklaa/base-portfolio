@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="A read-only Base mainnet portfolio, activity and wallet-behavior explorer. No wallet connection, signatures, approvals, or transactions." />
   <title>Base Portfolio Explorer</title>
-  <link rel="stylesheet" href="./styles.css" />
-  <link rel="stylesheet" href="./mobile.css" />
+  <link rel="stylesheet" href="./styles.css?v=20260821-1" />
+  <link rel="stylesheet" href="./mobile.css?v=20260821-1" />
 </head>
 <body>
   <div class="page-shell">
@@ -82,98 +82,43 @@
             </div>
           </div>
           <div class="fingerprint-bottom">
-            <div>
-              <div class="eyebrow">EXPLAINABLE INSIGHTS</div>
-              <div id="economicInsights" class="insight-list"></div>
-            </div>
-            <div>
-              <div class="eyebrow">APP RELATIONSHIP MAP</div>
-              <div id="appRelationships" class="relationship-list"></div>
-            </div>
+            <div><div class="eyebrow">EXPLAINABLE INSIGHTS</div><div id="economicInsights" class="insight-list"></div></div>
+            <div><div class="eyebrow">APP RELATIONSHIP MAP</div><div id="appRelationships" class="relationship-list"></div></div>
           </div>
         </article>
 
         <div class="two-col">
-          <article class="card section-card">
-            <div class="card-head"><div><div class="eyebrow">PORTFOLIO</div><h3>Token breakdown</h3></div><span id="tokenCount" class="badge">0 assets</span></div>
-            <div id="tokenBreakdown" class="token-list"></div>
-          </article>
-          <article class="card section-card">
-            <div class="card-head"><div><div class="eyebrow">ALLOCATION</div><h3>Cost basis & target</h3></div></div>
-            <div class="form-grid">
-              <label>Optional cost basis (USD)<input id="costBasis" type="number" min="0" step="0.01" placeholder="e.g. 1500" /></label>
-              <label>Target stablecoin allocation (%)<input id="targetStable" type="number" min="0" max="100" step="1" value="30" /></label>
-            </div>
-            <div class="allocation-stats">
-              <div><span>P / L</span><strong id="pnlValue">—</strong></div>
-              <div><span>Current stablecoin share</span><strong id="stableShare">—</strong></div>
-              <div><span>Target difference</span><strong id="targetDiff">—</strong></div>
-            </div>
-          </article>
+          <article class="card section-card"><div class="card-head"><div><div class="eyebrow">PORTFOLIO</div><h3>Token breakdown</h3></div><span id="tokenCount" class="badge">0 assets</span></div><div id="tokenBreakdown" class="token-list"></div></article>
+          <article class="card section-card"><div class="card-head"><div><div class="eyebrow">ALLOCATION</div><h3>Cost basis & target</h3></div></div><div class="form-grid"><label>Optional cost basis (USD)<input id="costBasis" type="number" min="0" step="0.01" placeholder="e.g. 1500" /></label><label>Target stablecoin allocation (%)<input id="targetStable" type="number" min="0" max="100" step="1" value="30" /></label></div><div class="allocation-stats"><div><span>P / L</span><strong id="pnlValue">—</strong></div><div><span>Current stablecoin share</span><strong id="stableShare">—</strong></div><div><span>Target difference</span><strong id="targetDiff">—</strong></div></div></article>
         </div>
 
-        <article class="card section-card">
-          <div class="card-head"><div><div class="eyebrow">WALLET ACTIVITY</div><h3>Latest Base transactions</h3></div><span class="badge">Latest 20</span></div>
-          <div class="activity-filters" id="activityFilters" aria-label="Transaction type filters">
-            <button class="filter-btn active" data-filter="All" type="button">All</button>
-            <button class="filter-btn" data-filter="Transfer" type="button">Transfer</button>
-            <button class="filter-btn" data-filter="Swap" type="button">Swap</button>
-            <button class="filter-btn" data-filter="NFT" type="button">NFT</button>
-            <button class="filter-btn" data-filter="Contract interaction" type="button">Contract</button>
-          </div>
-          <div id="recentActivity" class="activity-list"></div>
-        </article>
+        <article class="card section-card"><div class="card-head"><div><div class="eyebrow">WALLET ACTIVITY</div><h3>Latest Base transactions</h3></div><span class="badge">Latest 20</span></div><div class="activity-filters" id="activityFilters" aria-label="Transaction type filters"><button class="filter-btn active" data-filter="All" type="button">All</button><button class="filter-btn" data-filter="Transfer" type="button">Transfer</button><button class="filter-btn" data-filter="Swap" type="button">Swap</button><button class="filter-btn" data-filter="NFT" type="button">NFT</button><button class="filter-btn" data-filter="Contract interaction" type="button">Contract</button></div><div id="recentActivity" class="activity-list"></div></article>
 
         <div class="two-col">
-          <article class="card section-card">
-            <div class="card-head"><div><div class="eyebrow">JOURNEY</div><h3>Onchain timeline</h3></div></div>
-            <div id="timeline" class="timeline"></div>
-          </article>
-          <article class="card section-card">
-            <div class="card-head"><div><div class="eyebrow">NFTS</div><h3>Base collectibles</h3></div><span id="nftCount" class="badge">0 NFTs</span></div>
-            <div id="nftGrid" class="nft-grid"></div>
-          </article>
+          <article class="card section-card"><div class="card-head"><div><div class="eyebrow">JOURNEY</div><h3>Onchain timeline</h3></div></div><div id="timeline" class="timeline"></div></article>
+          <article class="card section-card"><div class="card-head"><div><div class="eyebrow">NFTS</div><h3>Base collectibles</h3></div><span id="nftCount" class="badge">0 NFTs</span></div><div id="nftGrid" class="nft-grid"></div></article>
         </div>
 
-        <article class="card section-card share-section">
-          <div class="share-copy">
-            <div class="eyebrow">SHARE</div><h3>Generate your Base Card</h3>
-            <p>Create a clean PNG summary of your Base activity and behavior fingerprint. The card contains public analytics only.</p>
-            <button id="downloadCard" class="primary">Download Base Card</button>
-          </div>
-          <canvas id="shareCanvas" width="1200" height="630" aria-label="Shareable Base activity card"></canvas>
-        </article>
+        <article class="card section-card share-section"><div class="share-copy"><div class="eyebrow">SHARE</div><h3>Generate your Base Card</h3><p>Create a clean PNG summary of your Base activity and behavior fingerprint. The card contains public analytics only.</p><button id="downloadCard" class="primary">Download Base Card</button></div><canvas id="shareCanvas" width="1200" height="630" aria-label="Shareable Base activity card"></canvas></article>
       </section>
 
-      <section class="tools-section">
-        <div class="section-heading"><div><div class="eyebrow">USEFUL LINKS</div><h2>Explore Base</h2></div></div>
-        <div class="tools-grid">
-          <a class="tool card" href="https://www.base.org/" target="_blank" rel="noreferrer"><strong>Base</strong><span>Official Base site ↗</span></a>
-          <a class="tool card" href="https://base.blockscout.com/" target="_blank" rel="noreferrer"><strong>Block Explorer</strong><span>Transactions & contracts ↗</span></a>
-          <a class="tool card" href="https://docs.base.org/" target="_blank" rel="noreferrer"><strong>Base Docs</strong><span>Developer documentation ↗</span></a>
-          <a class="tool card" href="https://www.base.org/ecosystem" target="_blank" rel="noreferrer"><strong>Ecosystem</strong><span>Discover apps on Base ↗</span></a>
-          <a class="tool card" href="https://www.base.org/" target="_blank" rel="noreferrer"><strong>Base App</strong><span>Discover the onchain app ↗</span></a>
-          <a class="tool card" href="https://github.com/base" target="_blank" rel="noreferrer"><strong>GitHub</strong><span>Open-source Base projects ↗</span></a>
-        </div>
-      </section>
+      <section class="tools-section"><div class="section-heading"><div><div class="eyebrow">USEFUL LINKS</div><h2>Explore Base</h2></div></div><div class="tools-grid"><a class="tool card" href="https://www.base.org/" target="_blank" rel="noreferrer"><strong>Base</strong><span>Official Base site ↗</span></a><a class="tool card" href="https://base.blockscout.com/" target="_blank" rel="noreferrer"><strong>Block Explorer</strong><span>Transactions & contracts ↗</span></a><a class="tool card" href="https://docs.base.org/" target="_blank" rel="noreferrer"><strong>Base Docs</strong><span>Developer documentation ↗</span></a><a class="tool card" href="https://www.base.org/ecosystem" target="_blank" rel="noreferrer"><strong>Ecosystem</strong><span>Discover apps on Base ↗</span></a><a class="tool card" href="https://www.base.org/" target="_blank" rel="noreferrer"><strong>Base App</strong><span>Discover the onchain app ↗</span></a><a class="tool card" href="https://github.com/base" target="_blank" rel="noreferrer"><strong>GitHub</strong><span>Open-source Base projects ↗</span></a></div></section>
     </main>
 
-    <footer>
-      <span>Independent read-only community tool. Not affiliated with Coinbase or Base.</span>
-      <span>Built by <a href="https://x.com/1kipcak" target="_blank" rel="noreferrer">@1kipcak</a> · <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a> · <a href="https://github.com/huklaa/base-portfolio/issues/new?template=product-feedback.yml" target="_blank" rel="noreferrer">Send feedback</a></span>
-    </footer>
+    <footer><span>Independent read-only community tool. Not affiliated with Coinbase or Base.</span><span>Built by <a href="https://x.com/1kipcak" target="_blank" rel="noreferrer">@1kipcak</a> · <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a> · <a href="https://github.com/huklaa/base-portfolio/issues/new?template=product-feedback.yml" target="_blank" rel="noreferrer">Send feedback</a></span></footer>
   </div>
-  <script src="./app.js"></script>
-  <script src="./activity-filter.js"></script>
-  <script src="./builder-attribution.js"></script>
-  <script src="./behavior-delta.js"></script>
-  <script src="./app-graph.js"></script>
-  <script src="./stablecoin-flow.js"></script>
-  <script src="./payment-patterns.js"></script>
-  <script src="./smart-account.js"></script>
-  <script src="./userop-attribution.js"></script>
-  <script src="./evidence-coverage.js"></script>
-  <script src="./public-export.js"></script>
-  <script src="./share-tools.js"></script>
+  <script src="./app.js?v=20260821-1"></script>
+  <script src="./activity-filter.js?v=20260821-1"></script>
+  <script src="./builder-attribution.js?v=20260821-1"></script>
+  <script src="./behavior-delta.js?v=20260821-1"></script>
+  <script src="./app-graph.js?v=20260821-1"></script>
+  <script src="./stablecoin-flow.js?v=20260821-1"></script>
+  <script src="./payment-patterns.js?v=20260821-1"></script>
+  <script src="./smart-account.js?v=20260821-1"></script>
+  <script src="./userop-attribution.js?v=20260821-1"></script>
+  <script src="./evidence-coverage.js?v=20260821-1"></script>
+  <script src="./public-export.js?v=20260821-1"></script>
+  <script src="./share-tools.js?v=20260821-1"></script>
+  <script src="./production-fixes.js?v=20260821-1"></script>
 </body>
 </html>

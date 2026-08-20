@@ -32,6 +32,7 @@ jobs:
           node --check share-tools.js
           node --check product-polish.js
           node --check compare.js
+          node --check production-fixes.js
           node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
       - name: Builder attribution tests
         run: node tests/builder-attribution.test.mjs
