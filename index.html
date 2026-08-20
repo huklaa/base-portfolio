@@ -64,7 +64,7 @@
               <div><span>Repeat contract rate</span><strong id="repeatContractRate">—</strong><small>How often the wallet returns to apps it already used</small></div>
               <div><span>Top-app concentration</span><strong id="contractConcentration">—</strong><small>Share of contract interactions going to the #1 destination</small></div>
               <div><span>Activity cadence</span><strong id="activityCadence">—</strong><small>Average active days per month since first seen</small></div>
-              <div><span>ERC-8021 signals</span><strong id="builderCodeSignals">—</strong><small>Transactions with detectable Builder Code attribution suffixes</small></div>
+              <div><span>ERC-8021 signals</span><strong id="builderCodeSignals">—</strong><small>Strict exact-marker attribution transactions</small></div>
             </div>
           </div>
           <div class="fingerprint-bottom">
@@ -143,6 +143,7 @@
     </footer>
   </div>
   <script src="./app.js"></script>
+  <script src="./builder-attribution.js"></script>
   <script src="./behavior-delta.js"></script>
   <script src="./app-graph.js"></script>
   <script src="./stablecoin-flow.js"></script>
