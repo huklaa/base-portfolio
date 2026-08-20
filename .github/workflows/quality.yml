@@ -19,10 +19,13 @@ jobs:
       - name: Syntax check
         run: |
           node --check app.js
+          node --check builder-attribution.js
           node --check behavior-delta.js
           node --check app-graph.js
           node --check stablecoin-flow.js
           node --check public-export.js
+      - name: Builder attribution tests
+        run: node tests/builder-attribution.test.mjs
       - name: Behavior delta tests
         run: node tests/behavior-delta.test.mjs
       - name: App graph tests
