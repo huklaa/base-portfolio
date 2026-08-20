@@ -4,19 +4,11 @@
 
 Base Portfolio Explorer should not compete as another generic multi-chain balance tracker. Its wedge is **Base-native, explainable wallet intelligence**: turn a public Base address into a compact description of how that wallet participates in the Base economy.
 
-The current product combines an Economic Fingerprint, time-aware Behavior Delta, app relationships, recent stablecoin/payment behavior, and machine-readable public exports.
+The current product combines an Economic Fingerprint, time-aware Behavior Delta, app relationships, recent stablecoin/payment behavior, strict Builder Attribution evidence, and machine-readable public exports.
 
 ## Why this direction
 
-Generic portfolio products already cover balances, token/NFT holdings, P/L, and multi-chain tracking well. A stronger Base-native product should focus on signals that are especially useful inside the Base ecosystem:
-
-- app relationships and repeat usage,
-- transaction attribution / Builder Codes (ERC-8021),
-- Base-specific activity history,
-- behavioral change over time,
-- stablecoin/payment flow behavior,
-- shareable public wallet summaries,
-- builder/growth analytics consumable by humans or agents.
+Generic portfolio products already cover balances, token/NFT holdings, P/L, and multi-chain tracking well. A stronger Base-native product should focus on signals that are especially useful inside the Base ecosystem: app relationships, ERC-8021 attribution, Base-specific activity history, behavior change, stablecoin/payment flow, and analytics consumable by humans or agents.
 
 ## Phase 1 — Economic Fingerprint (implemented in PR #4)
 
@@ -25,8 +17,7 @@ Generic portfolio products already cover balances, token/NFT holdings, P/L, and 
 - Top-app concentration.
 - Active-day cadence and wallet longevity.
 - Top contract/app relationships.
-- ERC-8021 attribution signal detection.
-- First-attribution milestone in the wallet timeline.
+- Base attribution dimension.
 - Fingerprint included in the downloadable Base Card.
 
 ### Guardrails
@@ -54,8 +45,6 @@ All scores/classifications are local heuristics. They must never be presented as
 - explorer links,
 - best-effort public contract labels from Blockscout.
 
-The graph answers: **"Which Base apps does this wallet actually have a relationship with?"**
-
 ## Phase 4 — Stablecoin & Payment Behavior (first version implemented in PR #4)
 
 Implemented from recent Blockscout ERC-20 transfer history:
@@ -71,37 +60,41 @@ Implemented from recent Blockscout ERC-20 transfer history:
 Still planned:
 
 - deeper pagination / longer historical coverage,
-- transaction-level payment-like pattern classification,
-- recurring cadence detection,
-- better stablecoin contract allowlists rather than symbol-only recognition,
+- payment-like pattern classification and cadence,
+- contract-address allowlists rather than symbol-only recognition,
 - smart-account/user-operation transfer coverage,
 - historical stablecoin balance reconstruction where reliable.
 
 This remains descriptive, not a credit, income, solvency, or risk score.
 
-## Phase 5 — Builder Attribution Footprint
+## Phase 5 — Builder Attribution Footprint (strict schema-0 version implemented in PR #4)
 
-Improve ERC-8021 support beyond best-effort sentinel detection:
+Implemented:
 
-- strict canonical suffix parsing,
+- validates the exact ERC-8021 16-byte marker `0x80218021802180218021802180218021`,
 - attributed transaction count and share,
-- first/last detected attribution,
-- multiple-code awareness where reliably decodable,
-- links to Base validation tools,
-- clearly label parsing limitations.
+- canonical schema-0 Builder Code decoding,
+- unique/top decoded codes,
+- first/latest strict attribution,
+- detected schema-ID counts,
+- unsupported schema IDs are detected but intentionally not guessed,
+- reconciles the Economic Fingerprint attribution dimension and attributed archetype against strict evidence.
 
-Official Base documentation confirms that Builder Codes are appended as ERC-8021 transaction calldata suffixes and that the repeating `8021` marker can be inspected at the end of input data. The next implementation should validate the complete suffix, not merely detect a marker.
+Still planned:
+
+- validated parsing for additional ERC-8021 schemas,
+- code-registry metadata/links where authoritative,
+- richer builder-facing attribution summaries.
 
 ## Phase 6 — Public Profile & API (partially implemented in PR #4)
 
 Implemented now:
 
 - URL-addressable wallet analysis via `?address=`,
-- downloadable JSON public profile,
+- downloadable JSON public profile v1.2,
 - copyable machine-readable JSON,
 - chain, methodology, data-limit, and safety metadata,
-- Economic Fingerprint and Behavior Delta included in export,
-- recent stablecoin-flow summary included when loaded.
+- Economic Fingerprint, strict Builder Attribution, Behavior Delta, and recent stablecoin-flow summaries in export.
 
 Still planned:
 
@@ -137,7 +130,7 @@ Avoid diluting the product with generic features already done well elsewhere unl
 Before an accelerator application, the product should demonstrate:
 
 1. A working Base-native differentiator, not just a portfolio page.
-2. At least one clearly explainable insight unavailable from a raw block explorer.
+2. Clearly explainable insights unavailable from a raw block explorer.
 3. Reliable mobile UX.
 4. A reproducible methodology documented in the repository.
 5. Real usage: public profiles analyzed, repeat visitors, shared Base Cards, or direct feedback from Base users/builders.
@@ -145,6 +138,6 @@ Before an accelerator application, the product should demonstrate:
 
 ## Positioning
 
-> **Base Portfolio Explorer turns any public Base address into an explainable economic fingerprint — showing app relationships, activity behavior, stablecoin movement, attribution signals, and how that behavior changes over time.**
+> **Base Portfolio Explorer turns any public Base address into an explainable economic fingerprint — showing app relationships, activity behavior, stablecoin movement, strict attribution evidence, and how that behavior changes over time.**
 
-The defensible differentiation is the **combination of Base-first scope, explainable behavioral profiling, ERC-8021-aware attribution, relationship mapping, time-aware change analysis, stablecoin/payment behavior, and a machine-readable intelligence layer.**
+The defensible differentiation is the **combination of Base-first scope, explainable behavioral profiling, strict ERC-8021-aware attribution, relationship mapping, time-aware change analysis, stablecoin/payment behavior, and a machine-readable intelligence layer.**
