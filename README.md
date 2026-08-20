@@ -17,22 +17,23 @@ The project is evolving from a simple portfolio viewer into a Base-native wallet
 - Supports optional manual cost basis, P/L, stablecoin share, and target-allocation comparison.
 - Shows the latest Base transactions with transaction type, timestamp, and direct Blockscout link.
 - Calculates an independent Base Activity Score from transaction count, active days, unique contract interactions, asset diversity, and NFT ownership.
-- Builds a **Base Economic Fingerprint** from public transaction history: app diversity, repeat usage, top-app concentration, cadence, longevity, and detectable ERC-8021 attribution signals.
+- Builds a **Base Economic Fingerprint** from public transaction history: app diversity, repeat usage, top-app concentration, cadence, longevity, and Base-native attribution.
 - Assigns explainable behavioral archetypes such as Protocol Explorer, App Loyalist, Base Power User, or Attributed Builder Explorer.
 - Adds a **Wallet Behavior Delta** comparing the latest 30 days with the previous 30 days for transactions, active days, app diversity, gas spend, newly discovered apps, and revisited apps.
 - Adds a visual **Base App Graph** with wallet → contract relationships, interaction-weighted edges, first/last interaction dates, repeat usage, top relationship share, explorer links, and best-effort Blockscout contract labels.
-- Adds **Stablecoin & Payment Behavior** from recent indexed ERC-20 transfer history:
-  - 30-day inbound and outbound stablecoin flow,
-  - net priced flow,
-  - stable transfer count and 30-day change,
-  - recurring/top counterparties,
-  - stablecoin mix by transfer flow.
+- Adds **Stablecoin & Payment Behavior** from recent indexed ERC-20 transfer history: 30-day inbound/outbound flow, net priced flow, transfer trends, counterparties, and stablecoin mix.
+- Adds a **Builder Attribution Footprint** with strict ERC-8021 marker validation:
+  - validates the exact 16-byte `0x80218021802180218021802180218021` suffix,
+  - reports attributed transaction count and share,
+  - decodes canonical schema-0 Builder Codes,
+  - reports unique and top decoded codes,
+  - detects unsupported schema IDs without speculative decoding,
+  - shows first/latest strict attribution milestones.
 - Generates plain-language behavioral insights rather than hiding results behind a single opaque score.
-- Shows first activity, first contract interaction, first detectable Builder Code attribution, NFT ownership milestone, and latest indexed activity in an onchain timeline.
 - Estimates historical gas spent in ETH from indexed normal transactions.
 - Displays currently indexed Base NFTs.
 - Generates a downloadable shareable Base Card containing public wallet analytics and the wallet archetype.
-- Exports a **machine-readable JSON public profile (v1.1)** for builders and agents, including activity, Economic Fingerprint, Behavior Delta, stablecoin flow when available, methodology flags, data limits, and safety metadata.
+- Exports a **machine-readable JSON public profile (v1.2)** for builders and agents, including activity, Economic Fingerprint, strict Builder Attribution, Behavior Delta, stablecoin flow when available, methodology flags, data limits, and safety metadata.
 - Generates a shareable address URL without connecting the wallet.
 
 ## Why this exists
@@ -56,7 +57,7 @@ Explorer APIs may rate-limit requests or return partial data. Normal-transaction
 
 The Activity Score, Economic Fingerprint dimensions, behavioral archetypes, and Behavior Delta summaries are local heuristics created for this project. They are **not official Base, Coinbase, credit, risk, reward, eligibility, airdrop, or reputation scores**.
 
-ERC-8021 detection is currently a best-effort attribution-sentinel signal, not a complete canonical suffix decoder. A zero count does not prove that an app or wallet never used Builder Codes.
+Builder attribution is transaction evidence, not an identity claim. Schema 0 is decoded; other detected ERC-8021 schema IDs remain undecoded unless their structure is implemented and validated.
 
 ## Methodology
 
@@ -64,7 +65,7 @@ See `METHODOLOGY.md` for formulas, data scope, assumptions, and known limitation
 
 ## Quality checks
 
-The repository includes standalone Node tests for Behavior Delta, App Graph aggregation, and stablecoin-flow summaries, plus GitHub Actions syntax/test checks for the browser modules.
+The repository includes standalone Node tests for strict ERC-8021 parsing, Behavior Delta, App Graph aggregation, and stablecoin-flow summaries, plus GitHub Actions syntax/test checks for the browser modules.
 
 ## Creator
 
