@@ -12,10 +12,22 @@
     const normalTxCount=txs.length;
     const oldest=txs.reduce((m,t)=>{const x=num(t?.timeStamp);return x&&(!m||x<m)?x:m},0);
     const newest=txs.reduce((m,t)=>Math.max(m,num(t?.timeStamp)),0);
+    const stableCoverage=stable?.coverage||null;
     return {
       normalTransactions:{fetched:normalTxCount,configuredCap:txCap,capReached:normalTxCount>=txCap,oldestIndexed:isoFromSec(oldest),latestIndexed:isoFromSec(newest)},
       builderAttribution:{normalTransactionsScanned:builder?normalTxCount:0,strictAttributedTransactions:num(builder?.count),parserAvailable:Boolean(globalThis.BaseBuilderAttribution?.parseAttribution)},
-      stablecoinTransfers:{fetched:num(stable?.transfers?.length),allowlistedContracts:num(stable?.verifiedContracts?.length),available:Boolean(stable)},
+      stablecoinTransfers:{
+        fetched:num(stable?.transfers?.length),
+        allowlistedContracts:num(stable?.verifiedContracts?.length),
+        available:Boolean(stable),
+        pagesFetched:num(stableCoverage?.pagesFetched),
+        oldestTimestamp:stableCoverage?.oldestTimestamp||null,
+        targetTimestamp:stableCoverage?.targetTimestamp||null,
+        reachedTarget:Boolean(stableCoverage?.reachedTarget),
+        reachedEnd:Boolean(stableCoverage?.reachedEnd),
+        hitPageCap:Boolean(stableCoverage?.hitPageCap),
+        completeForRequestedWindow:stableCoverage?Boolean(stableCoverage.completeForRequestedWindow):false
+      },
       accountAbstraction:{status:aa?.status||'not-loaded',indexedOperations:num(aa?.account?.operations)},
       userOperations:{status:uo?.status||'not-loaded',fetched:num(uo?.fetched),strictAttributedUserOps:num(uo?.scan?.count)},
       caveat:'Coverage describes fetched public indexer evidence, not complete lifetime activity.'
@@ -33,16 +45,21 @@
     document.getElementById('covTx').textContent=c.normalTransactions.fetched.toLocaleString();
     document.getElementById('covTxNote').textContent=c.normalTransactions.capReached?`Configured ${c.normalTransactions.configuredCap.toLocaleString()} cap reached`:`Below ${c.normalTransactions.configuredCap.toLocaleString()} configured cap`;
     document.getElementById('covStable').textContent=c.stablecoinTransfers.fetched.toLocaleString();
-    document.getElementById('covStableNote').textContent=c.stablecoinTransfers.available?`${c.stablecoinTransfers.allowlistedContracts} allowlisted token contracts`:'Stablecoin module not loaded';
+    const stableNote=document.getElementById('covStableNote');
+    if(!c.stablecoinTransfers.available)stableNote.textContent='Stablecoin module not loaded';
+    else if(c.stablecoinTransfers.completeForRequestedWindow)stableNote.textContent=`90d coverage complete · ${c.stablecoinTransfers.pagesFetched} pages · ${c.stablecoinTransfers.allowlistedContracts} allowlisted contracts`;
+    else if(c.stablecoinTransfers.hitPageCap)stableNote.textContent=`Partial 90d coverage · page cap reached after ${c.stablecoinTransfers.pagesFetched} pages`;
+    else stableNote.textContent=`Coverage incomplete or still loading · ${c.stablecoinTransfers.pagesFetched} pages fetched`;
     document.getElementById('covUserOps').textContent=c.userOperations.fetched.toLocaleString();
     document.getElementById('covUserOpsNote').textContent=c.userOperations.status;
     document.getElementById('covAA').textContent=c.accountAbstraction.status;
     document.getElementById('covAANote').textContent=c.accountAbstraction.indexedOperations?`${c.accountAbstraction.indexedOperations.toLocaleString()} indexed operations reported`:'No operation count reported';
     const oldest=c.normalTransactions.oldestIndexed?new Date(c.normalTransactions.oldestIndexed).toLocaleDateString(): '—';
     const latest=c.normalTransactions.latestIndexed?new Date(c.normalTransactions.latestIndexed).toLocaleDateString(): '—';
-    document.getElementById('coverageNote').textContent=`Normal-transaction evidence spans ${oldest} → ${latest}. ${c.caveat}`;
+    const stableScope=c.stablecoinTransfers.completeForRequestedWindow?'Stablecoin payment-pattern window is fully covered by fetched indexer history.':c.stablecoinTransfers.available?'Stablecoin payment-pattern results may be partial; see coverage status above.':'Stablecoin coverage is unavailable.';
+    document.getElementById('coverageNote').textContent=`Normal-transaction evidence spans ${oldest} → ${latest}. ${stableScope} ${c.caveat}`;
     globalThis.BaseEvidenceCoverage.last=c;
   }
-  function init(){ensureUI();const status=document.getElementById('status');if(status)new MutationObserver(()=>setTimeout(render,0)).observe(status,{childList:true,subtree:true});['stableFlowStatus','aaNote','uoAttrNote'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(()=>render()).observe(el,{childList:true,subtree:true})});}
+  function init(){ensureUI();const status=document.getElementById('status');if(status)new MutationObserver(()=>setTimeout(render,0)).observe(status,{childList:true,subtree:true});['stableFlowStatus','paymentPatternStatus','aaNote','uoAttrNote'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(()=>render()).observe(el,{childList:true,subtree:true})});}
   globalThis.BaseEvidenceCoverage={buildCoverage,render,last:null};if(typeof document!=='undefined')init();
 })();
