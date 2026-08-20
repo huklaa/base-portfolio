@@ -24,6 +24,7 @@ jobs:
           node --check app-graph.js
           node --check stablecoin-flow.js
           node --check public-export.js
+          node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
       - name: Builder attribution tests
         run: node tests/builder-attribution.test.mjs
       - name: Behavior delta tests
