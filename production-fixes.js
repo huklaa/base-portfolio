@@ -1,5 +1,5 @@
 (function(){
-  const DAY=86400;
+  const DAY=86400,STALL_MS=10000;
   function lower(v){return String(v||'').toLowerCase()}
   function currentAddress(){try{return typeof state!=='undefined'?state.address||'':''}catch{return ''}}
   function legacyToTransfer(tx,meta){
@@ -38,14 +38,24 @@
     set('stableIn',money(cur.inUsd));set('stableOut',money(cur.outUsd));set('stableNet',`${cur.netUsd>=0?'+':''}${money(cur.netUsd)}`);set('stableCount',cur.count.toLocaleString());set('stableInCount',`${cur.inbound} inbound transfers`);set('stableOutCount',`${cur.outbound} outbound transfers`);
     const trend=prev.count?((cur.count-prev.count)/prev.count)*100:(cur.count?'new':0);set('stableCountTrend',trend==='new'?'new vs previous 30d':`${trend>=0?'+':''}${Math.round(trend)}% vs previous 30d`);
     const verified=[...api.VERIFIED_STABLES.entries()].map(([a,m])=>({address:a,...m}));api.last={transfers,current:cur,previous:prev,coverage:transfers.coverage,verifiedContracts:verified};
-    const status=document.getElementById('stableFlowStatus');if(status)status.textContent=`Primary token-transfer endpoint was unavailable; recovered ${transfers.length} verified-stable records via Blockscout fallback (${transfers.coverage.pages} pages).`;
+    const status=document.getElementById('stableFlowStatus');if(status){status.textContent=`Primary token-transfer endpoint was unavailable or slow; recovered ${transfers.length} verified-stable records via Blockscout fallback (${transfers.coverage.pages} pages).`;delete status.dataset.loadingSince}
+    globalThis.BasePaymentPatterns?.last&&(globalThis.BasePaymentPatterns.last=null);
     globalThis.BaseEvidenceCoverage?.render?.();
+  }
+  function primaryIsStalled(status){
+    const text=status.textContent||'';
+    if(!/Reading indexed Base token transfers|Loading token-transfer history/i.test(text)){delete status.dataset.loadingSince;return false}
+    const now=Date.now(),started=Number(status.dataset.loadingSince||0);
+    if(!started){status.dataset.loadingSince=String(now);return false}
+    return now-started>=STALL_MS;
   }
   async function recoverStable(){
     const status=document.getElementById('stableFlowStatus'),address=currentAddress();
     if(!status||!address||globalThis.BaseStablecoinFlow?.last||status.dataset.fallbackRunning==='1')return;
-    if(!/unavailable|failed to fetch/i.test(status.textContent||''))return;
+    const failed=/unavailable|failed to fetch/i.test(status.textContent||''),stalled=primaryIsStalled(status);
+    if(!failed&&!stalled)return;
     status.dataset.fallbackRunning='1';
+    if(stalled)status.textContent='Primary stablecoin history request is taking too long; trying Blockscout fallback…';
     try{const since=Math.floor(Date.now()/1000)-90*DAY,items=await fetchLegacyStable(address,since);if(items)renderStableFallback(items,address)}catch(e){status.textContent=`Stablecoin transfer view unavailable after fallback: ${e.message}`}
     finally{status.dataset.fallbackRunning='0'}
   }
@@ -65,5 +75,5 @@
     const timeline=document.getElementById('timeline');if(timeline)new MutationObserver(()=>dedupeTimeline()).observe(timeline,{childList:true,subtree:true});
     setInterval(()=>{recoverStable();dedupeTimeline();reconcileUserOps()},1200);
   }
-  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps};if(typeof document!=='undefined')init();
+  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps,primaryIsStalled,STALL_MS};if(typeof document!=='undefined')init();
 })();
