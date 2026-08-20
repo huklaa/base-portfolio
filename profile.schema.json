@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://huklaa.github.io/base-portfolio/profile.schema.json",
+  "$id": "https://base-portfolio.pages.dev/profile.schema.json",
   "title": "Base Portfolio Explorer Public Profile",
   "description": "Machine-readable, read-only public analytics for a Base address.",
   "type": "object",
-  "required": ["schema", "version", "generatedAt", "chain", "address", "portfolio", "activity", "economicFingerprint", "builderAttribution", "userOpBuilderAttribution", "behaviorDelta", "stablecoinFlow", "smartAccount", "methodology", "limits", "safety", "attribution"],
+  "required": ["schema", "version", "generatedAt", "chain", "address", "portfolio", "activity", "economicFingerprint", "builderAttribution", "userOpBuilderAttribution", "behaviorDelta", "stablecoinFlow", "paymentPatterns", "smartAccount", "methodology", "limits", "safety", "attribution"],
   "properties": {
     "schema": {"const": "base-portfolio-public-profile"},
     "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
@@ -37,6 +37,28 @@
     "userOpBuilderAttribution": {"anyOf": [{"type": "null"}, {"type": "object"}]},
     "behaviorDelta": {"anyOf": [{"type": "null"}, {"type": "object"}]},
     "stablecoinFlow": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "paymentPatterns": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["windowDays", "transferCount", "inboundTransfers", "outboundTransfers", "activeTransferDays", "recurringCounterpartyShare", "cadence", "recurringCounterparties", "coverage", "interpretation"],
+          "properties": {
+            "windowDays": {"type": "integer", "minimum": 1},
+            "transferCount": {"type": "integer", "minimum": 0},
+            "inboundTransfers": {"type": "integer", "minimum": 0},
+            "outboundTransfers": {"type": "integer", "minimum": 0},
+            "activeTransferDays": {"type": "integer", "minimum": 0},
+            "recurringCounterpartyShare": {"type": "number", "minimum": 0, "maximum": 1},
+            "cadence": {"type": ["string", "null"]},
+            "recurringCounterparties": {"type": "array"},
+            "coverage": {"type": ["object", "null"]},
+            "interpretation": {"type": "string"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "smartAccount": {
       "anyOf": [
         {"type": "null"},
