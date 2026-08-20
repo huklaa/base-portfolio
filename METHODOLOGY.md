@@ -8,6 +8,7 @@ This document explains how Base Portfolio Explorer derives its local analytics f
 - Primary source: Base Blockscout public APIs.
 - Normal transaction history is currently capped at the first 10,000 indexed transactions returned by the explorer endpoint.
 - Token balances and NFT holdings are current snapshots, not full historical balance series.
+- Stablecoin-flow analytics use a bounded recent set of paginated ERC-20 token-transfer records rather than lifetime accounting.
 
 ## Activity Score
 
@@ -51,15 +52,41 @@ Approximate active days per month over the wallet's indexed Base lifetime, norma
 
 Time between first and latest indexed Base transaction, logarithmically normalized.
 
-### Builder attribution
+## Builder Attribution Footprint / ERC-8021
 
-Current implementation performs best-effort detection of the repeating ERC-8021 marker at the end of transaction calldata. It is intentionally documented as a signal, not a complete decoder. A future parser will validate the full canonical data-suffix structure and decode codes where reliable.
+The strict parser validates the complete 16-byte ERC-8021 marker at the end of transaction calldata:
 
-Base documentation states that Builder Code attribution is appended as an ERC-8021 calldata suffix and can be verified by inspecting the repeating `8021` marker at the end of input data.
+`0x80218021802180218021802180218021`
+
+A transaction is counted as attributed only when this exact marker is present at the end of even-length hexadecimal calldata.
+
+### Schema ID
+
+The byte immediately before the 16-byte marker is read as the schema ID.
+
+### Schema 0 decoding
+
+For canonical schema 0, the parser reads:
+
+`[codes bytes][codesLength: 1 byte][schemaId: 1 byte][ERC-8021 marker: 16 bytes]`
+
+The `codesLength` byte specifies how many bytes immediately precede it. Those bytes are decoded as text and split on commas into Builder Codes.
+
+The parser validates bounds before decoding. Malformed lengths are rejected instead of truncated or guessed.
+
+### Other schemas
+
+Other schema IDs with the exact ERC-8021 marker are reported as detected attribution evidence, but their payload is not decoded unless that schema is explicitly implemented and validated. This avoids silently applying the wrong layout to future or registry-specific schemas.
+
+### Fingerprint reconciliation
+
+The Economic Fingerprint's Base-attribution dimension and `Attributed Builder Explorer` archetype are reconciled against this strict count. The earlier permissive marker signal is not treated as authoritative once the strict parser has run.
+
+Builder attribution is evidence attached to transaction calldata; it is not proof of a person's identity or ownership of an application.
 
 ## Wallet archetypes
 
-Archetypes are explainable labels selected from combinations of transaction volume, active days, app diversity, repeat depth, concentration, and detectable attribution signals. They are descriptive shortcuts, not identities or rankings.
+Archetypes are explainable labels selected from combinations of transaction volume, active days, app diversity, repeat depth, concentration, and strict attribution signals. They are descriptive shortcuts, not identities or rankings.
 
 Examples include:
 
@@ -117,16 +144,31 @@ For each relationship it records:
 
 Edge thickness is a visual transform of interaction count. Public contract names are fetched best-effort from Blockscout; an address remains the canonical identifier.
 
+## Stablecoin & Payment Behavior
+
+Recent ERC-20 token-transfer records are filtered to a documented set of recognizable stablecoin symbols. For the latest and previous 30-day windows, the project calculates:
+
+- inbound and outbound transfer counts,
+- priced inbound and outbound USD flow when an explorer exchange rate is available,
+- net priced flow,
+- transfer-count trend,
+- top counterparties by number of stablecoin transfers,
+- stablecoin mix by priced transfer flow.
+
+These values are bounded by the fetched transfer pages. They are not lifetime cash-flow, income, solvency, credit, or risk measures. A future version should use verified token-contract allowlists instead of relying primarily on symbols.
+
 ## Machine-readable public profile
 
-JSON export schema version `1.0.0` currently includes:
+JSON export schema version `1.2.0` includes:
 
 - Base chain metadata,
 - public wallet address,
 - portfolio summary,
 - activity metrics,
 - Economic Fingerprint,
+- strict Builder Attribution Footprint,
 - Behavior Delta,
+- recent stablecoin flow when loaded,
 - methodology labels,
 - known data limits,
 - safety metadata,
@@ -138,9 +180,9 @@ No wallet connection, private key, signature, approval, or transaction is requir
 
 - Explorer indexing and rate limits can produce partial results.
 - Current token balances do not reconstruct historical stablecoin balances.
-- Normal transactions alone are insufficient for a complete token-transfer/payment history.
+- Stablecoin flow is based on a bounded recent token-transfer fetch and recognized symbols, not audited accounting.
 - Contract addresses are not equivalent to app identities; one app may use many contracts and multiple apps may interact with the same protocol contracts.
-- ERC-8021 support is currently signal detection, not full suffix decoding.
+- ERC-8021 schema 0 is decoded, while unsupported schema payloads are intentionally left undecoded.
 - Smart-account/user-operation activity may require additional data sources for complete coverage.
 
 These limits are why the product presents explainable evidence instead of claiming authoritative identity, creditworthiness, reward eligibility, or economic value.
