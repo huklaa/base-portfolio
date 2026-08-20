@@ -1,23 +1,43 @@
 # Base Portfolio Explorer
 
-A read-only Base mainnet portfolio and activity explorer for public EVM addresses.
+A read-only Base mainnet portfolio, activity, and wallet-behavior explorer for public EVM addresses.
 
 ## Live app
 
 https://huklaa.github.io/base-portfolio/
+
+## Product direction
+
+The project is evolving from a simple portfolio viewer into a Base-native wallet intelligence layer. The goal is to explain **how a wallet participates in the Base economy**, not merely what it currently holds.
 
 ## What it does
 
 - Reads ETH and ERC-20 balances on Base mainnet.
 - Calculates portfolio value and token allocation when explorer price data is available.
 - Supports optional manual cost basis, P/L, stablecoin share, and target-allocation comparison.
-- Shows recent Base transactions and links each one to Base Blockscout.
+- Shows the latest Base transactions with transaction type, timestamp, and direct Blockscout link.
 - Calculates an independent Base Activity Score from transaction count, active days, unique contract interactions, asset diversity, and NFT ownership.
-- Shows first activity, first contract interaction, NFT ownership milestone, and latest indexed activity in an onchain timeline.
+- Builds a **Base Economic Fingerprint** from public transaction history:
+  - app/contract diversity,
+  - repeat contract usage,
+  - top-app concentration,
+  - activity cadence,
+  - wallet longevity,
+  - detectable ERC-8021 Builder Code attribution signals.
+- Assigns an explainable behavioral archetype such as Protocol Explorer, App Loyalist, Base Power User, or Attributed Builder Explorer.
+- Shows an **App Relationship Map** with the wallet's most-used contract destinations and interaction counts.
+- Generates plain-language behavioral insights rather than hiding the result behind a single opaque score.
+- Shows first activity, first contract interaction, first detectable Builder Code attribution, NFT ownership milestone, and latest indexed activity in an onchain timeline.
 - Estimates historical gas spent in ETH from indexed transactions and shows its approximate value at the current ETH exchange rate.
 - Displays currently indexed Base NFTs.
-- Generates a downloadable shareable Base Card with public wallet analytics.
+- Generates a downloadable shareable Base Card containing public wallet analytics and the wallet archetype.
 - Includes useful links to Base, Base documentation, ecosystem resources, Blockscout, and GitHub.
+
+## Why the Economic Fingerprint exists
+
+Most portfolio products focus on balances, P/L, alerts, or broad multi-chain wallet tracking. This project is intentionally Base-first and focuses on explainable economic behavior: whether a wallet explores many apps, repeatedly returns to the same apps, concentrates activity in one destination, stays active over time, and carries Base-native transaction-attribution signals.
+
+The fingerprint is deliberately descriptive rather than judgmental. It is designed to become useful for users, builders, growth teams, and eventually agents that need a compact public summary of Base behavior.
 
 ## Privacy and safety
 
@@ -42,9 +62,11 @@ Only a public EVM address is required.
 
 Explorer APIs may rate-limit requests or return partial data. Transaction-derived activity metrics are capped at the first 10,000 transactions returned by the explorer endpoint and the UI clearly labels this when applicable.
 
-## Activity Score
+## Scores and classifications
 
-The Activity Score is a local heuristic created for this project. It is **not an official Base, Coinbase, reward, eligibility, airdrop, or reputation score**.
+The Activity Score, Economic Fingerprint dimensions, and behavioral archetypes are local heuristics created for this project. They are **not official Base, Coinbase, credit, risk, reward, eligibility, airdrop, or reputation scores**.
+
+ERC-8021 detection is a best-effort check for the attribution sentinel in indexed transaction calldata. A zero count does not prove that an app or wallet never used Builder Codes, and a detected suffix should be treated as a public attribution signal rather than an identity claim.
 
 ## Creator
 
