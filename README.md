@@ -26,6 +26,14 @@ The project is evolving from a simple portfolio viewer into a Base-native wallet
   - detectable ERC-8021 Builder Code attribution signals.
 - Assigns an explainable behavioral archetype such as Protocol Explorer, App Loyalist, Base Power User, or Attributed Builder Explorer.
 - Shows an **App Relationship Map** with the wallet's most-used contract destinations and interaction counts.
+- Adds a **Wallet Behavior Delta** comparing the latest 30 days with the previous 30 days:
+  - transaction activity trend,
+  - active-day trend,
+  - contract/app diversity trend,
+  - gas-spend trend,
+  - newly discovered contract destinations,
+  - previously used destinations revisited,
+  - a plain-language summary of the behavioral change.
 - Generates plain-language behavioral insights rather than hiding the result behind a single opaque score.
 - Shows first activity, first contract interaction, first detectable Builder Code attribution, NFT ownership milestone, and latest indexed activity in an onchain timeline.
 - Estimates historical gas spent in ETH from indexed transactions and shows its approximate value at the current ETH exchange rate.
@@ -38,6 +46,8 @@ The project is evolving from a simple portfolio viewer into a Base-native wallet
 Most portfolio products focus on balances, P/L, alerts, or broad multi-chain wallet tracking. This project is intentionally Base-first and focuses on explainable economic behavior: whether a wallet explores many apps, repeatedly returns to the same apps, concentrates activity in one destination, stays active over time, and carries Base-native transaction-attribution signals.
 
 The fingerprint is deliberately descriptive rather than judgmental. It is designed to become useful for users, builders, growth teams, and eventually agents that need a compact public summary of Base behavior.
+
+The Behavior Delta adds a second dimension: not only **what kind of Base user is this wallet?**, but also **how is its behavior changing right now?**
 
 ## Privacy and safety
 
@@ -64,9 +74,13 @@ Explorer APIs may rate-limit requests or return partial data. Transaction-derive
 
 ## Scores and classifications
 
-The Activity Score, Economic Fingerprint dimensions, and behavioral archetypes are local heuristics created for this project. They are **not official Base, Coinbase, credit, risk, reward, eligibility, airdrop, or reputation scores**.
+The Activity Score, Economic Fingerprint dimensions, behavioral archetypes, and Behavior Delta summaries are local heuristics created for this project. They are **not official Base, Coinbase, credit, risk, reward, eligibility, airdrop, or reputation scores**.
 
 ERC-8021 detection is a best-effort check for the attribution sentinel in indexed transaction calldata. A zero count does not prove that an app or wallet never used Builder Codes, and a detected suffix should be treated as a public attribution signal rather than an identity claim.
+
+## Quality checks
+
+The repository includes standalone Node tests for the 30-day Behavior Delta window logic and GitHub Actions syntax/test checks for `app.js` and `behavior-delta.js`.
 
 ## Creator
 
