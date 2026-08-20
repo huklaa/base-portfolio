@@ -24,6 +24,7 @@ jobs:
           node --check behavior-delta.js
           node --check app-graph.js
           node --check stablecoin-flow.js
+          node --check payment-patterns.js
           node --check smart-account.js
           node --check userop-attribution.js
           node --check evidence-coverage.js
@@ -37,6 +38,8 @@ jobs:
         run: node tests/app-graph.test.mjs
       - name: Stablecoin flow tests
         run: node tests/stablecoin-flow.test.mjs
+      - name: Payment pattern tests
+        run: node tests/payment-patterns.test.mjs
       - name: Smart account tests
         run: node tests/smart-account.test.mjs
       - name: UserOperation attribution tests

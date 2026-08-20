@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+
+const code=fs.readFileSync(new URL('../payment-patterns.js',import.meta.url),'utf8');
+const sandbox={globalThis:{},console,setTimeout:()=>0,setInterval:()=>0};
+vm.createContext(sandbox);vm.runInContext(code,sandbox);
+const {summarizePaymentPatterns}=sandbox.globalThis.BasePaymentPatterns;
+const wallet='0x1111111111111111111111111111111111111111';
+const cp='0x2222222222222222222222222222222222222222';
+const stable='0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
+const now=1_800_000_000;
+const iso=s=>new Date(s*1000).toISOString();
+const t=(daysAgo,incoming=true)=>({timestamp:iso(now-daysAgo*86400),from:{hash:incoming?cp:wallet},to:{hash:incoming?wallet:cp},token:{address_hash:stable,symbol:'USDC',decimals:'6'},total:{value:'1000000'}});
+const rows=[t(2),t(7),t(14),t(20,false),t(31),t(45,false)];
+const out=summarizePaymentPatterns(rows,wallet,[{address:stable}],now);
+assert.equal(out.total,6);
+assert.equal(out.inbound,4);
+assert.equal(out.outbound,2);
+assert.equal(out.recurringCounterparties.length,1);
+assert.equal(out.recurringCounterparties[0].count,6);
+assert.equal(out.cadence,'Occasional stablecoin movement');
+const ignored=summarizePaymentPatterns([{...t(2),token:{address_hash:'0x0000000000000000000000000000000000000000',symbol:'FAKE',decimals:'6'}}],wallet,[{address:stable}],now);
+assert.equal(ignored.total,0);
+console.log('payment pattern tests passed');
