@@ -4,7 +4,9 @@ A read-only Base mainnet portfolio, activity, and wallet-behavior explorer for p
 
 ## Live app
 
-https://huklaa.github.io/base-portfolio/
+Primary: https://base-portfolio.pages.dev/
+
+GitHub Pages mirror: https://huklaa.github.io/base-portfolio/
 
 ## Product direction
 
@@ -15,7 +17,7 @@ The project is evolving from a simple portfolio viewer into a Base-native wallet
 - Reads ETH and ERC-20 balances on Base mainnet.
 - Calculates portfolio value and token allocation when explorer price data is available.
 - Supports optional manual cost basis, P/L, stablecoin share, and target-allocation comparison.
-- Shows the latest Base transactions with transaction type, timestamp, and direct Blockscout link.
+- Shows the latest Base transactions with transaction type, timestamp, direct Blockscout link, and All / Transfer / Swap / NFT / Contract filters.
 - Calculates an independent Base Activity Score from transaction count, active days, unique contract interactions, asset diversity, and NFT ownership.
 - Builds a **Base Economic Fingerprint** from public transaction history: app diversity, repeat usage, top-app concentration, cadence, longevity, and Base-native attribution.
 - Assigns explainable behavioral archetypes such as Protocol Explorer, App Loyalist, Base Power User, or Attributed Builder Explorer.
@@ -76,7 +78,7 @@ See `METHODOLOGY.md` for formulas, data scope, assumptions, and known limitation
 
 ## Quality checks
 
-The repository includes standalone Node tests for strict ERC-8021 parsing, UserOperation attribution, Behavior Delta, App Graph aggregation, stablecoin-flow summaries, and smart-account response normalization, plus GitHub Actions syntax/test checks for the browser modules.
+The repository includes standalone Node tests for strict ERC-8021 parsing, UserOperation attribution, Behavior Delta, App Graph aggregation, stablecoin-flow summaries, smart-account response normalization, and activity-filter syntax coverage, plus GitHub Actions checks for the browser modules.
 
 ## Creator
 
