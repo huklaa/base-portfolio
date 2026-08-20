@@ -1,0 +1,68 @@
+/* Mobile-first usability overrides. Kept separate so the desktop visual system stays unchanged. */
+@media (max-width: 700px){
+  html{scroll-padding-top:12px}
+  body{-webkit-text-size-adjust:100%;overflow-x:hidden}
+  .page-shell{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  .topbar{padding-top:max(12px,env(safe-area-inset-top));min-height:72px}
+  .creator-links{width:100%;flex-wrap:wrap;gap:8px 14px}
+  .creator-links a{min-height:32px;display:inline-flex;align-items:center}
+
+  .hero{padding:32px 0 24px}
+  h1{font-size:clamp(40px,13vw,58px);line-height:.96}
+  h2{font-size:28px}
+  h3{font-size:21px}
+  .lead{line-height:1.55}
+  .trust-pill{max-width:100%;border-radius:16px;line-height:1.4}
+
+  .search-panel{position:relative;padding:16px;margin:12px 0 34px}
+  .search-row{gap:9px}
+  input{min-height:48px;font-size:16px}
+  .primary{min-height:48px;touch-action:manipulation}
+  .status{line-height:1.45}
+
+  .section-heading,.card-head{align-items:flex-start;flex-wrap:wrap}
+  .card-head .badge,.archetype-badge{max-width:100%;white-space:normal;line-height:1.25}
+  .section-intro{font-size:13px}
+  .tools-section{padding:34px 0}
+  .tool{min-height:72px;align-items:flex-start}
+
+  .metric-grid{grid-template-columns:1fr 1fr;gap:9px}
+  .metric{min-width:0}
+  .metric strong{overflow-wrap:anywhere}
+  .fingerprint-bar-row{grid-template-columns:88px minmax(0,1fr) 34px;gap:7px}
+  .fingerprint-bar-row span{overflow-wrap:anywhere}
+  .fingerprint-stats>div,.allocation-stats>div{min-width:0}
+
+  .activity-filters{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding:2px 2px 8px;margin-left:-2px;margin-right:-2px;-webkit-overflow-scrolling:touch}
+  .activity-filters::-webkit-scrollbar{display:none}
+  .filter-btn{flex:0 0 auto;min-height:40px;padding:8px 14px!important;touch-action:manipulation}
+  .activity-row{grid-template-columns:minmax(78px,auto) minmax(0,1fr) auto;gap:8px;padding:13px 0}
+  .activity-type{max-width:112px;white-space:normal;line-height:1.2}
+  .activity-method{white-space:normal;overflow-wrap:anywhere;line-height:1.35}
+  .activity-date{display:none}
+  .tx-link{min-height:40px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;padding:8px 9px}
+
+  .token-row{grid-template-columns:minmax(0,1fr) auto}
+  .token-main,.token-name{min-width:0}
+  .token-name strong,.token-name small{overflow-wrap:anywhere}
+  .token-value{white-space:nowrap}
+  .relationship{grid-template-columns:minmax(0,1fr) auto}
+  .relationship strong,.relationship small{overflow-wrap:anywhere}
+
+  .nft-grid{max-height:none;overflow:visible}
+  .share-section{gap:14px}
+  #shareCanvas{display:block;max-width:100%;height:auto}
+  .export-actions{display:grid!important;grid-template-columns:1fr!important}
+  .export-actions>*{width:100%;min-height:46px;justify-content:center;text-align:center}
+  .export-preview{max-height:220px!important;font-size:11px!important}
+
+  footer{padding-bottom:max(34px,env(safe-area-inset-bottom))}
+}
+
+@media (max-width: 390px){
+  .metric-grid{grid-template-columns:1fr}
+  .activity-row{grid-template-columns:1fr auto}
+  .activity-type{grid-column:1/-1}
+  .tx-link{grid-column:2;grid-row:2}
+  .fingerprint-bar-row{grid-template-columns:78px minmax(0,1fr) 30px}
+}
