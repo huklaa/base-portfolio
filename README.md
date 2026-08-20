@@ -4,7 +4,9 @@ A read-only Base mainnet portfolio, activity, and wallet-behavior explorer for p
 
 ## Live app
 
-Primary: https://base-portfolio.pages.dev/
+Primary: https://base-portfolio.xyz/
+
+Cloudflare Pages fallback: https://base-portfolio.pages.dev/
 
 GitHub Pages mirror: https://huklaa.github.io/base-portfolio/
 
@@ -46,7 +48,7 @@ The project is evolving from a simple portfolio viewer into a Base-native wallet
 - Estimates historical gas spent in ETH from indexed normal transactions.
 - Displays currently indexed Base NFTs.
 - Generates a downloadable shareable Base Card containing public wallet analytics and the wallet archetype.
-- Exports a **machine-readable JSON public profile (v1.4)** for builders and agents, including activity, Economic Fingerprint, normal-transaction Builder Attribution, UserOperation Builder Attribution, Behavior Delta, stablecoin flow, smart-account evidence, methodology flags, data limits, and safety metadata.
+- Exports a **machine-readable JSON public profile (v1.5)** for builders and agents, including activity, Economic Fingerprint, normal-transaction Builder Attribution, UserOperation Builder Attribution, Behavior Delta, stablecoin flow, payment-pattern metadata, smart-account evidence, methodology flags, data limits, and safety metadata.
 - Generates a shareable address URL without connecting the wallet.
 
 ## Why this exists
@@ -78,7 +80,7 @@ See `METHODOLOGY.md` for formulas, data scope, assumptions, and known limitation
 
 ## Quality checks
 
-The repository includes standalone Node tests for strict ERC-8021 parsing, UserOperation attribution, Behavior Delta, App Graph aggregation, stablecoin-flow summaries, smart-account response normalization, and activity-filter syntax coverage, plus GitHub Actions checks for the browser modules.
+The repository includes standalone Node tests for strict ERC-8021 parsing, UserOperation attribution, Behavior Delta, App Graph aggregation, stablecoin-flow summaries, smart-account response normalization, activity-filter syntax coverage, and coverage handling, plus GitHub Actions checks for the browser modules.
 
 ## Creator
 
