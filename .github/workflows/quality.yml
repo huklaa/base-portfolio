@@ -20,5 +20,8 @@ jobs:
         run: |
           node --check app.js
           node --check behavior-delta.js
+          node --check app-graph.js
       - name: Behavior delta tests
         run: node tests/behavior-delta.test.mjs
+      - name: App graph tests
+        run: node tests/app-graph.test.mjs
