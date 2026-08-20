@@ -10,6 +10,10 @@
     const short=validAddress(address)?`${address.slice(0,8)}…${address.slice(-6)}`:'Base wallet';
     return `${archetype} · ${short}\nExplore this public, read-only Base profile:`;
   }
+  function ensureStyles(){
+    if(document.getElementById('shareToolsStyles'))return;
+    const style=document.createElement('style');style.id='shareToolsStyles';style.textContent='.share-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}.secondary-action{border:1px solid #2b456f;border-radius:13px;padding:13px 18px;background:#0b1830;color:#d7e6ff;font-weight:800;cursor:pointer}.secondary-action:hover{border-color:#4f8cff}.share-action-status{flex-basis:100%;min-height:18px;color:#8fa2bc;font-size:12px}@media(max-width:560px){.share-actions{display:grid;grid-template-columns:1fr}.share-actions .primary,.secondary-action{width:100%;min-height:48px}.share-action-status{grid-column:1}}';document.head.appendChild(style);
+  }
   function ensureUI(){
     const host=document.querySelector('.share-copy');
     if(!host||document.getElementById('shareProfile'))return;
@@ -38,7 +42,7 @@
     try{await copyText(buildShareUrl(address));setFeedback('Profile link copied.');return true}catch{setFeedback('Could not copy the profile link.');return false}
   }
   function init(){
-    ensureUI();
+    ensureStyles();ensureUI();
     document.getElementById('shareProfile')?.addEventListener('click',shareProfile);
     document.getElementById('copyProfileLink')?.addEventListener('click',copyProfileLink);
   }
