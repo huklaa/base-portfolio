@@ -4,7 +4,7 @@
   "title": "Base Portfolio Explorer Public Profile",
   "description": "Machine-readable, read-only public analytics for a Base address.",
   "type": "object",
-  "required": ["schema", "version", "generatedAt", "chain", "address", "portfolio", "activity", "economicFingerprint", "builderAttribution", "behaviorDelta", "stablecoinFlow", "smartAccount", "methodology", "limits", "safety", "attribution"],
+  "required": ["schema", "version", "generatedAt", "chain", "address", "portfolio", "activity", "economicFingerprint", "builderAttribution", "userOpBuilderAttribution", "behaviorDelta", "stablecoinFlow", "smartAccount", "methodology", "limits", "safety", "attribution"],
   "properties": {
     "schema": {"const": "base-portfolio-public-profile"},
     "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
@@ -34,6 +34,7 @@
     "activity": {"anyOf": [{"type": "null"}, {"type": "object"}]},
     "economicFingerprint": {"anyOf": [{"type": "null"}, {"type": "object"}]},
     "builderAttribution": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+    "userOpBuilderAttribution": {"anyOf": [{"type": "null"}, {"type": "object"}]},
     "behaviorDelta": {"anyOf": [{"type": "null"}, {"type": "object"}]},
     "stablecoinFlow": {"anyOf": [{"type": "null"}, {"type": "object"}]},
     "smartAccount": {
