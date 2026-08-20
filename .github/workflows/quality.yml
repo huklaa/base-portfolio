@@ -30,6 +30,8 @@ jobs:
           node --check evidence-coverage.js
           node --check public-export.js
           node --check share-tools.js
+          node --check product-polish.js
+          node --check compare.js
           node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
       - name: Builder attribution tests
         run: node tests/builder-attribution.test.mjs
@@ -49,3 +51,9 @@ jobs:
         run: node tests/evidence-coverage.test.mjs
       - name: Share tools tests
         run: node tests/share-tools.test.mjs
+      - name: Product polish tests
+        run: node tests/product-polish.test.mjs
+      - name: Wallet comparison tests
+        run: node tests/compare.test.mjs
+      - name: Deploy smoke tests
+        run: node tests/deploy-smoke.test.mjs
