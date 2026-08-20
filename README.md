@@ -34,11 +34,20 @@ The project is evolving from a simple portfolio viewer into a Base-native wallet
   - newly discovered contract destinations,
   - previously used destinations revisited,
   - a plain-language summary of the behavioral change.
+- Adds a visual **Base App Graph**:
+  - wallet → contract relationship edges,
+  - interaction-weighted edge strength,
+  - first and last interaction dates,
+  - repeat-vs-one-time relationships,
+  - top relationship share,
+  - best-effort public contract labels from Blockscout.
 - Generates plain-language behavioral insights rather than hiding the result behind a single opaque score.
 - Shows first activity, first contract interaction, first detectable Builder Code attribution, NFT ownership milestone, and latest indexed activity in an onchain timeline.
 - Estimates historical gas spent in ETH from indexed transactions and shows its approximate value at the current ETH exchange rate.
 - Displays currently indexed Base NFTs.
 - Generates a downloadable shareable Base Card containing public wallet analytics and the wallet archetype.
+- Exports a **machine-readable JSON public profile** for builders and agents, including chain metadata, activity, Economic Fingerprint, Behavior Delta, methodology flags, data limits, and safety metadata.
+- Generates a shareable address URL without connecting the wallet.
 - Includes useful links to Base, Base documentation, ecosystem resources, Blockscout, and GitHub.
 
 ## Why the Economic Fingerprint exists
@@ -47,7 +56,7 @@ Most portfolio products focus on balances, P/L, alerts, or broad multi-chain wal
 
 The fingerprint is deliberately descriptive rather than judgmental. It is designed to become useful for users, builders, growth teams, and eventually agents that need a compact public summary of Base behavior.
 
-The Behavior Delta adds a second dimension: not only **what kind of Base user is this wallet?**, but also **how is its behavior changing right now?**
+The Behavior Delta adds a second dimension: not only **what kind of Base user is this wallet?**, but also **how is its behavior changing right now?** The App Graph makes those relationships visible, and the JSON profile makes the analysis reusable outside the page.
 
 ## Privacy and safety
 
@@ -67,7 +76,7 @@ Only a public EVM address is required.
 
 ## Data sources
 
-- Base Blockscout public APIs for address, token, NFT, and transaction data.
+- Base Blockscout public APIs for address, token, NFT, transaction, and best-effort contract label data.
 - Base mainnet, chain ID `8453`.
 
 Explorer APIs may rate-limit requests or return partial data. Transaction-derived activity metrics are capped at the first 10,000 transactions returned by the explorer endpoint and the UI clearly labels this when applicable.
@@ -80,7 +89,7 @@ ERC-8021 detection is a best-effort check for the attribution sentinel in indexe
 
 ## Quality checks
 
-The repository includes standalone Node tests for the 30-day Behavior Delta window logic and GitHub Actions syntax/test checks for `app.js` and `behavior-delta.js`.
+The repository includes standalone Node tests for the 30-day Behavior Delta and App Graph aggregation logic, plus GitHub Actions syntax/test checks for the browser modules.
 
 ## Creator
 
