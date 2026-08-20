@@ -1,4 +1,5 @@
 (function(){
+  const PROFILE_SCHEMA_URL='https://huklaa.github.io/base-portfolio/profile.schema.json';
   function sanitizeFingerprint(f){
     if(!f) return null;
     return {
@@ -41,6 +42,7 @@
   function buildExport(){
     if(typeof state==='undefined'||!state.address) return null;
     return {
+      $schema:PROFILE_SCHEMA_URL,
       schema:'base-portfolio-public-profile',
       version:'1.2.0',
       generatedAt:new Date().toISOString(),
@@ -62,9 +64,9 @@
     if(document.getElementById('developerExport')) return;
     const share=document.querySelector('.share-section'); if(!share) return;
     const el=document.createElement('article');el.id='developerExport';el.className='card section-card developer-export';
-    el.innerHTML=`<div class="card-head"><div><div class="eyebrow">FOR BUILDERS & AGENTS</div><h3>Machine-readable Base profile</h3></div><span class="badge">JSON v1.2</span></div><p class="section-intro">Export the same public analytics in a compact JSON document for experiments, agents, demos, or reproducible analysis. No private wallet data is included.</p><div class="export-actions"><button id="downloadProfileJson" class="primary">Download JSON profile</button><button id="copyProfileUrl" class="secondary-btn">Copy shareable profile URL</button><button id="copyProfileJson" class="secondary-btn">Copy JSON</button></div><pre id="exportPreview" class="export-preview">Analyze a Base address to generate a profile.</pre>`;
+    el.innerHTML=`<div class="card-head"><div><div class="eyebrow">FOR BUILDERS & AGENTS</div><h3>Machine-readable Base profile</h3></div><span class="badge">JSON v1.2</span></div><p class="section-intro">Export the same public analytics in a compact JSON document for experiments, agents, demos, or reproducible analysis. The export links to a formal JSON Schema and contains no private wallet data.</p><div class="export-actions"><button id="downloadProfileJson" class="primary">Download JSON profile</button><button id="copyProfileUrl" class="secondary-btn">Copy shareable profile URL</button><button id="copyProfileJson" class="secondary-btn">Copy JSON</button><a class="secondary-btn" href="./profile.schema.json" target="_blank" rel="noreferrer">Open JSON Schema ↗</a></div><pre id="exportPreview" class="export-preview">Analyze a Base address to generate a profile.</pre>`;
     share.insertAdjacentElement('afterend',el);
-    const style=document.createElement('style');style.textContent=`.developer-export{background:radial-gradient(circle at 0 0,rgba(21,94,239,.12),transparent 34%),linear-gradient(180deg,rgba(17,26,42,.98),rgba(9,14,24,.98))}.export-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.secondary-btn{border:1px solid #29476f;border-radius:13px;padding:13px 16px;background:#0a1830;color:#cfe0ff;font-weight:800;cursor:pointer}.export-preview{margin:16px 0 0;max-height:280px;overflow:auto;white-space:pre-wrap;word-break:break-word;background:#060b13;border:1px solid #19243a;border-radius:14px;padding:14px;color:#9fb5d2;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}`;
+    const style=document.createElement('style');style.textContent=`.developer-export{background:radial-gradient(circle at 0 0,rgba(21,94,239,.12),transparent 34%),linear-gradient(180deg,rgba(17,26,42,.98),rgba(9,14,24,.98))}.export-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.secondary-btn{display:inline-flex;align-items:center;text-decoration:none;border:1px solid #29476f;border-radius:13px;padding:13px 16px;background:#0a1830;color:#cfe0ff;font-weight:800;cursor:pointer}.export-preview{margin:16px 0 0;max-height:280px;overflow:auto;white-space:pre-wrap;word-break:break-word;background:#060b13;border:1px solid #19243a;border-radius:14px;padding:14px;color:#9fb5d2;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}`;
     document.head.appendChild(style);
     document.getElementById('downloadProfileJson').addEventListener('click',downloadJson);
     document.getElementById('copyProfileUrl').addEventListener('click',copyUrl);
@@ -75,5 +77,5 @@
   async function copyJson(){ const data=buildExport(); if(!data)return; try{await navigator.clipboard.writeText(JSON.stringify(data,null,2)); const b=document.getElementById('copyProfileJson');b.textContent='Copied';setTimeout(()=>b.textContent='Copy JSON',1500);}catch{} }
   async function copyUrl(){ if(typeof state==='undefined'||!state.address)return; const url=`${location.origin}${location.pathname}?address=${encodeURIComponent(state.address)}`; try{await navigator.clipboard.writeText(url);const b=document.getElementById('copyProfileUrl');b.textContent='Copied';setTimeout(()=>b.textContent='Copy shareable profile URL',1500);}catch{} }
   function init(){ ensureUI(); const d=document.getElementById('dashboard');if(!d)return;new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(d,{attributes:true,attributeFilter:['class']});const s=document.getElementById('status');if(s)new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(s,{childList:true,subtree:true});['stableFlowStatus','builderAttribution'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(el,{childList:true,subtree:true})});if(!d.classList.contains('hidden'))render(); }
-  globalThis.BasePublicExport={buildExport}; if(typeof document!=='undefined')init();
+  globalThis.BasePublicExport={PROFILE_SCHEMA_URL,buildExport}; if(typeof document!=='undefined')init();
 })();
