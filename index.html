@@ -100,6 +100,13 @@
 
         <article class="card section-card">
           <div class="card-head"><div><div class="eyebrow">WALLET ACTIVITY</div><h3>Latest Base transactions</h3></div><span class="badge">Latest 20</span></div>
+          <div class="activity-filters" id="activityFilters" aria-label="Transaction type filters">
+            <button class="filter-btn active" data-filter="All" type="button">All</button>
+            <button class="filter-btn" data-filter="Transfer" type="button">Transfer</button>
+            <button class="filter-btn" data-filter="Swap" type="button">Swap</button>
+            <button class="filter-btn" data-filter="NFT" type="button">NFT</button>
+            <button class="filter-btn" data-filter="Contract interaction" type="button">Contract</button>
+          </div>
           <div id="recentActivity" class="activity-list"></div>
         </article>
 
@@ -143,6 +150,7 @@
     </footer>
   </div>
   <script src="./app.js"></script>
+  <script src="./activity-filter.js"></script>
   <script src="./builder-attribution.js"></script>
   <script src="./behavior-delta.js"></script>
   <script src="./app-graph.js"></script>

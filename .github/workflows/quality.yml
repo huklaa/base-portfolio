@@ -19,6 +19,7 @@ jobs:
       - name: Syntax check
         run: |
           node --check app.js
+          node --check activity-filter.js
           node --check builder-attribution.js
           node --check behavior-delta.js
           node --check app-graph.js
