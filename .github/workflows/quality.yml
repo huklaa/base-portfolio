@@ -21,8 +21,11 @@ jobs:
           node --check app.js
           node --check behavior-delta.js
           node --check app-graph.js
+          node --check stablecoin-flow.js
           node --check public-export.js
       - name: Behavior delta tests
         run: node tests/behavior-delta.test.mjs
       - name: App graph tests
         run: node tests/app-graph.test.mjs
+      - name: Stablecoin flow tests
+        run: node tests/stablecoin-flow.test.mjs
