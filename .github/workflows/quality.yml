@@ -23,6 +23,7 @@ jobs:
           node --check behavior-delta.js
           node --check app-graph.js
           node --check stablecoin-flow.js
+          node --check smart-account.js
           node --check public-export.js
           node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
       - name: Builder attribution tests
@@ -33,3 +34,5 @@ jobs:
         run: node tests/app-graph.test.mjs
       - name: Stablecoin flow tests
         run: node tests/stablecoin-flow.test.mjs
+      - name: Smart account tests
+        run: node tests/smart-account.test.mjs
