@@ -1,5 +1,5 @@
 (function(){
-  const OPS_ENDPOINT=`${BLOCKSCOUT}/api/v2/proxy/account-abstraction/operations`;
+  const OPS_ENDPOINT=`${typeof BLOCKSCOUT!=='undefined'?BLOCKSCOUT:'https://base.blockscout.com'}/api/v2/proxy/account-abstraction/operations`;
   function lower(v){return typeof v==='string'?v.toLowerCase():''}
   function pick(obj,...keys){for(const k of keys){const v=obj?.[k];if(v!==undefined&&v!==null)return v}return null}
   function senderOf(op){const v=pick(op,'sender','sender_address','senderAddress');return lower(typeof v==='string'?v:(v?.hash||v?.address_hash||v?.address||''))}
