@@ -1,6 +1,7 @@
 (function(){
   const CANONICAL_ORIGIN='https://base-portfolio.xyz';
   function validAddress(address){return /^0x[a-fA-F0-9]{40}$/.test(String(address||''))}
+  function currentState(){try{return typeof state!=='undefined'?state:null}catch{return null}}
   function buildShareUrl(address){
     if(!validAddress(address))return CANONICAL_ORIGIN+'/';
     return `${CANONICAL_ORIGIN}/?address=${encodeURIComponent(address)}`;
@@ -28,21 +29,27 @@
   }
   function setFeedback(text){const el=document.getElementById('shareActionStatus');if(el)el.textContent=text}
   async function shareProfile(){
-    const address=globalThis.state?.address||'';
+    const s=currentState(),address=s?.address||'';
     if(!validAddress(address)){setFeedback('Analyze an address first.');return false}
-    const url=buildShareUrl(address),text=buildShareText(address,globalThis.state?.fingerprint);
+    const url=buildShareUrl(address),text=buildShareText(address,s?.fingerprint);
     if(navigator.share){
       try{await navigator.share({title:'Base Portfolio Explorer',text,url});setFeedback('Share sheet opened.');return true}catch(e){if(e?.name==='AbortError'){setFeedback('Share cancelled.');return false}}
     }
     try{await copyText(url);setFeedback('Profile link copied.');return true}catch{setFeedback('Could not copy the profile link.');return false}
   }
   async function copyProfileLink(){
-    const address=globalThis.state?.address||'';
+    const address=currentState()?.address||'';
     if(!validAddress(address)){setFeedback('Analyze an address first.');return false}
     try{await copyText(buildShareUrl(address));setFeedback('Profile link copied.');return true}catch{setFeedback('Could not copy the profile link.');return false}
   }
+  function loadPolishAssets(){
+    if(!document.querySelector('link[href="./product-polish.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./product-polish.css';document.head.appendChild(l)}
+    if(!document.querySelector('.skip-link')){const a=document.createElement('a');a.className='skip-link';a.href='#addressInput';a.textContent='Skip to address search';document.body.prepend(a)}
+    const status=document.getElementById('status');if(status){status.setAttribute('role','status');status.setAttribute('aria-live','polite')}
+    ['./product-polish.js','./compare.js'].forEach(src=>{if(document.querySelector(`script[src="${src}"]`))return;const s=document.createElement('script');s.src=src;s.defer=true;document.body.appendChild(s)});
+  }
   function init(){
-    ensureStyles();ensureUI();
+    ensureStyles();ensureUI();loadPolishAssets();
     document.getElementById('shareProfile')?.addEventListener('click',shareProfile);
     document.getElementById('copyProfileLink')?.addEventListener('click',copyProfileLink);
   }
