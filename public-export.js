@@ -1,5 +1,5 @@
 (function(){
-  const PROFILE_SCHEMA_URL='https://huklaa.github.io/base-portfolio/profile.schema.json';
+  const PROFILE_SCHEMA_URL='https://base-portfolio.pages.dev/profile.schema.json';
   function sanitizeFingerprint(f){
     if(!f) return null;
     return {
@@ -44,7 +44,13 @@
     const last=globalThis.BaseStablecoinFlow?.last;
     if(!last) return null;
     const clean=s=>({transferCount:s.count,inboundTransfers:s.inbound,outboundTransfers:s.outbound,inboundUsd:s.inUsd,outboundUsd:s.outUsd,netFlowUsd:s.netUsd,topCounterparties:s.counterparties.slice(0,10).map(([address,count])=>({address,count})),stablecoinMixUsd:Object.fromEntries(s.symbols)});
-    return {current30d:clean(last.current),previous30d:clean(last.previous),fetchedTransferRecords:last.transfers.length,verifiedContracts:last.verifiedContracts||[],scope:'fetched recent ERC-20 transfer history filtered by explicit Base stablecoin contract allowlist'};
+    const coverage=last.coverage||null;
+    return {current30d:clean(last.current),previous30d:clean(last.previous),fetchedTransferRecords:last.transfers.length,verifiedContracts:last.verifiedContracts||[],coverage:coverage?{pagesFetched:Number(coverage.pagesFetched||0),oldestTimestamp:coverage.oldestTimestamp||null,targetTimestamp:coverage.targetTimestamp||null,reachedTarget:Boolean(coverage.reachedTarget),reachedEnd:Boolean(coverage.reachedEnd),hitPageCap:Boolean(coverage.hitPageCap),completeForRequestedWindow:Boolean(coverage.completeForRequestedWindow)}:null,scope:'fetched recent ERC-20 transfer history filtered by explicit Base stablecoin contract allowlist'};
+  }
+  function paymentPatternsExport(){
+    const last=globalThis.BasePaymentPatterns?.last;
+    if(!last)return null;
+    return {windowDays:Number(last.windowDays||90),transferCount:Number(last.total||0),inboundTransfers:Number(last.inbound||0),outboundTransfers:Number(last.outbound||0),activeTransferDays:Number(last.activeDays||0),recurringCounterpartyShare:Number(last.recurringShare||0),cadence:last.cadence||null,recurringCounterparties:(last.recurringCounterparties||[]).map(x=>({address:x.address,count:Number(x.count||0),inbound:Number(x.inbound||0),outbound:Number(x.outbound||0),activeDays:Number(x.activeDays||0)})),coverage:last.coverage||globalThis.BaseStablecoinFlow?.last?.coverage||null,interpretation:'descriptive cadence/recurrence only; does not infer salary, merchant identity, income, solvency, creditworthiness, or intent'};
   }
   function smartAccountExport(){
     const last=globalThis.BaseSmartAccount?.last;
@@ -57,7 +63,7 @@
     return {
       $schema:PROFILE_SCHEMA_URL,
       schema:'base-portfolio-public-profile',
-      version:'1.4.0',
+      version:'1.5.0',
       generatedAt:new Date().toISOString(),
       chain:{name:'Base',chainId:8453,explorer:'https://base.blockscout.com'},
       address:state.address,
@@ -68,9 +74,10 @@
       userOpBuilderAttribution:userOpAttributionExport(),
       behaviorDelta:deltaExport(state.txs),
       stablecoinFlow:stablecoinExport(),
+      paymentPatterns:paymentPatternsExport(),
       smartAccount:smartAccountExport(),
-      methodology:{activityScore:'local heuristic',economicFingerprint:'local explainable heuristic',builderAttribution:'exact ERC-8021 16-byte marker validation with schema-0 decoding on normal transaction calldata',userOpBuilderAttribution:'same strict ERC-8021 parser applied to sender-filtered ERC-4337 userOp.callData',behaviorDelta:'latest 30 days compared with previous 30 days',stablecoinFlow:'recent Blockscout ERC-20 transfer records filtered by explicit verified Base stablecoin contract addresses; token symbols alone are not trusted',smartAccount:'best-effort Blockscout account-abstraction indexer evidence; recognized Coinbase Smart Wallet factories are explicit allowlisted addresses'},
-      limits:{transactionHistoryCap:10000,source:'Base Blockscout public APIs',erc8021Parsing:'schema 0 decoded; unsupported schema IDs detected without speculative decoding',userOpHistory:'bounded paginated sender-filtered UserOperation fetch; absence of a marker in fetched data is not proof of lifetime absence',stablecoinHistory:'limited to fetched paginated transfer records and explicit contract allowlist; not complete lifetime accounting',smartAccountCoverage:'absence of an indexer record is inconclusive and contract code alone is not treated as Base Account proof'},
+      methodology:{activityScore:'local heuristic',economicFingerprint:'local explainable heuristic',builderAttribution:'exact ERC-8021 16-byte marker validation with schema-0 decoding on normal transaction calldata',userOpBuilderAttribution:'same strict ERC-8021 parser applied to sender-filtered ERC-4337 userOp.callData',behaviorDelta:'latest 30 days compared with previous 30 days',stablecoinFlow:'paginated Blockscout ERC-20 transfer records filtered by explicit verified Base stablecoin contract addresses; token symbols alone are not trusted',paymentPatterns:'90-day descriptive cadence and recurrence summary over verified stablecoin transfers; no income, salary, merchant, risk, or intent inference',smartAccount:'best-effort Blockscout account-abstraction indexer evidence; recognized Coinbase Smart Wallet factories are explicit allowlisted addresses'},
+      limits:{transactionHistoryCap:10000,source:'Base Blockscout public APIs',erc8021Parsing:'schema 0 decoded; unsupported schema IDs detected without speculative decoding',userOpHistory:'bounded paginated sender-filtered UserOperation fetch; absence of a marker in fetched data is not proof of lifetime absence',stablecoinHistory:'pagination stops after the requested time boundary, explorer exhaustion, or a conservative page cap; coverage metadata declares which condition occurred',paymentPatterns:'derived only from fetched verified-stable transfer coverage and must be interpreted with that coverage status',smartAccountCoverage:'absence of an indexer record is inconclusive and contract code alone is not treated as Base Account proof'},
       safety:{readOnly:true,walletConnection:false,signatures:false,approvals:false,transactions:false},
       attribution:{project:'Base Portfolio Explorer',creatorX:'@1kipcak',creatorGitHub:'huklaa'}
     };
@@ -79,7 +86,7 @@
     if(document.getElementById('developerExport')) return;
     const share=document.querySelector('.share-section'); if(!share) return;
     const el=document.createElement('article');el.id='developerExport';el.className='card section-card developer-export';
-    el.innerHTML=`<div class="card-head"><div><div class="eyebrow">FOR BUILDERS & AGENTS</div><h3>Machine-readable Base profile</h3></div><span class="badge">JSON v1.4</span></div><p class="section-intro">Export the same public analytics in a compact JSON document for experiments, agents, demos, or reproducible analysis. The export links to a formal JSON Schema and contains no private wallet data.</p><div class="export-actions"><button id="downloadProfileJson" class="primary">Download JSON profile</button><button id="copyProfileUrl" class="secondary-btn">Copy shareable profile URL</button><button id="copyProfileJson" class="secondary-btn">Copy JSON</button><a class="secondary-btn" href="./profile.schema.json" target="_blank" rel="noreferrer">Open JSON Schema ↗</a></div><pre id="exportPreview" class="export-preview">Analyze a Base address to generate a profile.</pre>`;
+    el.innerHTML=`<div class="card-head"><div><div class="eyebrow">FOR BUILDERS & AGENTS</div><h3>Machine-readable Base profile</h3></div><span class="badge">JSON v1.5</span></div><p class="section-intro">Export the same public analytics in a compact JSON document for experiments, agents, demos, or reproducible analysis. The export links to a formal JSON Schema and contains no private wallet data.</p><div class="export-actions"><button id="downloadProfileJson" class="primary">Download JSON profile</button><button id="copyProfileUrl" class="secondary-btn">Copy shareable profile URL</button><button id="copyProfileJson" class="secondary-btn">Copy JSON</button><a class="secondary-btn" href="./profile.schema.json" target="_blank" rel="noreferrer">Open JSON Schema ↗</a></div><pre id="exportPreview" class="export-preview">Analyze a Base address to generate a profile.</pre>`;
     share.insertAdjacentElement('afterend',el);
     const style=document.createElement('style');style.textContent=`.developer-export{background:radial-gradient(circle at 0 0,rgba(21,94,239,.12),transparent 34%),linear-gradient(180deg,rgba(17,26,42,.98),rgba(9,14,24,.98))}.export-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.secondary-btn{display:inline-flex;align-items:center;text-decoration:none;border:1px solid #29476f;border-radius:13px;padding:13px 16px;background:#0a1830;color:#cfe0ff;font-weight:800;cursor:pointer}.export-preview{margin:16px 0 0;max-height:280px;overflow:auto;white-space:pre-wrap;word-break:break-word;background:#060b13;border:1px solid #19243a;border-radius:14px;padding:14px;color:#9fb5d2;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}`;
     document.head.appendChild(style);
@@ -91,6 +98,6 @@
   function downloadJson(){ const data=buildExport(); if(!data)return; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`base-profile-${state.address.slice(2,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000); }
   async function copyJson(){ const data=buildExport(); if(!data)return; try{await navigator.clipboard.writeText(JSON.stringify(data,null,2)); const b=document.getElementById('copyProfileJson');b.textContent='Copied';setTimeout(()=>b.textContent='Copy JSON',1500);}catch{} }
   async function copyUrl(){ if(typeof state==='undefined'||!state.address)return; const url=`${location.origin}${location.pathname}?address=${encodeURIComponent(state.address)}`; try{await navigator.clipboard.writeText(url);const b=document.getElementById('copyProfileUrl');b.textContent='Copied';setTimeout(()=>b.textContent='Copy shareable profile URL',1500);}catch{} }
-  function init(){ ensureUI(); const d=document.getElementById('dashboard');if(!d)return;new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(d,{attributes:true,attributeFilter:['class']});const s=document.getElementById('status');if(s)new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(s,{childList:true,subtree:true});['stableFlowStatus','builderAttribution','aaNote','uoAttrNote'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(el,{childList:true,subtree:true})});if(!d.classList.contains('hidden'))render(); }
+  function init(){ ensureUI(); const d=document.getElementById('dashboard');if(!d)return;new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(d,{attributes:true,attributeFilter:['class']});const s=document.getElementById('status');if(s)new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(s,{childList:true,subtree:true});['stableFlowStatus','paymentPatternStatus','builderAttribution','aaNote','uoAttrNote'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(()=>{if(!d.classList.contains('hidden'))render();}).observe(el,{childList:true,subtree:true})});if(!d.classList.contains('hidden'))render(); }
   globalThis.BasePublicExport={PROFILE_SCHEMA_URL,buildExport}; if(typeof document!=='undefined')init();
 })();
