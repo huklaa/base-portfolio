@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 
 await import('../stablecoin-flow.js');
-const { summarize, stableTransfer } = globalThis.BaseStablecoinFlow;
+const { summarize, stableTransfer, fetchTransfers, pageOldestTimestamp } = globalThis.BaseStablecoinFlow;
 
 const wallet='0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const other='0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
@@ -36,5 +36,35 @@ assert.equal(Math.round(s.inUsd),8);
 assert.equal(Math.round(s.outUsd),2);
 assert.equal(Math.round(s.netUsd),6);
 assert.equal(s.counterparties[0][0],other);
+assert.equal(pageOldestTimestamp(rows),now-5*86400);
+
+const originalFetch=globalThis.fetch;
+let calls=0;
+const sinceTs=now-90*86400;
+const pages=[
+  {items:[transfer(5,other,wallet),transfer(30,other,wallet)],next_page_params:{index:2}},
+  {items:[transfer(60,other,wallet),transfer(95,other,wallet)],next_page_params:{index:3}},
+  {items:[transfer(120,other,wallet)],next_page_params:null}
+];
+globalThis.fetch=async()=>{
+  const page=pages[calls++];
+  return {ok:true,json:async()=>page};
+};
+try{
+  const fetched=await fetchTransfers(wallet,{sinceTs,maxPages:10});
+  assert.equal(calls,2,'pagination should stop once the requested history boundary is reached');
+  assert.equal(fetched.length,4);
+  assert.equal(fetched.coverage.pages,2);
+  assert.equal(fetched.coverage.complete,true);
+  assert.equal(fetched.coverage.oldestTimestamp,now-95*86400);
+
+  calls=0;
+  globalThis.fetch=async()=>({ok:true,json:async()=>({items:[transfer(5+calls++,other,wallet)],next_page_params:{index:calls+1}})});
+  const capped=await fetchTransfers(wallet,{sinceTs:now-365*86400,maxPages:2});
+  assert.equal(capped.coverage.pages,2);
+  assert.equal(capped.coverage.complete,false,'coverage must say incomplete when the page cap is hit before the time boundary');
+} finally {
+  globalThis.fetch=originalFetch;
+}
 
 console.log('stablecoin-flow tests passed');
