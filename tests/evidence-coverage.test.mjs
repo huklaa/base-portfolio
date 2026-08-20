@@ -38,4 +38,29 @@ const partial=globalThis.BaseEvidenceCoverage.buildCoverage();
 assert.equal(partial.stablecoinTransfers.pagesFetched,10);
 assert.equal(partial.stablecoinTransfers.hitPageCap,true);
 assert.equal(partial.stablecoinTransfers.completeForRequestedWindow,false);
+
+assert.equal(globalThis.BaseApiResilience.classify(429).kind,'rate-limit');
+assert.equal(globalThis.BaseApiResilience.classify(504).kind,'timeout');
+assert.equal(globalThis.BaseApiResilience.classify(503).kind,'outage');
+assert.equal(globalThis.BaseApiResilience.classify(404),null);
+
+let calls=0;
+let release;
+const gate=new Promise(resolve=>{release=resolve});
+const fakeFetch=async()=>{
+  calls++;
+  await gate;
+  return {ok:true,status:200};
+};
+const deduped=globalThis.BaseApiResilience.createDedupedFetch(fakeFetch,20);
+const url='https://base.blockscout.com/api/v2/addresses/0xabc/token-transfers?type=ERC-20';
+const first=deduped(url);
+const second=deduped(url);
+await Promise.resolve();
+assert.equal(calls,1,'concurrent identical Blockscout GETs should share one network request');
+release();
+await Promise.all([first,second]);
+await deduped('https://base.blockscout.com/api/v2/addresses/0xdef');
+assert.equal(calls,2,'different Blockscout URLs should not be deduplicated together');
+
 console.log('evidence coverage tests passed');
