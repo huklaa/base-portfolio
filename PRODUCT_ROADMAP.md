@@ -4,7 +4,7 @@
 
 Base Portfolio Explorer should not compete as another generic multi-chain balance tracker. Its wedge is **Base-native, explainable wallet intelligence**: turn a public Base address into a compact description of how that wallet participates in the Base economy.
 
-The current Economic Fingerprint is the first step. It combines app diversity, repeat usage, concentration, cadence, longevity, transaction attribution signals, app relationships, and a plain-language wallet archetype.
+The current product combines an Economic Fingerprint, time-aware Behavior Delta, app relationships, and machine-readable public exports.
 
 ## Why this direction
 
@@ -36,7 +36,7 @@ All scores/classifications are local heuristics. They must never be presented as
 
 ## Phase 2 — Wallet Behavior Delta (implemented in PR #4)
 
-A time-aware view now answers **"how is this wallet changing?"** rather than only describing all-time history.
+A time-aware view answers **"how is this wallet changing?"** rather than only describing all-time history.
 
 Implemented comparisons:
 
@@ -51,19 +51,19 @@ Implemented comparisons:
 
 The implementation deliberately does **not** claim a historical stablecoin-allocation trend yet because the current data source only loads present token balances plus normal transaction history. That feature belongs in the stablecoin/payment phase once reliable token-transfer history is added.
 
-## Phase 3 — Base App Graph
+## Phase 3 — Base App Graph (implemented in PR #4)
 
-Turn contract destinations into a lightweight relationship graph:
+The product now turns contract destinations into a lightweight relationship graph:
 
 - wallet → app/contract edges,
-- interaction count,
+- interaction count and weighted edges,
 - first/last interaction,
 - repeat usage,
-- share of wallet activity,
+- share of wallet contract activity,
 - explorer links,
-- verified contract/app labels when public data provides them.
+- best-effort public contract labels from Blockscout.
 
-The goal is not to become a full blockchain explorer. The graph should answer: **"Which Base apps does this wallet actually have a relationship with?"**
+The goal is not to become a full blockchain explorer. The graph answers: **"Which Base apps does this wallet actually have a relationship with?"**
 
 ## Phase 4 — Stablecoin & Payment Behavior
 
@@ -81,28 +81,35 @@ This should remain descriptive, not a credit score.
 
 ## Phase 5 — Builder Attribution Footprint
 
-Improve ERC-8021 support beyond a binary signal:
+Improve ERC-8021 support beyond best-effort sentinel detection:
 
-- strict detection of the ERC-8021 sentinel,
+- strict canonical suffix parsing,
 - attributed transaction count and share,
 - first/last detected attribution,
 - multiple-code awareness where reliably decodable,
-- links to Base documentation / validation tools,
-- clearly label best-effort detection limitations.
+- links to Base validation tools,
+- clearly label parsing limitations.
 
 Potential builder-facing view: "What share of this address's onchain activity contains Base-native attribution signals?"
 
-## Phase 6 — Public Profile & API
+## Phase 6 — Public Profile & API (partially implemented in PR #4)
 
-Create stable, shareable read-only profiles:
+Implemented now:
 
-- URL-addressable wallet profile,
-- JSON export,
-- compact machine-readable fingerprint,
+- URL-addressable wallet analysis via `?address=`,
+- downloadable JSON public profile,
+- copyable machine-readable JSON,
+- chain, methodology, data-limit, and safety metadata,
+- Economic Fingerprint and Behavior Delta included in export.
+
+Still planned:
+
+- stable hosted profile URLs independent of client state,
 - optional API endpoint for app/agent consumption,
-- versioned heuristic metadata so results can be reproduced.
+- formal JSON schema,
+- versioned heuristic methodology so old results can be reproduced exactly.
 
-This turns the project from a page into a reusable Base wallet-intelligence layer.
+This turns the project from a page toward a reusable Base wallet-intelligence layer.
 
 ## Phase 7 — Builder / Growth View
 
@@ -143,4 +150,4 @@ Short version:
 
 > **Base Portfolio Explorer turns any public Base address into an explainable economic fingerprint — showing app relationships, activity behavior, attribution signals, and how that behavior changes over time.**
 
-The aim is not to claim that nobody has ever built wallet analytics. The defensible differentiation is the **combination of Base-first scope, explainable behavioral profiling, ERC-8021-aware attribution, relationship mapping, and a future machine-readable intelligence layer.**
+The aim is not to claim that nobody has ever built wallet analytics. The defensible differentiation is the **combination of Base-first scope, explainable behavioral profiling, ERC-8021-aware attribution, relationship mapping, time-aware change analysis, and a machine-readable intelligence layer.**
