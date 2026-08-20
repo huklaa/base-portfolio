@@ -1,5 +1,5 @@
 (function(){
-  const PROFILE_SCHEMA_URL='https://base-portfolio.pages.dev/profile.schema.json';
+  const PROFILE_SCHEMA_URL='https://base-portfolio.xyz/profile.schema.json';
   function sanitizeFingerprint(f){
     if(!f) return null;
     return {
