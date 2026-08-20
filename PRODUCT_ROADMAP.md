@@ -19,7 +19,7 @@ Generic portfolio products already cover balances, token/NFT holdings, P/L, and 
 
 This direction also matches Base's 2026 emphasis on global markets, payments/stablecoins, agents, builders, Builder Codes, analytics, and measurable ecosystem growth.
 
-## Phase 1 — Economic Fingerprint (in progress)
+## Phase 1 — Economic Fingerprint (implemented in PR #4)
 
 - Explainable wallet archetype.
 - App diversity and repeat depth.
@@ -34,22 +34,22 @@ This direction also matches Base's 2026 emphasis on global markets, payments/sta
 
 All scores/classifications are local heuristics. They must never be presented as official Base/Coinbase, credit, risk, reputation, reward, airdrop, or eligibility scores.
 
-## Phase 2 — Wallet Behavior Delta
+## Phase 2 — Wallet Behavior Delta (implemented in PR #4)
 
-Add a time-aware view that answers **"how is this wallet changing?"** rather than only describing all-time history.
+A time-aware view now answers **"how is this wallet changing?"** rather than only describing all-time history.
 
-Planned comparisons:
+Implemented comparisons:
 
-- last 30 days vs previous 30 days,
-- new apps discovered,
-- apps revisited,
+- latest 30 days vs previous 30 days,
+- new contract destinations discovered,
+- previously used destinations revisited,
 - active days gained/lost,
-- stablecoin share trend,
 - transaction count trend,
-- contract interaction trend,
-- gas efficiency trend.
+- contract/app diversity trend,
+- gas-spend trend,
+- plain-language behavior-change summary.
 
-Output a short explainable summary such as: "More exploratory this month: 7 new contracts, activity spread across 4 additional days, and lower concentration in the most-used app."
+The implementation deliberately does **not** claim a historical stablecoin-allocation trend yet because the current data source only loads present token balances plus normal transaction history. That feature belongs in the stablecoin/payment phase once reliable token-transfer history is added.
 
 ## Phase 3 — Base App Graph
 
@@ -74,7 +74,8 @@ Add Base-specific money-flow summaries without making financial-risk claims:
 - inbound vs outbound transfer counts,
 - recurring counterparties,
 - payment-like transaction cadence,
-- stablecoin concentration.
+- stablecoin concentration,
+- historical stablecoin activity trend when reliable token-transfer data is available.
 
 This should remain descriptive, not a credit score.
 
