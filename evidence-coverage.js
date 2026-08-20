@@ -71,20 +71,45 @@
     if(status>=500)return {kind:'outage',message:'Base explorer is temporarily unavailable. Existing partial results are kept; retry shortly.'};
     return null;
   }
+  function cloneResponse(response){return response&&typeof response.clone==='function'?response.clone():response}
+  function createDedupedFetch(fetchImpl,ttlMs=1500){
+    const cache=new Map();
+    return async function(input,init){
+      const url=typeof input==='string'?input:String(input?.url||'');
+      const method=String(init?.method||input?.method||'GET').toUpperCase();
+      const isBlockscout=url.startsWith('https://base.blockscout.com/');
+      if(!isBlockscout||method!=='GET')return fetchImpl(input,init);
+      const key=`${method} ${url}`;
+      const existing=cache.get(key);
+      if(existing&&(existing.pending||Date.now()<existing.expires))return cloneResponse(await existing.promise);
+      const entry={pending:true,expires:Infinity,promise:null};
+      entry.promise=Promise.resolve().then(()=>fetchImpl(input,init));
+      cache.set(key,entry);
+      try{
+        const response=await entry.promise;
+        entry.pending=false;
+        if(response&&response.ok){
+          entry.expires=Date.now()+ttlMs;
+          setTimeout(()=>{if(cache.get(key)===entry)cache.delete(key)},ttlMs+25);
+        }else cache.delete(key);
+        return cloneResponse(response);
+      }catch(error){cache.delete(key);throw error;}
+    };
+  }
   function publish(detail){
     globalThis.BaseApiResilience.last={...detail,at:new Date().toISOString()};
     const el=document.getElementById('status');
     if(el){el.textContent=detail.message;el.classList.add('error');el.dataset.apiState=detail.kind;}
     window.dispatchEvent(new CustomEvent('base-api-status',{detail:globalThis.BaseApiResilience.last}));
   }
-  globalThis.BaseApiResilience={classify,last:null};
+  globalThis.BaseApiResilience={classify,createDedupedFetch,last:null};
   if(typeof window==='undefined'||typeof document==='undefined'||typeof window.fetch!=='function')return;
-  const original=window.fetch.bind(window);
+  const request=createDedupedFetch(window.fetch.bind(window));
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:String(input?.url||'');
     const isBlockscout=url.startsWith('https://base.blockscout.com/');
     try{
-      const response=await original(input,init);
+      const response=await request(input,init);
       if(isBlockscout){const issue=classify(response.status);if(issue)publish({...issue,status:response.status,url});}
       return response;
     }catch(error){
