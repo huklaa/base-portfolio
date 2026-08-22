@@ -66,9 +66,9 @@
 
 (function(){
   function classify(status){
-    if(status===429)return {kind:'rate-limit',message:'Base explorer is rate-limiting requests. Some panels may be partial; wait a moment and retry.'};
-    if(status===408||status===504)return {kind:'timeout',message:'Base explorer timed out. Some panels may be partial; retry in a moment.'};
-    if(status>=500)return {kind:'outage',message:'Base explorer is temporarily unavailable. Existing partial results are kept; retry shortly.'};
+    if(status===429)return {kind:'rate-limit',message:'Base explorer is busy; background panels will keep retrying automatically.'};
+    if(status===408||status===504)return {kind:'timeout',message:'Base explorer timed out; background panels will retry automatically.'};
+    if(status>=500)return {kind:'outage',message:'Base explorer is temporarily unavailable.'};
     return null;
   }
   function cloneResponse(response){return response&&typeof response.clone==='function'?response.clone():response}
@@ -96,25 +96,5 @@
       }catch(error){cache.delete(key);throw error;}
     };
   }
-  function publish(detail){
-    globalThis.BaseApiResilience.last={...detail,at:new Date().toISOString()};
-    const el=document.getElementById('status');
-    if(el){el.textContent=detail.message;el.classList.add('error');el.dataset.apiState=detail.kind;}
-    window.dispatchEvent(new CustomEvent('base-api-status',{detail:globalThis.BaseApiResilience.last}));
-  }
   globalThis.BaseApiResilience={classify,createDedupedFetch,last:null};
-  if(typeof window==='undefined'||typeof document==='undefined'||typeof window.fetch!=='function')return;
-  const request=createDedupedFetch(window.fetch.bind(window));
-  window.fetch=async function(input,init){
-    const url=typeof input==='string'?input:String(input?.url||'');
-    const isBlockscout=url.startsWith('https://base.blockscout.com/');
-    try{
-      const response=await request(input,init);
-      if(isBlockscout){const issue=classify(response.status);if(issue)publish({...issue,status:response.status,url});}
-      return response;
-    }catch(error){
-      if(isBlockscout)publish({kind:'network',status:0,url,message:'Could not reach the Base explorer. Check your connection and retry; no wallet action was attempted.'});
-      throw error;
-    }
-  };
 })();
