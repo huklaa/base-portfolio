@@ -2,6 +2,13 @@ name: Refresh Base rank index
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/index-base-rank.mjs'
+      - '.github/workflows/base-rank-index.yml'
+      - 'rank.js'
+      - 'production-fixes.js'
   schedule:
     - cron: '17 */6 * * *'
 
