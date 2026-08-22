@@ -3,6 +3,7 @@
   const INDEX_URL = './data/base-rank-index.json';
 
   const $ = id => document.getElementById(id);
+  let lastRank = null;
 
   function installUI() {
     if ($('baseRankBtn')) return;
@@ -17,10 +18,13 @@
       .rank-card .rank-main strong{margin:0}
       .rank-card .rank-score{font-size:12px;color:#8fb6ff;font-weight:900}
       .rank-card .rank-percentile{display:block;min-height:30px;color:#718096;font-size:11px;line-height:1.35}
-      .rank-card .rank-actions{display:flex;align-items:center;gap:9px;margin-top:12px}
+      .rank-card .rank-actions{display:flex;align-items:center;gap:9px;margin-top:12px;flex-wrap:wrap}
       .rank-card .rank-button{border:1px solid #315a9b;border-radius:10px;padding:9px 12px;background:#0b1a30;color:#d8e7ff;font-size:12px;font-weight:900;cursor:pointer}
       .rank-card .rank-button:hover{border-color:#5a8ee3;background:#10254a}
       .rank-card .rank-button:disabled{opacity:.55;cursor:wait}
+      .rank-card .rank-share{border-color:#236b52;background:#09251d;color:#c7f9e7}
+      .rank-card .rank-share:hover{border-color:#41a57f;background:#0d3328}
+      .rank-card .rank-share[hidden]{display:none}
       .rank-card .rank-sample{font-size:10px;color:#6f7e93}
       .rank-status{grid-column:1/-1;margin:0;padding:0 4px;color:#718096;font-size:11px;line-height:1.45}
       .rank-status.error{color:#fda4af}
@@ -33,7 +37,7 @@
       <span>Base Rank</span>
       <div class="rank-main"><strong id="baseRankValue">—</strong><span id="baseRankScore" class="rank-score">—/100</span></div>
       <small id="baseRankPercentile" class="rank-percentile">Compare this wallet with indexed active Base wallets.</small>
-      <div class="rank-actions"><button id="baseRankBtn" class="rank-button" type="button">Check Base Rank</button><span id="baseRankSample" class="rank-sample">index loading</span></div>
+      <div class="rank-actions"><button id="baseRankBtn" class="rank-button" type="button">Check Base Rank</button><button id="baseRankShare" class="rank-button rank-share" type="button" hidden>Share on X</button><span id="baseRankSample" class="rank-sample">index loading</span></div>
       <small id="baseRankUpdated" class="rank-sample">Public Base data</small>
     `;
     grid.appendChild(card);
@@ -45,6 +49,7 @@
     grid.after(status);
 
     $('baseRankBtn').addEventListener('click', checkBaseRank);
+    $('baseRankShare').addEventListener('click', shareBaseRank);
   }
 
   function rankScore(transactionsCount, tokenTransfersCount) {
@@ -73,6 +78,16 @@
     el.classList.toggle('error', error);
   }
 
+  function shareBaseRank() {
+    if (!lastRank || typeof state === 'undefined' || !state.address) return;
+    const address = state.address;
+    const shareUrl = `${location.origin}${location.pathname}?address=${encodeURIComponent(address)}`;
+    const pct = lastRank.topPct < 1 ? lastRank.topPct.toFixed(2) : lastRank.topPct.toFixed(1);
+    const text = `My Base Rank is #${compact(lastRank.rank)} — Top ${pct}% of ${compact(lastRank.denominator)} indexed active wallets on Base. Check yours on Base Portfolio. #Base`;
+    const intent = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
+    window.open(intent, '_blank', 'noopener,noreferrer');
+  }
+
   async function checkBaseRank() {
     if (typeof state === 'undefined' || !state.address) {
       setRankStatus('Analyze a Base address first.', true);
@@ -80,7 +95,10 @@
     }
 
     const button = $('baseRankBtn');
+    const shareButton = $('baseRankShare');
     button.disabled = true;
+    shareButton.hidden = true;
+    lastRank = null;
     setRankStatus('Comparing this wallet with the indexed Base sample…');
 
     try {
@@ -108,11 +126,13 @@
       const denominator = wallets.length + (inIndex ? 0 : 1);
       const topPct = Math.max(0.01, (rank / denominator) * 100);
 
+      lastRank = { rank, denominator, topPct, score };
       $('baseRankValue').textContent = `#${compact(rank)}`;
       $('baseRankPercentile').textContent = `Top ${topPct < 1 ? topPct.toFixed(2) : topPct.toFixed(1)}% of ${compact(denominator)} indexed active wallets`;
       $('baseRankScore').textContent = `${score}/100`;
       $('baseRankSample').textContent = `${compact(wallets.length)} indexed`;
       $('baseRankUpdated').textContent = index.updatedAt ? `Updated ${new Date(index.updatedAt).toLocaleString()}` : 'Refresh pending';
+      shareButton.hidden = false;
       setRankStatus(`Base Rank uses public activity counters and the current active-wallet index. Base Blockscout reports ${index.chainTotalAddresses ? compact(index.chainTotalAddresses) : 'many'} total chain addresses; full-chain coverage is intentionally not claimed until the index reaches it.`);
     } catch (error) {
       console.error(error);
