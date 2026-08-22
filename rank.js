@@ -1,52 +1,58 @@
 (() => {
   const BLOCKSCOUT = 'https://base.blockscout.com';
   const INDEX_URL = './data/base-rank-index.json';
+  const ADDRESS_RE_LOCAL = /^0x[a-fA-F0-9]{40}$/;
 
   const $ = id => document.getElementById(id);
   let lastRank = null;
 
   function installUI() {
-    if ($('baseRankBtn')) return;
-    const grid = document.querySelector('.metric-grid');
-    if (!grid) return;
+    if ($('baseRankPanel')) return;
+    const searchPanel = document.querySelector('.search-panel');
+    if (!searchPanel) return;
 
     const style = document.createElement('style');
     style.textContent = `
-      .rank-card{position:relative;overflow:hidden;background:radial-gradient(circle at 100% 0,rgba(79,140,255,.18),transparent 48%),linear-gradient(180deg,rgba(17,26,42,.97),rgba(10,15,25,.97))}
-      .rank-card:after{content:'BASE';position:absolute;right:14px;top:12px;font-size:10px;letter-spacing:.18em;color:#5f86c9;font-weight:900}
-      .rank-card .rank-main{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:8px 0 5px}
-      .rank-card .rank-main strong{margin:0}
-      .rank-card .rank-score{font-size:12px;color:#8fb6ff;font-weight:900}
-      .rank-card .rank-percentile{display:block;min-height:30px;color:#718096;font-size:11px;line-height:1.35}
-      .rank-card .rank-actions{display:flex;align-items:center;gap:9px;margin-top:12px;flex-wrap:wrap}
-      .rank-card .rank-button{border:1px solid #315a9b;border-radius:10px;padding:9px 12px;background:#0b1a30;color:#d8e7ff;font-size:12px;font-weight:900;cursor:pointer}
-      .rank-card .rank-button:hover{border-color:#5a8ee3;background:#10254a}
-      .rank-card .rank-button:disabled{opacity:.55;cursor:wait}
-      .rank-card .rank-share{border-color:#236b52;background:#09251d;color:#c7f9e7}
-      .rank-card .rank-share:hover{border-color:#41a57f;background:#0d3328}
-      .rank-card .rank-share[hidden]{display:none}
-      .rank-card .rank-sample{font-size:10px;color:#6f7e93}
-      .rank-status{grid-column:1/-1;margin:0;padding:0 4px;color:#718096;font-size:11px;line-height:1.45}
-      .rank-status.error{color:#fda4af}
+      .rank-spotlight{margin:-34px 0 52px;padding:22px;position:relative;overflow:hidden;background:radial-gradient(circle at 100% 0,rgba(79,140,255,.20),transparent 44%),linear-gradient(180deg,rgba(17,26,42,.98),rgba(8,13,23,.98));border-color:#284a82}
+      .rank-spotlight:after{content:'BASE';position:absolute;right:20px;top:18px;font-size:10px;letter-spacing:.18em;color:#5f86c9;font-weight:900}
+      .rank-top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+      .rank-copy h3{font-size:24px;margin:2px 0 7px}.rank-copy p{margin:0;color:#8ea0b9;font-size:13px;line-height:1.5;max-width:720px}
+      .rank-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
+      .rank-button{border:1px solid #315a9b;border-radius:11px;padding:11px 15px;background:#0b1a30;color:#d8e7ff;font-size:13px;font-weight:900;cursor:pointer}
+      .rank-button.primary-rank{border:0;background:linear-gradient(135deg,#276cff,#155eef);color:#fff;box-shadow:0 8px 28px rgba(21,94,239,.24)}
+      .rank-button:hover{border-color:#5a8ee3;background:#10254a}.rank-button.primary-rank:hover{background:linear-gradient(135deg,#3578ff,#1b63f0)}
+      .rank-button:disabled{opacity:.55;cursor:wait}.rank-share{border-color:#236b52;background:#09251d;color:#c7f9e7}.rank-share[hidden]{display:none}
+      .rank-result{display:none;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.rank-result.visible{display:grid}
+      .rank-stat{background:#080d16;border:1px solid #19243a;border-radius:14px;padding:14px}.rank-stat span{display:block;color:#8290a5;font-size:11px;text-transform:uppercase;letter-spacing:.05em}.rank-stat strong{display:block;font-size:25px;margin-top:6px}.rank-stat small{display:block;color:#718096;font-size:10px;margin-top:4px;line-height:1.4}
+      .rank-status{margin-top:12px;color:#718096;font-size:11px;line-height:1.45}.rank-status.error{color:#fda4af}
+      @media(max-width:700px){.rank-top{display:block}.rank-result{grid-template-columns:1fr 1fr}.rank-spotlight{margin:-34px 0 42px}}
     `;
     document.head.appendChild(style);
 
-    const card = document.createElement('article');
-    card.className = 'metric card rank-card';
-    card.innerHTML = `
-      <span>Base Rank</span>
-      <div class="rank-main"><strong id="baseRankValue">—</strong><span id="baseRankScore" class="rank-score">—/100</span></div>
-      <small id="baseRankPercentile" class="rank-percentile">Compare this wallet with indexed active Base wallets.</small>
-      <div class="rank-actions"><button id="baseRankBtn" class="rank-button" type="button">Check Base Rank</button><button id="baseRankShare" class="rank-button rank-share" type="button" hidden>Share on X</button><span id="baseRankSample" class="rank-sample">index loading</span></div>
-      <small id="baseRankUpdated" class="rank-sample">Public Base data</small>
+    const panel = document.createElement('section');
+    panel.id = 'baseRankPanel';
+    panel.className = 'card rank-spotlight';
+    panel.innerHTML = `
+      <div class="rank-top">
+        <div class="rank-copy">
+          <div class="eyebrow">BASE GLOBAL RANK · BETA</div>
+          <h3>See where this wallet ranks on Base</h3>
+          <p>Compare the address above with the growing index of active Base wallets. The index expands automatically from public Base chain activity.</p>
+        </div>
+      </div>
+      <div class="rank-actions">
+        <button id="baseRankBtn" class="rank-button primary-rank" type="button">Check Base Global Rank</button>
+        <button id="baseRankShare" class="rank-button rank-share" type="button" hidden>Share Rank on X</button>
+      </div>
+      <div id="baseRankResult" class="rank-result">
+        <div class="rank-stat"><span>Base Rank</span><strong id="baseRankValue">—</strong><small>Among indexed active wallets</small></div>
+        <div class="rank-stat"><span>Percentile</span><strong id="baseRankPercentile">—</strong><small id="baseRankPercentileSub">Growing Base index</small></div>
+        <div class="rank-stat"><span>Rank Score</span><strong id="baseRankScore">—/100</strong><small>Public activity counters</small></div>
+        <div class="rank-stat"><span>Index Size</span><strong id="baseRankSample">—</strong><small id="baseRankUpdated">Refresh pending</small></div>
+      </div>
+      <div id="baseRankStatus" class="rank-status">Enter a Base address above, then press “Check Base Global Rank”. Full-chain coverage is not claimed until the index reaches it.</div>
     `;
-    grid.appendChild(card);
-
-    const status = document.createElement('div');
-    status.id = 'baseRankStatus';
-    status.className = 'rank-status';
-    status.textContent = 'Rank is based on a growing sample of active Base EOAs discovered from public chain activity — not a claim that every Base address is indexed yet.';
-    grid.after(status);
+    searchPanel.insertAdjacentElement('afterend', panel);
 
     $('baseRankBtn').addEventListener('click', checkBaseRank);
     $('baseRankShare').addEventListener('click', shareBaseRank);
@@ -60,10 +66,7 @@
     return Math.round(Math.min(100, txPart + transferPart));
   }
 
-  function compact(value) {
-    const n = Number(value || 0);
-    return n.toLocaleString();
-  }
+  function compact(value) { return Number(value || 0).toLocaleString(); }
 
   async function getJSON(url) {
     const response = await fetch(url, { headers: { accept: 'application/json' } });
@@ -78,41 +81,49 @@
     el.classList.toggle('error', error);
   }
 
+  async function ensureAnalyzedAddress() {
+    const input = $('addressInput');
+    const address = input?.value?.trim() || '';
+    if (!ADDRESS_RE_LOCAL.test(address)) throw new Error('Enter a valid Base / EVM address above first.');
+    if (typeof state !== 'undefined' && state.address?.toLowerCase() === address.toLowerCase()) return address;
+    if (typeof analyze === 'function') {
+      await analyze();
+      if (typeof state !== 'undefined' && state.address?.toLowerCase() === address.toLowerCase()) return address;
+    }
+    throw new Error('The wallet could not be analyzed yet. Try again in a moment.');
+  }
+
   function shareBaseRank() {
     if (!lastRank || typeof state === 'undefined' || !state.address) return;
-    const address = state.address;
-    const shareUrl = `${location.origin}${location.pathname}?address=${encodeURIComponent(address)}`;
+    const shareUrl = `${location.origin}${location.pathname}?address=${encodeURIComponent(state.address)}`;
     const pct = lastRank.topPct < 1 ? lastRank.topPct.toFixed(2) : lastRank.topPct.toFixed(1);
-    const text = `My Base Rank is #${compact(lastRank.rank)} — Top ${pct}% of ${compact(lastRank.denominator)} indexed active wallets on Base. Check yours on Base Portfolio. #Base`;
-    const intent = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
-    window.open(intent, '_blank', 'noopener,noreferrer');
+    const text = `My Base Global Rank is #${compact(lastRank.rank)} — Top ${pct}% of ${compact(lastRank.denominator)} indexed active wallets on Base. Check yours on Base Portfolio. #Base`;
+    window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`, '_blank', 'noopener,noreferrer');
   }
 
   async function checkBaseRank() {
-    if (typeof state === 'undefined' || !state.address) {
-      setRankStatus('Analyze a Base address first.', true);
-      return;
-    }
-
     const button = $('baseRankBtn');
     const shareButton = $('baseRankShare');
     button.disabled = true;
     shareButton.hidden = true;
     lastRank = null;
-    setRankStatus('Comparing this wallet with the indexed Base sample…');
+    setRankStatus('Analyzing the address and comparing it with the indexed Base wallet universe…');
 
     try {
-      const address = state.address.toLowerCase();
+      const rawAddress = await ensureAnalyzedAddress();
+      const address = rawAddress.toLowerCase();
       const [index, counters] = await Promise.all([
         getJSON(`${INDEX_URL}?v=${Date.now()}`),
         getJSON(`${BLOCKSCOUT}/api/v2/addresses/${encodeURIComponent(address)}/counters`)
       ]);
 
       const wallets = Array.isArray(index.wallets) ? index.wallets : [];
+      $('baseRankResult').classList.add('visible');
       if (!wallets.length) {
         $('baseRankValue').textContent = 'Warming up';
-        $('baseRankPercentile').textContent = 'The public Base rank index has not populated yet.';
+        $('baseRankPercentile').textContent = '—';
         $('baseRankScore').textContent = '—/100';
+        $('baseRankSample').textContent = '0';
         setRankStatus('The scheduled indexer is building the first active-wallet sample. Try again after the next refresh.');
         return;
       }
@@ -125,21 +136,29 @@
       const inIndex = wallets.some(wallet => wallet.address === address);
       const denominator = wallets.length + (inIndex ? 0 : 1);
       const topPct = Math.max(0.01, (rank / denominator) * 100);
+      const pctText = topPct < 1 ? `${topPct.toFixed(2)}%` : `${topPct.toFixed(1)}%`;
 
       lastRank = { rank, denominator, topPct, score };
       $('baseRankValue').textContent = `#${compact(rank)}`;
-      $('baseRankPercentile').textContent = `Top ${topPct < 1 ? topPct.toFixed(2) : topPct.toFixed(1)}% of ${compact(denominator)} indexed active wallets`;
+      $('baseRankPercentile').textContent = `Top ${pctText}`;
+      $('baseRankPercentileSub').textContent = `of ${compact(denominator)} indexed active wallets`;
       $('baseRankScore').textContent = `${score}/100`;
-      $('baseRankSample').textContent = `${compact(wallets.length)} indexed`;
+      $('baseRankSample').textContent = compact(wallets.length);
       $('baseRankUpdated').textContent = index.updatedAt ? `Updated ${new Date(index.updatedAt).toLocaleString()}` : 'Refresh pending';
       shareButton.hidden = false;
-      setRankStatus(`Base Rank uses public activity counters and the current active-wallet index. Base Blockscout reports ${index.chainTotalAddresses ? compact(index.chainTotalAddresses) : 'many'} total chain addresses; full-chain coverage is intentionally not claimed until the index reaches it.`);
+      setRankStatus(`This is a live rank inside the current indexed Base wallet universe. The index grows automatically; the displayed rank can change as coverage expands.`);
+      panelScroll();
     } catch (error) {
       console.error(error);
-      setRankStatus('Could not load the Base rank index right now. Try again in a moment.', true);
+      setRankStatus(error.message || 'Could not load Base Rank right now.', true);
     } finally {
       button.disabled = false;
     }
+  }
+
+  function panelScroll(){
+    const panel=$('baseRankPanel');
+    if(panel) panel.scrollIntoView({behavior:'smooth',block:'center'});
   }
 
   installUI();

@@ -72,7 +72,7 @@
   }
   function loadRank(){
     if(document.querySelector('script[data-base-rank]'))return;
-    const script=document.createElement('script');script.src='./rank.js?v=20260822-2';script.async=false;script.dataset.baseRank='1';document.body.appendChild(script);
+    const script=document.createElement('script');script.src='./rank.js?v=20260822-3';script.async=false;script.dataset.baseRank='1';document.body.appendChild(script);
   }
   function init(){
     const status=document.getElementById('stableFlowStatus');if(status)new MutationObserver(()=>recoverStable()).observe(status,{childList:true,subtree:true});
