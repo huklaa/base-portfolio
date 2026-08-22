@@ -1,43 +1,5 @@
 (function(){
-  const DAY=86400,STALL_MS=10000;
-  const nativeFetch=globalThis.fetch?.bind(globalThis);
-  const responseCache=new Map();
-  let nextBlockscoutAt=0;
-  function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
-  function isBlockscout(input){try{return new URL(typeof input==='string'?input:input?.url,location.href).hostname==='base.blockscout.com'}catch{return false}}
-  function retryAfterMs(response,attempt){
-    const raw=response?.headers?.get?.('retry-after');
-    const seconds=Number(raw);
-    if(Number.isFinite(seconds)&&seconds>0)return Math.min(10000,seconds*1000);
-    return Math.min(6000,700*Math.pow(2,attempt));
-  }
-  async function resilientFetch(input,init={}){
-    if(!nativeFetch||!isBlockscout(input))return nativeFetch(input,init);
-    const method=String(init?.method||'GET').toUpperCase();
-    const url=typeof input==='string'?input:input.url;
-    const cacheKey=method==='GET'?url:null;
-    const cached=cacheKey&&responseCache.get(cacheKey);
-    if(cached&&cached.expires>Date.now())return cached.response.clone();
-    for(let attempt=0;attempt<4;attempt++){
-      const wait=Math.max(0,nextBlockscoutAt-Date.now());
-      if(wait)await sleep(wait);
-      nextBlockscoutAt=Date.now()+220;
-      let response;
-      try{response=await nativeFetch(input,init)}catch(error){
-        if(attempt===3)throw error;
-        await sleep(700*Math.pow(2,attempt));
-        continue;
-      }
-      if(response.ok){
-        if(cacheKey)responseCache.set(cacheKey,{expires:Date.now()+15000,response:response.clone()});
-        return response;
-      }
-      if(![429,502,503,504].includes(response.status)||attempt===3)return response;
-      await sleep(retryAfterMs(response,attempt));
-    }
-    return nativeFetch(input,init);
-  }
-  if(nativeFetch)globalThis.fetch=resilientFetch;
+  const DAY=86400,STALL_MS=45000;
   function lower(v){return String(v||'').toLowerCase()}
   function currentAddress(){try{return typeof state!=='undefined'?state.address||'':''}catch{return ''}}
   function legacyToTransfer(tx,meta){
@@ -76,8 +38,8 @@
     set('stableIn',money(cur.inUsd));set('stableOut',money(cur.outUsd));set('stableNet',`${cur.netUsd>=0?'+':''}${money(cur.netUsd)}`);set('stableCount',cur.count.toLocaleString());set('stableInCount',`${cur.inbound} inbound transfers`);set('stableOutCount',`${cur.outbound} outbound transfers`);
     const trend=prev.count?((cur.count-prev.count)/prev.count)*100:(cur.count?'new':0);set('stableCountTrend',trend==='new'?'new vs previous 30d':`${trend>=0?'+':''}${Math.round(trend)}% vs previous 30d`);
     const verified=[...api.VERIFIED_STABLES.entries()].map(([a,m])=>({address:a,...m}));api.last={transfers,current:cur,previous:prev,coverage:transfers.coverage,verifiedContracts:verified};
-    const status=document.getElementById('stableFlowStatus');if(status){status.textContent=`Primary token-transfer endpoint was unavailable or slow; recovered ${transfers.length} verified-stable records via Blockscout fallback (${transfers.coverage.pages} pages).`;delete status.dataset.loadingSince}
-    globalThis.BasePaymentPatterns?.last&&(globalThis.BasePaymentPatterns.last=null);
+    const status=document.getElementById('stableFlowStatus');if(status){status.textContent=`Primary token-transfer endpoint was unavailable; recovered ${transfers.length} verified-stable records via Blockscout fallback (${transfers.coverage.pages} pages).`;delete status.dataset.loadingSince}
+    if(globalThis.BasePaymentPatterns)globalThis.BasePaymentPatterns.last=null;
     globalThis.BaseEvidenceCoverage?.render?.();
   }
   function primaryIsStalled(status){
@@ -93,7 +55,7 @@
     const failed=/unavailable|failed to fetch/i.test(status.textContent||''),stalled=primaryIsStalled(status);
     if(!failed&&!stalled)return;
     status.dataset.fallbackRunning='1';
-    if(stalled)status.textContent='Primary stablecoin history request is taking too long; trying Blockscout fallback…';
+    if(stalled)status.textContent='Stablecoin history is still loading; trying the slower Blockscout fallback…';
     try{const since=Math.floor(Date.now()/1000)-90*DAY,items=await fetchLegacyStable(address,since);if(items)renderStableFallback(items,address)}catch(e){status.textContent=`Stablecoin transfer view unavailable after fallback: ${e.message}`}
     finally{status.dataset.fallbackRunning='0'}
   }
@@ -115,8 +77,8 @@
   function init(){
     const status=document.getElementById('stableFlowStatus');if(status)new MutationObserver(()=>recoverStable()).observe(status,{childList:true,subtree:true});
     const timeline=document.getElementById('timeline');if(timeline)new MutationObserver(()=>dedupeTimeline()).observe(timeline,{childList:true,subtree:true});
-    setInterval(()=>{recoverStable();dedupeTimeline();reconcileUserOps()},1200);
+    setInterval(()=>{recoverStable();dedupeTimeline();reconcileUserOps()},1500);
     loadRank();
   }
-  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps,primaryIsStalled,resilientFetch,STALL_MS};if(typeof document!=='undefined')init();
+  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps,primaryIsStalled,STALL_MS};if(typeof document!=='undefined')init();
 })();
