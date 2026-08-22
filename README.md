@@ -1,90 +1,152 @@
-# Base Portfolio Explorer
+# Base Portfolio
 
-A read-only Base mainnet portfolio, activity, and wallet-behavior explorer for public EVM addresses.
+**Base-native wallet intelligence for public EVM addresses.**  
+Understand not only what a wallet holds, but **how it participates in the Base economy**.
 
-## Live app
+[![Live App](https://img.shields.io/badge/Live-base--portfolio.xyz-0052FF?style=for-the-badge)](https://base-portfolio.xyz/)
+[![Base](https://img.shields.io/badge/Network-Base-0052FF?style=for-the-badge)](https://base.org/)
+[![Read Only](https://img.shields.io/badge/Wallet-read--only-success?style=for-the-badge)](#privacy-and-safety)
 
-Primary: https://base-portfolio.xyz/
+> No wallet connection. No signature. No private key. Enter any public Base address and explore.
 
-Cloudflare Pages fallback: https://base-portfolio.pages.dev/
+## Try it
 
-GitHub Pages mirror: https://huklaa.github.io/base-portfolio/
+**Live:** https://base-portfolio.xyz/
 
-## Product direction
+Fallbacks:
+- Cloudflare Pages: https://base-portfolio.pages.dev/
+- GitHub Pages: https://huklaa.github.io/base-portfolio/
 
-The project is evolving from a simple portfolio viewer into a Base-native wallet intelligence layer. The goal is to explain **how a wallet participates in the Base economy**, not merely what it currently holds.
+## Why Base Portfolio is different
 
-## What it does
+Most portfolio tools answer **“What does this wallet hold?”**
 
-- Reads ETH and ERC-20 balances on Base mainnet.
-- Calculates portfolio value and token allocation when explorer price data is available.
-- Supports optional manual cost basis, P/L, stablecoin share, and target-allocation comparison.
-- Shows the latest Base transactions with transaction type, timestamp, direct Blockscout link, and All / Transfer / Swap / NFT / Contract filters.
-- Calculates an independent Base Activity Score from transaction count, active days, unique contract interactions, asset diversity, and NFT ownership.
-- Builds a **Base Economic Fingerprint** from public transaction history: app diversity, repeat usage, top-app concentration, cadence, longevity, and Base-native attribution.
-- Assigns explainable behavioral archetypes such as Protocol Explorer, App Loyalist, Base Power User, or Attributed Builder Explorer.
-- Adds a **Wallet Behavior Delta** comparing the latest 30 days with the previous 30 days for transactions, active days, app diversity, gas spend, newly discovered apps, and revisited apps.
-- Adds a visual **Base App Graph** with wallet → contract relationships, interaction-weighted edges, first/last interaction dates, repeat usage, top relationship share, explorer links, and best-effort Blockscout contract labels.
-- Adds **Stablecoin & Payment Behavior** from recent indexed ERC-20 transfer history: 30-day inbound/outbound flow, net priced flow, transfer trends, counterparties, and stablecoin mix. Stablecoins are accepted only through an explicit Base contract allowlist; token symbols alone are not trusted.
-- Adds a **Builder Attribution Footprint** with strict ERC-8021 marker validation:
-  - validates the exact 16-byte `0x80218021802180218021802180218021` suffix,
-  - reports attributed transaction count and share,
-  - decodes canonical schema-0 Builder Codes,
-  - reports unique and top decoded codes,
-  - detects unsupported schema IDs without speculative decoding,
-  - shows first/latest strict attribution milestones.
-- Adds **Smart-account / ERC-4337 coverage** using Blockscout's account-abstraction indexer when available.
-  - does not classify a contract wallet as a Base Account merely because code exists at the address,
-  - recognizes Coinbase Smart Wallet factory v1.0 and v1.1 only when factory evidence matches the published deployment addresses,
-  - recognizes Base ERC-4337 EntryPoint v0.6 and v0.7 addresses when reported,
-  - treats a missing or unavailable indexer result as inconclusive rather than proof of non-use.
-- Adds **ERC-8021 attribution inside ERC-4337 UserOperations**:
-  - fetches sender-filtered UserOperations from Blockscout,
-  - reads `userOp.callData` instead of transaction-level calldata,
-  - applies the same strict ERC-8021 parser,
-  - reports attributed UserOps, decoded schema-0 codes, detected schemas, and first/latest attribution,
-  - explicitly labels the result as a bounded paginated view rather than lifetime accounting.
-- Generates plain-language behavioral insights rather than hiding results behind a single opaque score.
-- Estimates historical gas spent in ETH from indexed normal transactions.
-- Displays currently indexed Base NFTs.
-- Generates a downloadable shareable Base Card containing public wallet analytics and the wallet archetype.
-- Exports a **machine-readable JSON public profile (v1.5)** for builders and agents, including activity, Economic Fingerprint, normal-transaction Builder Attribution, UserOperation Builder Attribution, Behavior Delta, stablecoin flow, payment-pattern metadata, smart-account evidence, methodology flags, data limits, and safety metadata.
-- Generates a shareable address URL without connecting the wallet.
+Base Portfolio also asks:
 
-## Why this exists
+- Which Base apps does this wallet actually use?
+- Does it return to the same protocols or explore new ones?
+- How has its behavior changed over the last 30 days?
+- What stablecoin and payment patterns are visible?
+- Is there public ERC-4337 / smart-account evidence?
+- Are ERC-8021 builder-attribution signals present?
 
-Most portfolio products focus on balances, P/L, alerts, or broad multi-chain tracking. This project is intentionally Base-first and focuses on explainable economic behavior: which apps a wallet uses, which ones it returns to, how concentrated its activity is, how behavior changes over time, how stable value moves through it, which Base-native attribution signals are publicly visible, and whether public ERC-4337 account-abstraction evidence exists.
+The result is an explainable, Base-first public wallet profile instead of a single opaque score.
 
-The analysis is descriptive rather than judgmental. It is intended to become useful for users, builders, growth teams, and agents that need a compact public summary of Base behavior.
+## Highlights
+
+- **Portfolio overview** — ETH/ERC-20 balances, value, allocation and optional manual cost basis.
+- **Base Activity Score** — derived from transaction count, active days, contract interactions, asset diversity and NFT ownership.
+- **Base Economic Fingerprint** — app diversity, repeat usage, concentration, cadence, longevity and Base-native attribution.
+- **Behavior archetypes** — explainable labels such as Protocol Explorer, App Loyalist and Base Power User.
+- **Wallet Behavior Delta** — compares the latest 30 days with the previous 30 days.
+- **Base App Graph** — visual wallet → contract relationships with interaction-weighted edges.
+- **Stablecoin & Payment Behavior** — recent inbound/outbound flow, counterparties, stablecoin mix and trends.
+- **ERC-8021 Builder Attribution** — strict marker validation and canonical schema-0 decoding.
+- **ERC-4337 / smart-account coverage** — evidence-based detection using indexed account-abstraction data.
+- **ERC-8021 inside UserOperations** — attribution analysis from `userOp.callData`.
+- **NFT coverage** — currently indexed Base NFTs.
+- **Shareable Base Card** — downloadable public wallet analytics card.
+- **Machine-readable JSON profile** — public profile output for builders and agents.
+- **Shareable address URLs** — analyze a wallet without connecting it.
+
+## Built for
+
+- Base users who want a clearer view of their onchain behavior
+- Builders researching real wallet activity
+- Growth and ecosystem teams studying app usage patterns
+- Agents and developer tools that need compact public wallet intelligence
 
 ## Privacy and safety
 
-This app is deliberately read-only. It does **not** connect a wallet, request a signature/private key/approval, execute a swap, transfer assets, or submit any blockchain transaction. Only a public EVM address is required.
+Base Portfolio is deliberately **read-only**.
+
+It does **not**:
+
+- connect a wallet,
+- request signatures,
+- request private keys,
+- request token approvals,
+- execute swaps,
+- transfer assets,
+- submit blockchain transactions.
+
+Only a public EVM address is required.
 
 ## Data sources
 
-- Base Blockscout public APIs for address, token, NFT, normal transaction, token-transfer, account-abstraction/UserOperation, and best-effort contract label data.
-- Base mainnet, chain ID `8453`.
+- Base Blockscout public APIs
+- Base mainnet — chain ID `8453`
 
-Explorer APIs may rate-limit requests or return partial data. Normal-transaction activity metrics are capped at the first 10,000 transactions returned by the explorer endpoint. Stablecoin flow is limited to the recent paginated ERC-20 transfer records fetched by the client and is not lifetime accounting. Account-abstraction and UserOperation indexing can also be incomplete or temporarily unavailable.
+The app uses explorer/indexer data for balances, tokens, NFTs, transactions, token transfers, contract labels and account-abstraction/UserOperation evidence.
+
+Explorer APIs may rate-limit requests or return partial data. The UI is designed to surface coverage limitations instead of pretending incomplete data is complete.
+
+## Reliability philosophy
+
+A wallet intelligence product is only useful when it is honest about its data.
+
+Base Portfolio therefore prefers:
+
+- explicit coverage indicators,
+- fallback data paths where possible,
+- bounded-query labels,
+- evidence-based classifications,
+- transparent methodology,
+- no speculative identity or eligibility claims.
 
 ## Scores and classifications
 
-The Activity Score, Economic Fingerprint dimensions, behavioral archetypes, and Behavior Delta summaries are local heuristics created for this project. They are **not official Base, Coinbase, credit, risk, reward, eligibility, airdrop, or reputation scores**.
+The Activity Score, Economic Fingerprint dimensions, behavioral archetypes and Behavior Delta summaries are local heuristics created for this project.
 
-Builder attribution is transaction/UserOperation evidence, not an identity claim. Schema 0 is decoded; other detected ERC-8021 schema IDs remain undecoded unless their structure is implemented and validated. Likewise, smart-account labeling is evidence-based: recognized Coinbase Smart Wallet labels require a matching published factory address, and an absent indexer record is not treated as proof that an address never used account abstraction.
+They are **not official Base, Coinbase, credit, risk, reward, eligibility, airdrop or reputation scores**.
+
+Builder attribution is transaction/UserOperation evidence, not an identity claim. Smart-account labeling is also evidence-based: a contract wallet is not classified as a Base Account merely because code exists at the address.
 
 ## Methodology
 
-See `METHODOLOGY.md` for formulas, data scope, assumptions, and known limitations.
+See [`METHODOLOGY.md`](METHODOLOGY.md) for formulas, scope, assumptions and known limitations.
 
 ## Quality checks
 
-The repository includes standalone Node tests for strict ERC-8021 parsing, UserOperation attribution, Behavior Delta, App Graph aggregation, stablecoin-flow summaries, smart-account response normalization, activity-filter syntax coverage, and coverage handling, plus GitHub Actions checks for the browser modules.
+The repository includes standalone Node tests covering areas such as:
+
+- strict ERC-8021 parsing,
+- UserOperation attribution,
+- Behavior Delta,
+- App Graph aggregation,
+- stablecoin-flow summaries,
+- smart-account response normalization,
+- activity-filter syntax,
+- data-coverage handling.
+
+GitHub Actions checks are also included for browser modules.
+
+## Roadmap
+
+The project is evolving from a portfolio viewer into a **Base-native wallet intelligence layer**.
+
+Near-term direction:
+
+- stronger app/protocol attribution,
+- better historical behavior comparison,
+- richer stablecoin/payment intelligence,
+- more transparent data-quality indicators,
+- improved agent-readable wallet profiles,
+- more shareable Base-native insights.
+
+## Contributing
+
+Useful issues, bug reports, data-quality edge cases and focused pull requests are welcome.
+
+If you find a wallet that produces an incorrect or confusing result, opening an issue with the public address and expected behavior is especially helpful.
+
+## Support the project
+
+If Base Portfolio is useful to you, **star the repository**. It helps more Base builders and users discover the project.
 
 ## Creator
 
-- X: https://x.com/1kipcak
-- GitHub: https://github.com/huklaa
+Built by [@huklaa](https://github.com/huklaa)  
+X: https://x.com/1kipcak
 
 Independent community project. Not affiliated with Coinbase or Base.
