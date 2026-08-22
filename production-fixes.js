@@ -1,5 +1,43 @@
 (function(){
   const DAY=86400,STALL_MS=10000;
+  const nativeFetch=globalThis.fetch?.bind(globalThis);
+  const responseCache=new Map();
+  let nextBlockscoutAt=0;
+  function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+  function isBlockscout(input){try{return new URL(typeof input==='string'?input:input?.url,location.href).hostname==='base.blockscout.com'}catch{return false}}
+  function retryAfterMs(response,attempt){
+    const raw=response?.headers?.get?.('retry-after');
+    const seconds=Number(raw);
+    if(Number.isFinite(seconds)&&seconds>0)return Math.min(10000,seconds*1000);
+    return Math.min(6000,700*Math.pow(2,attempt));
+  }
+  async function resilientFetch(input,init={}){
+    if(!nativeFetch||!isBlockscout(input))return nativeFetch(input,init);
+    const method=String(init?.method||'GET').toUpperCase();
+    const url=typeof input==='string'?input:input.url;
+    const cacheKey=method==='GET'?url:null;
+    const cached=cacheKey&&responseCache.get(cacheKey);
+    if(cached&&cached.expires>Date.now())return cached.response.clone();
+    for(let attempt=0;attempt<4;attempt++){
+      const wait=Math.max(0,nextBlockscoutAt-Date.now());
+      if(wait)await sleep(wait);
+      nextBlockscoutAt=Date.now()+220;
+      let response;
+      try{response=await nativeFetch(input,init)}catch(error){
+        if(attempt===3)throw error;
+        await sleep(700*Math.pow(2,attempt));
+        continue;
+      }
+      if(response.ok){
+        if(cacheKey)responseCache.set(cacheKey,{expires:Date.now()+15000,response:response.clone()});
+        return response;
+      }
+      if(![429,502,503,504].includes(response.status)||attempt===3)return response;
+      await sleep(retryAfterMs(response,attempt));
+    }
+    return nativeFetch(input,init);
+  }
+  if(nativeFetch)globalThis.fetch=resilientFetch;
   function lower(v){return String(v||'').toLowerCase()}
   function currentAddress(){try{return typeof state!=='undefined'?state.address||'':''}catch{return ''}}
   function legacyToTransfer(tx,meta){
@@ -80,5 +118,5 @@
     setInterval(()=>{recoverStable();dedupeTimeline();reconcileUserOps()},1200);
     loadRank();
   }
-  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps,primaryIsStalled,STALL_MS};if(typeof document!=='undefined')init();
+  globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps,primaryIsStalled,resilientFetch,STALL_MS};if(typeof document!=='undefined')init();
 })();
