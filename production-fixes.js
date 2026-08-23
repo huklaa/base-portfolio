@@ -74,11 +74,16 @@
     if(document.querySelector('script[data-base-rank]'))return;
     const script=document.createElement('script');script.src='./rank.js?v=20260822-3';script.async=false;script.dataset.baseRank='1';document.body.appendChild(script);
   }
+  function loadWalletHealth(){
+    if(!document.querySelector('link[data-wallet-health]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./wallet-health.css?v=20260823-1';link.dataset.walletHealth='1';document.head.appendChild(link)}
+    if(document.querySelector('script[data-wallet-health]'))return;
+    const script=document.createElement('script');script.src='./wallet-health.js?v=20260823-1';script.async=false;script.dataset.walletHealth='1';document.body.appendChild(script);
+  }
   function init(){
     const status=document.getElementById('stableFlowStatus');if(status)new MutationObserver(()=>recoverStable()).observe(status,{childList:true,subtree:true});
     const timeline=document.getElementById('timeline');if(timeline)new MutationObserver(()=>dedupeTimeline()).observe(timeline,{childList:true,subtree:true});
     setInterval(()=>{recoverStable();dedupeTimeline();reconcileUserOps()},1500);
-    loadRank();
+    loadRank();loadWalletHealth();
   }
   globalThis.BaseProductionFixes={fetchLegacyStable,dedupeTimeline,reconcileUserOps,primaryIsStalled,STALL_MS};if(typeof document!=='undefined')init();
 })();
