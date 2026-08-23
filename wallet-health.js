@@ -2,6 +2,31 @@
   const APPROVE_SELECTOR='095ea7b3';
   const MAXISH=1n<<255n;
 
+  function ensureUI(){
+    if(document.getElementById('walletHealthCard')) return document.getElementById('walletHealthCard');
+    const dashboard=document.getElementById('dashboard');
+    const fingerprint=document.querySelector('.fingerprint-card');
+    if(!dashboard||!fingerprint) return null;
+    const card=document.createElement('article');
+    card.id='walletHealthCard';
+    card.className='card section-card wallet-health-card hidden';
+    card.innerHTML=`
+      <div class="card-head">
+        <div><div class="eyebrow">WALLET HEALTH V1</div><h3>Explainable risk & hygiene</h3></div>
+        <span id="walletHealthLevel" class="archetype-badge">—</span>
+      </div>
+      <p class="section-intro">A read-only heuristic based on public Base balances and indexed transaction history. It is not financial advice, a credit score, or a guarantee that a wallet is safe.</p>
+      <div class="health-summary">
+        <div><span>Wallet health</span><strong id="walletHealthScore">—</strong><small>100 starts clean; only explainable signals reduce the score</small></div>
+        <div><span>Items to review</span><strong id="walletHealthRisks">—</strong><small>Scored concentration, token, approval and contract-use signals</small></div>
+        <div><span>Mode</span><strong>Read-only</strong><small>No signatures, approvals or transactions are requested</small></div>
+      </div>
+      <div id="walletHealthFindings" class="health-findings"></div>
+      <div id="walletHealthApprovalNote" class="health-method-note"></div>`;
+    fingerprint.insertAdjacentElement('afterend',card);
+    return card;
+  }
+
   function latestApprovalSignals(txs){
     const latest=new Map();
     for(const tx of txs||[]){
@@ -67,7 +92,7 @@
       else if(stableShare===0) add('info','No recognized stablecoin balance','No priced balance in the app’s recognized stablecoin set was found.',0);
     }
 
-    if((state.metrics?.txCount||0)>=10000) add('info','History coverage capped','Health analysis uses the explorer’s first 10,000 indexed normal transactions, so older/later approval evidence may be incomplete.',0);
+    if((state.metrics?.txCount||0)>=10000) add('info','History coverage capped','Health analysis uses the explorer’s first 10,000 indexed normal transactions, so approval evidence may be incomplete.',0);
 
     score=Math.max(0,Math.min(100,Math.round(score)));
     const level=score>=90?'Excellent':score>=75?'Good':score>=55?'Needs review':'High attention';
@@ -78,7 +103,7 @@
   function severityLabel(s){ return ({high:'High',medium:'Medium',low:'Low',good:'Good',info:'Info'})[s]||'Info'; }
 
   function renderWalletHealth(){
-    const root=document.getElementById('walletHealthCard');
+    const root=ensureUI();
     if(!root) return;
     const health=scoreWalletHealth();
     if(!health) return;
@@ -104,6 +129,7 @@
     if(status && status.textContent.startsWith('Loaded public Base data for ')) renderWalletHealth();
   }
 
+  ensureUI();
   const status=document.getElementById('status');
   if(status){ new MutationObserver(maybeRender).observe(status,{childList:true,characterData:true,subtree:true}); }
   window.addEventListener('load',maybeRender);
