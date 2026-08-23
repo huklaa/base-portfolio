@@ -33,6 +33,7 @@ jobs:
           node --check product-polish.js
           node --check compare.js
           node --check production-fixes.js
+          node --check wallet-health.js
           node -e "JSON.parse(require('fs').readFileSync('profile.schema.json','utf8')); console.log('profile schema JSON valid')"
       - name: Builder attribution tests
         run: node tests/builder-attribution.test.mjs
@@ -56,5 +57,7 @@ jobs:
         run: node tests/product-polish.test.mjs
       - name: Wallet comparison tests
         run: node tests/compare.test.mjs
+      - name: Wallet health tests
+        run: node tests/wallet-health.test.mjs
       - name: Deploy smoke tests
         run: node tests/deploy-smoke.test.mjs
