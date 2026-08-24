@@ -11,7 +11,7 @@ const CONCURRENCY = 6;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function getJSON(url, tries = 3) {
+async function getJSON(url, tries = 5) {
   let lastError;
   for (let attempt = 1; attempt <= tries; attempt++) {
     try {
@@ -21,11 +21,29 @@ async function getJSON(url, tries = 3) {
           'user-agent': 'base-portfolio-rank-indexer/1.0'
         }
       });
-      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+
+      if (!response.ok) {
+        const error = new Error(`${response.status} ${response.statusText}`);
+        error.status = response.status;
+        error.retryAfter = response.headers.get('retry-after');
+        throw error;
+      }
+
       return await response.json();
     } catch (error) {
       lastError = error;
-      if (attempt < tries) await sleep(500 * attempt);
+      if (attempt >= tries) break;
+
+      const status = Number(error?.status || 0);
+      const retryable = !status || status === 408 || status === 425 || status === 429 || status >= 500;
+      if (!retryable) break;
+
+      const retryAfterSeconds = Number(error?.retryAfter || 0);
+      const backoffMs = retryAfterSeconds > 0
+        ? retryAfterSeconds * 1000
+        : Math.min(8000, 750 * (2 ** (attempt - 1)));
+      console.warn(`Request failed (${error.message}); retrying in ${backoffMs}ms (${attempt}/${tries})`);
+      await sleep(backoffMs);
     }
   }
   throw lastError;
@@ -61,7 +79,15 @@ async function discoverActiveAddresses() {
     if (next) Object.entries(next).forEach(([key, value]) => url.searchParams.set(key, String(value)));
     else url.searchParams.set('items_count', String(PAGE_SIZE));
 
-    const payload = await getJSON(url.toString());
+    let payload;
+    try {
+      payload = await getJSON(url.toString());
+    } catch (error) {
+      if (!found.size) throw error;
+      console.warn(`Stopping discovery after ${page} completed page(s): ${error.message}`);
+      break;
+    }
+
     const items = Array.isArray(payload.items) ? payload.items : [];
     for (const tx of items) {
       addCandidate(found, tx.from, tx.block_number);
@@ -119,7 +145,18 @@ async function readExisting() {
 
 const existing = await readExisting();
 const byAddress = new Map((existing.wallets || []).map(wallet => [wallet.address.toLowerCase(), wallet]));
-const discovered = await discoverActiveAddresses();
+
+let discovered;
+try {
+  discovered = await discoverActiveAddresses();
+} catch (error) {
+  if (byAddress.size) {
+    console.warn(`Blockscout discovery unavailable; preserving existing rank index: ${error.message}`);
+    process.exit(0);
+  }
+  throw error;
+}
+
 const freshCandidates = discovered.filter(item => !byAddress.has(item.address)).slice(0, NEW_WALLETS_PER_RUN);
 const scored = await mapLimit(freshCandidates, CONCURRENCY, scoreAddress);
 
