@@ -11,7 +11,7 @@ const CONCURRENCY = 6;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function getJSON(url, tries = 3) {
+async function getJSON(url, tries = 5) {
   let lastError;
   for (let attempt = 1; attempt <= tries; attempt++) {
     try {
@@ -21,11 +21,26 @@ async function getJSON(url, tries = 3) {
           'user-agent': 'base-portfolio-rank-indexer/1.0'
         }
       });
-      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+
+      if (!response.ok) {
+        const error = new Error(`${response.status} ${response.statusText}`);
+        error.status = response.status;
+        error.retryAfter = Number(response.headers.get('retry-after') || 0);
+        throw error;
+      }
+
       return await response.json();
     } catch (error) {
       lastError = error;
-      if (attempt < tries) await sleep(500 * attempt);
+      const status = Number(error.status || 0);
+      const retryable = !status || status === 429 || status >= 500;
+      if (!retryable || attempt >= tries) break;
+
+      const retryAfterMs = Number(error.retryAfter || 0) * 1000;
+      const backoffMs = Math.min(8000, 750 * 2 ** (attempt - 1));
+      const delayMs = Math.max(retryAfterMs, backoffMs);
+      console.warn(`Blockscout request failed (${error.message}); retrying in ${delayMs}ms (${attempt}/${tries}).`);
+      await sleep(delayMs);
     }
   }
   throw lastError;
@@ -119,7 +134,22 @@ async function readExisting() {
 
 const existing = await readExisting();
 const byAddress = new Map((existing.wallets || []).map(wallet => [wallet.address.toLowerCase(), wallet]));
-const discovered = await discoverActiveAddresses();
+
+let discovered;
+try {
+  discovered = await discoverActiveAddresses();
+} catch (error) {
+  try {
+    await fs.access(OUT);
+  } catch {
+    throw new Error(`Blockscout discovery failed and there is no existing rank index to preserve: ${error.message}`);
+  }
+
+  console.warn(`Could not refresh active Base wallets: ${error.message}`);
+  console.warn('Keeping the existing Base rank index unchanged; a later scheduled run can refresh it.');
+  process.exit(0);
+}
+
 const freshCandidates = discovered.filter(item => !byAddress.has(item.address)).slice(0, NEW_WALLETS_PER_RUN);
 const scored = await mapLimit(freshCandidates, CONCURRENCY, scoreAddress);
 
