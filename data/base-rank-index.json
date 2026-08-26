@@ -1,19 +1,27 @@
 {
   "version": 1,
   "chainId": 8453,
-  "updatedAt": "2026-08-26T13:24:50.179Z",
-  "chainTotalAddresses": 993080935,
+  "updatedAt": "2026-08-26T20:12:06.807Z",
+  "chainTotalAddresses": 993233189,
   "methodology": "Active Base EOAs discovered from recent public Base transactions and scored from public Blockscout address counters.",
   "scoreFormula": "60% log-scaled transaction count + 40% log-scaled token-transfer count; capped at 100.",
-  "sampleSize": 2101,
+  "sampleSize": 2264,
   "wallets": [
     {
       "address": "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0001",
       "score": 100,
       "transactionsCount": 50113080,
       "tokenTransfersCount": 19748,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:34:00.127Z"
+    },
+    {
+      "address": "0xf70da97812cb96acdf810712aa562db8dfa3dbef",
+      "score": 100,
+      "transactionsCount": 17584877,
+      "tokenTransfersCount": 24750786,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.550Z"
     },
     {
       "address": "0x3304e22ddaa22bcdc5fca2269b418046ae7b566a",
@@ -28,7 +36,7 @@
       "score": 100,
       "transactionsCount": 6475974,
       "tokenTransfersCount": 10443,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T02:06:54.210Z"
     },
     {
@@ -44,7 +52,7 @@
       "score": 100,
       "transactionsCount": 5944524,
       "tokenTransfersCount": 2206754,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T13:09:30.519Z"
     },
     {
@@ -52,7 +60,7 @@
       "score": 100,
       "transactionsCount": 4857422,
       "tokenTransfersCount": 10275,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:54:32.136Z"
     },
     {
@@ -60,7 +68,7 @@
       "score": 100,
       "transactionsCount": 4013842,
       "tokenTransfersCount": 12808,
-      "lastSeenBlock": 50360823,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T18:56:40.976Z"
     },
     {
@@ -92,7 +100,7 @@
       "score": 100,
       "transactionsCount": 2339457,
       "tokenTransfersCount": 2133338,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T02:05:57.645Z"
     },
     {
@@ -156,7 +164,7 @@
       "score": 100,
       "transactionsCount": 744804,
       "tokenTransfersCount": 457804,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:54:02.701Z"
     },
     {
@@ -164,7 +172,7 @@
       "score": 100,
       "transactionsCount": 741333,
       "tokenTransfersCount": 456804,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:43.472Z"
     },
     {
@@ -212,7 +220,7 @@
       "score": 100,
       "transactionsCount": 604954,
       "tokenTransfersCount": 362814,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:53:30.087Z"
     },
     {
@@ -248,6 +256,14 @@
       "indexedAt": "2026-08-23T07:11:41.768Z"
     },
     {
+      "address": "0x18dd3c14e34c1bc379f7538068c59160d9f68e25",
+      "score": 100,
+      "transactionsCount": 462393,
+      "tokenTransfersCount": 26837,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.937Z"
+    },
+    {
       "address": "0xca7ded7e4f4ba8ab3b10009236ae6d1b95094589",
       "score": 100,
       "transactionsCount": 456097,
@@ -268,7 +284,7 @@
       "score": 100,
       "transactionsCount": 451492,
       "tokenTransfersCount": 26223,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-25T19:08:42.800Z"
     },
     {
@@ -284,7 +300,7 @@
       "score": 100,
       "transactionsCount": 450609,
       "tokenTransfersCount": 27243,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-23T07:11:28.731Z"
     },
     {
@@ -356,7 +372,7 @@
       "score": 100,
       "transactionsCount": 427654,
       "tokenTransfersCount": 20065,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-24T10:08:13.469Z"
     },
     {
@@ -408,11 +424,19 @@
       "indexedAt": "2026-08-23T13:09:26.663Z"
     },
     {
+      "address": "0x89a751c5d4be1d14d7a34563b55366ae898c659c",
+      "score": 100,
+      "transactionsCount": 282195,
+      "tokenTransfersCount": 260542,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.408Z"
+    },
+    {
       "address": "0x04d9634df20aa66b23f114d37c45fa6c6ab76d56",
       "score": 100,
       "transactionsCount": 258320,
       "tokenTransfersCount": 108493,
-      "lastSeenBlock": 50388086,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T10:07:49.079Z"
     },
     {
@@ -452,7 +476,7 @@
       "score": 100,
       "transactionsCount": 200078,
       "tokenTransfersCount": 300770,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-24T10:05:00.736Z"
     },
     {
@@ -488,6 +512,14 @@
       "indexedAt": "2026-08-24T13:21:26.622Z"
     },
     {
+      "address": "0xe3157fc487c8d17bc4e7dc09c8186df657f682e7",
+      "score": 100,
+      "transactionsCount": 185380,
+      "tokenTransfersCount": 185338,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.374Z"
+    },
+    {
       "address": "0x8e4d55e71ce5d850a42985d45d7b7d03983b93a4",
       "score": 100,
       "transactionsCount": 176852,
@@ -512,6 +544,14 @@
       "indexedAt": "2026-08-23T02:06:03.692Z"
     },
     {
+      "address": "0xd48c780b3c48d7bb43cb69dc179d62726f798e50",
+      "score": 100,
+      "transactionsCount": 153463,
+      "tokenTransfersCount": 295452,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.538Z"
+    },
+    {
       "address": "0x732ddfa076f7f19832bdde8f2c89c13466b6178b",
       "score": 100,
       "transactionsCount": 143708,
@@ -520,12 +560,28 @@
       "indexedAt": "2026-08-23T18:56:24.012Z"
     },
     {
+      "address": "0x514517e8a393cfd317b1a7a7b0f7edacaa49df68",
+      "score": 100,
+      "transactionsCount": 137150,
+      "tokenTransfersCount": 494922,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.000Z"
+    },
+    {
       "address": "0x1d7f97d26ae2c01f9b01fc252b73cf0db3397e95",
       "score": 100,
       "transactionsCount": 131370,
       "tokenTransfersCount": 143519,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:53:30.027Z"
+    },
+    {
+      "address": "0x2c28e931a47b4cebb4c3ce8e927d54f3e2bdefa7",
+      "score": 100,
+      "transactionsCount": 127755,
+      "tokenTransfersCount": 11475,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.371Z"
     },
     {
       "address": "0x1887fa9edadeab7562b01cc3f4fa246ace2c3cdd",
@@ -696,6 +752,14 @@
       "indexedAt": "2026-08-23T02:05:55.386Z"
     },
     {
+      "address": "0x1b52482b3036589051dc74836a213dc3b445395f",
+      "score": 100,
+      "transactionsCount": 34989,
+      "tokenTransfersCount": 337518,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.356Z"
+    },
+    {
       "address": "0xb9d0ac4131e70a54a4fe9ab19251094749e80d0a",
       "score": 100,
       "transactionsCount": 29114,
@@ -764,7 +828,7 @@
       "score": 100,
       "transactionsCount": 20969,
       "tokenTransfersCount": 57606,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-26T13:24:01.886Z"
     },
     {
@@ -800,6 +864,14 @@
       "indexedAt": "2026-08-23T02:05:59.379Z"
     },
     {
+      "address": "0xc06ebbefd94032b85424d51906e2a335efae264b",
+      "score": 100,
+      "transactionsCount": 18203,
+      "tokenTransfersCount": 1485141,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:47.973Z"
+    },
+    {
       "address": "0x0931a91e4f537dc1ffe6f87bcbc36ef678348930",
       "score": 100,
       "transactionsCount": 17694,
@@ -832,6 +904,22 @@
       "indexedAt": "2026-08-26T02:02:51.813Z"
     },
     {
+      "address": "0xa9c16673f65ae808688cb18952afe3d9658c808f",
+      "score": 100,
+      "transactionsCount": 16159,
+      "tokenTransfersCount": 20056,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.724Z"
+    },
+    {
+      "address": "0x1d1f3206e671fd2a67c943d93163e6bddfb4262f",
+      "score": 100,
+      "transactionsCount": 14282,
+      "tokenTransfersCount": 212834,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.275Z"
+    },
+    {
       "address": "0xf8191d98ae98d2f7abdfb63a9b0b812b93c873aa",
       "score": 100,
       "transactionsCount": 14210,
@@ -856,6 +944,14 @@
       "indexedAt": "2026-08-23T13:09:32.085Z"
     },
     {
+      "address": "0x5dd1eb898cb24e00a0575d95afcb4f2d22410f9a",
+      "score": 100,
+      "transactionsCount": 12470,
+      "tokenTransfersCount": 186260,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.483Z"
+    },
+    {
       "address": "0x1bd53edb201d14ba8580325f8ec4274d84136e64",
       "score": 100,
       "transactionsCount": 11965,
@@ -868,7 +964,7 @@
       "score": 100,
       "transactionsCount": 11941,
       "tokenTransfersCount": 9121,
-      "lastSeenBlock": 50388086,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T10:08:30.169Z"
     },
     {
@@ -916,7 +1012,7 @@
       "score": 99,
       "transactionsCount": 5883323,
       "tokenTransfersCount": 8703,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:53:35.082Z"
     },
     {
@@ -932,7 +1028,7 @@
       "score": 99,
       "transactionsCount": 5150102,
       "tokenTransfersCount": 7880,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:34:10.315Z"
     },
     {
@@ -950,6 +1046,14 @@
       "tokenTransfersCount": 9725,
       "lastSeenBlock": 50393981,
       "indexedAt": "2026-08-24T13:21:37.494Z"
+    },
+    {
+      "address": "0x1068d052a3394012ea34fd1e2824997e0870da25",
+      "score": 99,
+      "transactionsCount": 8892,
+      "tokenTransfersCount": 26734,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.911Z"
     },
     {
       "address": "0x86b069488de3a089648830964213f7fc2668f72c",
@@ -1040,6 +1144,14 @@
       "indexedAt": "2026-08-23T02:06:16.656Z"
     },
     {
+      "address": "0x4337004ec9c1417f1c7a26ebd4b4fbed6acf9e5d",
+      "score": 96,
+      "transactionsCount": 518454,
+      "tokenTransfersCount": 4000,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.946Z"
+    },
+    {
       "address": "0x433700890211c1c776c391d414cffd38efdd1811",
       "score": 96,
       "transactionsCount": 518072,
@@ -1052,7 +1164,7 @@
       "score": 96,
       "transactionsCount": 517111,
       "tokenTransfersCount": 3861,
-      "lastSeenBlock": 50330562,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T02:06:13.581Z"
     },
     {
@@ -1076,7 +1188,7 @@
       "score": 96,
       "transactionsCount": 514965,
       "tokenTransfersCount": 3956,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:42.962Z"
     },
     {
@@ -1084,8 +1196,16 @@
       "score": 96,
       "transactionsCount": 511410,
       "tokenTransfersCount": 3998,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T10:06:23.217Z"
+    },
+    {
+      "address": "0x43370108f30ee5ed54a9565f37af3be8502903f5",
+      "score": 96,
+      "transactionsCount": 510435,
+      "tokenTransfersCount": 3877,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:47.141Z"
     },
     {
       "address": "0x433702873e33d4846d399a75aaf96eacf181d0b2",
@@ -1100,7 +1220,7 @@
       "score": 96,
       "transactionsCount": 267032,
       "tokenTransfersCount": 3797,
-      "lastSeenBlock": 50350459,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T13:09:39.551Z"
     },
     {
@@ -1148,7 +1268,7 @@
       "score": 96,
       "transactionsCount": 263985,
       "tokenTransfersCount": 3612,
-      "lastSeenBlock": 50320804,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T20:48:00.543Z"
     },
     {
@@ -1156,7 +1276,7 @@
       "score": 96,
       "transactionsCount": 263501,
       "tokenTransfersCount": 3681,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-24T13:21:37.144Z"
     },
     {
@@ -1198,6 +1318,14 @@
       "tokenTransfersCount": 3674,
       "lastSeenBlock": 50393981,
       "indexedAt": "2026-08-23T13:09:25.759Z"
+    },
+    {
+      "address": "0x4337041d8047569945950ec533e3f1af96d7be70",
+      "score": 96,
+      "transactionsCount": 257267,
+      "tokenTransfersCount": 3620,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:51.742Z"
     },
     {
       "address": "0x433702948d7be4201a2bcee6c349ad807c547a5d",
@@ -1252,7 +1380,7 @@
       "score": 95,
       "transactionsCount": 982253,
       "tokenTransfersCount": 2885,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-24T13:21:25.421Z"
     },
     {
@@ -1292,7 +1420,7 @@
       "score": 95,
       "transactionsCount": 249993,
       "tokenTransfersCount": 3449,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T18:56:37.186Z"
     },
     {
@@ -1364,7 +1492,7 @@
       "score": 95,
       "transactionsCount": 235074,
       "tokenTransfersCount": 3452,
-      "lastSeenBlock": 50339650,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T07:11:30.510Z"
     },
     {
@@ -1372,7 +1500,7 @@
       "score": 95,
       "transactionsCount": 231776,
       "tokenTransfersCount": 3443,
-      "lastSeenBlock": 50319311,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-22T19:54:03.148Z"
     },
     {
@@ -1406,6 +1534,14 @@
       "tokenTransfersCount": 2973,
       "lastSeenBlock": 50469425,
       "indexedAt": "2026-08-26T07:15:58.981Z"
+    },
+    {
+      "address": "0x07a9019541cad3c45b60c468339ca35d5a398867",
+      "score": 95,
+      "transactionsCount": 4806,
+      "tokenTransfersCount": 11749,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.720Z"
     },
     {
       "address": "0x27b4afbd88fe7c88c6897bb0b4ade338d0401e37",
@@ -1448,6 +1584,14 @@
       "indexedAt": "2026-08-23T07:11:22.402Z"
     },
     {
+      "address": "0x43370648aa914e8d3c0cf1c10b00f2a636ab6c92",
+      "score": 94,
+      "transactionsCount": 139811,
+      "tokenTransfersCount": 2536,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.938Z"
+    },
+    {
       "address": "0xfec0507a38a61497a79fb3874d02a1869d1cc394",
       "score": 94,
       "transactionsCount": 9301,
@@ -1462,6 +1606,14 @@
       "tokenTransfersCount": 6676,
       "lastSeenBlock": 50319312,
       "indexedAt": "2026-08-22T19:53:31.972Z"
+    },
+    {
+      "address": "0xdc06e1ca127656fbe0e696a818dd82e60be80a4d",
+      "score": 94,
+      "transactionsCount": 3943,
+      "tokenTransfersCount": 10108,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:47.513Z"
     },
     {
       "address": "0x63f164167d6efe31418a812548b8db2d29d839e7",
@@ -1528,6 +1680,14 @@
       "indexedAt": "2026-08-24T13:21:25.961Z"
     },
     {
+      "address": "0x1a3492383d4feedc371da4cf1fa3057919c232c1",
+      "score": 93,
+      "transactionsCount": 9356,
+      "tokenTransfersCount": 2135,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.160Z"
+    },
+    {
       "address": "0xed7ef1a80f85c4e1feff8ba28e30a6276f1263a6",
       "score": 93,
       "transactionsCount": 9333,
@@ -1564,7 +1724,7 @@
       "score": 92,
       "transactionsCount": 19699813,
       "tokenTransfersCount": 1514,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.738Z"
     },
     {
@@ -1588,7 +1748,7 @@
       "score": 92,
       "transactionsCount": 7590565,
       "tokenTransfersCount": 1458,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:57.057Z"
     },
     {
@@ -1612,7 +1772,7 @@
       "score": 92,
       "transactionsCount": 5510099,
       "tokenTransfersCount": 1482,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T13:21:33.044Z"
     },
     {
@@ -1620,7 +1780,7 @@
       "score": 92,
       "transactionsCount": 5280103,
       "tokenTransfersCount": 1430,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T13:21:29.856Z"
     },
     {
@@ -1668,7 +1828,7 @@
       "score": 92,
       "transactionsCount": 3051858,
       "tokenTransfersCount": 1462,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T07:11:25.010Z"
     },
     {
@@ -1676,7 +1836,7 @@
       "score": 92,
       "transactionsCount": 3051287,
       "tokenTransfersCount": 1455,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-23T07:11:34.484Z"
     },
     {
@@ -1708,7 +1868,7 @@
       "score": 92,
       "transactionsCount": 2092075,
       "tokenTransfersCount": 1434,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-23T02:06:19.405Z"
     },
     {
@@ -1740,7 +1900,7 @@
       "score": 92,
       "transactionsCount": 1708899,
       "tokenTransfersCount": 1501,
-      "lastSeenBlock": 50350461,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:44.631Z"
     },
     {
@@ -1764,7 +1924,7 @@
       "score": 92,
       "transactionsCount": 1316101,
       "tokenTransfersCount": 1487,
-      "lastSeenBlock": 50360825,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T02:05:58.188Z"
     },
     {
@@ -1844,7 +2004,7 @@
       "score": 92,
       "transactionsCount": 811587,
       "tokenTransfersCount": 1493,
-      "lastSeenBlock": 50350459,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T13:09:35.866Z"
     },
     {
@@ -1940,7 +2100,7 @@
       "score": 91,
       "transactionsCount": 19065091,
       "tokenTransfersCount": 1289,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.750Z"
     },
     {
@@ -1948,7 +2108,7 @@
       "score": 91,
       "transactionsCount": 18797024,
       "tokenTransfersCount": 1349,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:40.144Z"
     },
     {
@@ -1956,7 +2116,7 @@
       "score": 91,
       "transactionsCount": 18193045,
       "tokenTransfersCount": 1129,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.852Z"
     },
     {
@@ -1964,7 +2124,7 @@
       "score": 91,
       "transactionsCount": 17327762,
       "tokenTransfersCount": 1122,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:40.048Z"
     },
     {
@@ -1980,7 +2140,7 @@
       "score": 91,
       "transactionsCount": 6804076,
       "tokenTransfersCount": 1277,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.125Z"
     },
     {
@@ -1988,7 +2148,7 @@
       "score": 91,
       "transactionsCount": 3749188,
       "tokenTransfersCount": 1157,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:46.085Z"
     },
     {
@@ -2004,7 +2164,7 @@
       "score": 91,
       "transactionsCount": 3013641,
       "tokenTransfersCount": 1368,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:40.586Z"
     },
     {
@@ -2012,7 +2172,7 @@
       "score": 91,
       "transactionsCount": 2963484,
       "tokenTransfersCount": 1406,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T02:06:20.911Z"
     },
     {
@@ -2020,7 +2180,7 @@
       "score": 91,
       "transactionsCount": 2886182,
       "tokenTransfersCount": 1280,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-22T19:53:29.218Z"
     },
     {
@@ -2028,7 +2188,7 @@
       "score": 91,
       "transactionsCount": 2868262,
       "tokenTransfersCount": 1178,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T02:05:57.660Z"
     },
     {
@@ -2052,7 +2212,7 @@
       "score": 91,
       "transactionsCount": 2292417,
       "tokenTransfersCount": 1279,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T20:44:54.908Z"
     },
     {
@@ -2100,7 +2260,7 @@
       "score": 91,
       "transactionsCount": 2078080,
       "tokenTransfersCount": 1381,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T18:56:25.747Z"
     },
     {
@@ -2108,7 +2268,7 @@
       "score": 91,
       "transactionsCount": 2069572,
       "tokenTransfersCount": 1356,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T20:45:27.183Z"
     },
     {
@@ -2116,7 +2276,7 @@
       "score": 91,
       "transactionsCount": 2066971,
       "tokenTransfersCount": 1365,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T20:45:58.830Z"
     },
     {
@@ -2156,7 +2316,7 @@
       "score": 91,
       "transactionsCount": 1846999,
       "tokenTransfersCount": 1195,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:34:06.600Z"
     },
     {
@@ -2168,11 +2328,19 @@
       "indexedAt": "2026-08-26T02:02:34.004Z"
     },
     {
+      "address": "0x82f4654c7e88f5d41680cafc7c1875440bf80f9d",
+      "score": 91,
+      "transactionsCount": 1597162,
+      "tokenTransfersCount": 1164,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:51.606Z"
+    },
+    {
       "address": "0x0ce8498e57bdf1d2ab2c69115a12d5f92f4482c4",
       "score": 91,
       "transactionsCount": 1483358,
       "tokenTransfersCount": 1361,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-23T18:56:22.468Z"
     },
     {
@@ -2188,7 +2356,7 @@
       "score": 91,
       "transactionsCount": 1409050,
       "tokenTransfersCount": 1322,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T20:46:46.606Z"
     },
     {
@@ -2204,7 +2372,7 @@
       "score": 91,
       "transactionsCount": 1347052,
       "tokenTransfersCount": 1345,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T20:44:58.721Z"
     },
     {
@@ -2220,7 +2388,7 @@
       "score": 91,
       "transactionsCount": 1283804,
       "tokenTransfersCount": 1141,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:39.190Z"
     },
     {
@@ -2228,8 +2396,16 @@
       "score": 91,
       "transactionsCount": 1264411,
       "tokenTransfersCount": 1292,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:33:58.872Z"
+    },
+    {
+      "address": "0x0904c4bd255af4305507a53167c5632d9473cce8",
+      "score": 91,
+      "transactionsCount": 1260844,
+      "tokenTransfersCount": 1373,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.092Z"
     },
     {
       "address": "0x3d5a6feb67954324659e0f18f15b1d807c7687d4",
@@ -2240,6 +2416,14 @@
       "indexedAt": "2026-08-23T13:09:25.497Z"
     },
     {
+      "address": "0xc119931019304f3fd3008970be3c35ac6be18fda",
+      "score": 91,
+      "transactionsCount": 1254534,
+      "tokenTransfersCount": 1252,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.188Z"
+    },
+    {
       "address": "0xdeecfb36e84a8d8cdb15448b263ecb7cf00d1cbc",
       "score": 91,
       "transactionsCount": 1216252,
@@ -2248,11 +2432,19 @@
       "indexedAt": "2026-08-22T19:53:48.368Z"
     },
     {
+      "address": "0x03edaf2426d30433ea4ec694c0a22f49fe3c42dc",
+      "score": 91,
+      "transactionsCount": 1203425,
+      "tokenTransfersCount": 1296,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.734Z"
+    },
+    {
       "address": "0x11090acf3da8fea96c4e17ed6aa50ea865e9ba61",
       "score": 91,
       "transactionsCount": 1171326,
       "tokenTransfersCount": 1272,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:53:48.107Z"
     },
     {
@@ -2260,7 +2452,7 @@
       "score": 91,
       "transactionsCount": 1113020,
       "tokenTransfersCount": 1191,
-      "lastSeenBlock": 50360823,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T18:56:44.506Z"
     },
     {
@@ -2276,7 +2468,7 @@
       "score": 91,
       "transactionsCount": 946438,
       "tokenTransfersCount": 1360,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-25T13:16:07.523Z"
     },
     {
@@ -2294,6 +2486,14 @@
       "tokenTransfersCount": 1392,
       "lastSeenBlock": 50393982,
       "indexedAt": "2026-08-24T13:21:18.905Z"
+    },
+    {
+      "address": "0x64d03ba329beb12f2f49123fcc0193832dfcc9ae",
+      "score": 91,
+      "transactionsCount": 903404,
+      "tokenTransfersCount": 1123,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.152Z"
     },
     {
       "address": "0xe19635704ae3b77bc993358ff515d10cceae0ce1",
@@ -2364,7 +2564,7 @@
       "score": 91,
       "transactionsCount": 646355,
       "tokenTransfersCount": 1296,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-26T07:15:30.258Z"
     },
     {
@@ -2380,7 +2580,7 @@
       "score": 91,
       "transactionsCount": 642963,
       "tokenTransfersCount": 1244,
-      "lastSeenBlock": 50360826,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:59.914Z"
     },
     {
@@ -2416,11 +2616,19 @@
       "indexedAt": "2026-08-24T13:21:32.660Z"
     },
     {
+      "address": "0x4ab6e6ce2c95cf2a1468295bf83d140df4022508",
+      "score": 91,
+      "transactionsCount": 639773,
+      "tokenTransfersCount": 1217,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.512Z"
+    },
+    {
       "address": "0xbee00faa44f720e43ac3ab67f33ee5e960d88357",
       "score": 91,
       "transactionsCount": 622981,
       "tokenTransfersCount": 1140,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-22T20:44:54.841Z"
     },
     {
@@ -2428,7 +2636,7 @@
       "score": 91,
       "transactionsCount": 622153,
       "tokenTransfersCount": 1211,
-      "lastSeenBlock": 50360826,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T18:56:24.749Z"
     },
     {
@@ -2460,7 +2668,7 @@
       "score": 91,
       "transactionsCount": 540511,
       "tokenTransfersCount": 1383,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T10:04:54.215Z"
     },
     {
@@ -2470,6 +2678,14 @@
       "tokenTransfersCount": 1175,
       "lastSeenBlock": 50360826,
       "indexedAt": "2026-08-23T02:06:14.667Z"
+    },
+    {
+      "address": "0x7b5cb95e372246b074e5e17d58e98bef46897b9a",
+      "score": 91,
+      "transactionsCount": 498906,
+      "tokenTransfersCount": 1252,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:11:59.980Z"
     },
     {
       "address": "0x4e4995d4c89e85bcfa8f6edc9e60807cdc9c6b02",
@@ -2508,8 +2724,16 @@
       "score": 91,
       "transactionsCount": 411931,
       "tokenTransfersCount": 1157,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-26T13:24:00.776Z"
+    },
+    {
+      "address": "0x49b38424d3bef76c6b310305ffa0a6ec182b348b",
+      "score": 91,
+      "transactionsCount": 398064,
+      "tokenTransfersCount": 1227,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:11:59.661Z"
     },
     {
       "address": "0x8121003eb12a97900d1e84097f864420a9a95923",
@@ -2548,7 +2772,7 @@
       "score": 91,
       "transactionsCount": 380818,
       "tokenTransfersCount": 1254,
-      "lastSeenBlock": 50437087,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T07:11:19.770Z"
     },
     {
@@ -2556,7 +2780,7 @@
       "score": 91,
       "transactionsCount": 376805,
       "tokenTransfersCount": 1205,
-      "lastSeenBlock": 50360823,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.039Z"
     },
     {
@@ -2580,7 +2804,7 @@
       "score": 91,
       "transactionsCount": 368964,
       "tokenTransfersCount": 1160,
-      "lastSeenBlock": 50339649,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-22T19:53:34.420Z"
     },
     {
@@ -2598,6 +2822,14 @@
       "tokenTransfersCount": 1128,
       "lastSeenBlock": 50426219,
       "indexedAt": "2026-08-23T02:06:50.521Z"
+    },
+    {
+      "address": "0x2ff77cd44ccd4eb7d0b51800cddc8512085ec6dc",
+      "score": 91,
+      "transactionsCount": 257023,
+      "tokenTransfersCount": 1133,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:58.135Z"
     },
     {
       "address": "0x446491048f3258d5a1062f47830741985c43fbaf",
@@ -2622,6 +2854,14 @@
       "tokenTransfersCount": 1258,
       "lastSeenBlock": 50388087,
       "indexedAt": "2026-08-24T10:05:09.133Z"
+    },
+    {
+      "address": "0xcf57bfbc6e4acda88147634148ab17cbbe875ee4",
+      "score": 91,
+      "transactionsCount": 82863,
+      "tokenTransfersCount": 1160,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.246Z"
     },
     {
       "address": "0x668001289b9da5a23840a6d4fa195d977f23bb3b",
@@ -2660,7 +2900,7 @@
       "score": 90,
       "transactionsCount": 12319158,
       "tokenTransfersCount": 1061,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.496Z"
     },
     {
@@ -2668,7 +2908,7 @@
       "score": 90,
       "transactionsCount": 8919663,
       "tokenTransfersCount": 1117,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:41.649Z"
     },
     {
@@ -2676,7 +2916,7 @@
       "score": 90,
       "transactionsCount": 7040477,
       "tokenTransfersCount": 940,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.398Z"
     },
     {
@@ -2684,7 +2924,7 @@
       "score": 90,
       "transactionsCount": 4307472,
       "tokenTransfersCount": 1042,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T13:09:25.284Z"
     },
     {
@@ -2692,7 +2932,7 @@
       "score": 90,
       "transactionsCount": 2601248,
       "tokenTransfersCount": 1019,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:34:06.461Z"
     },
     {
@@ -2820,7 +3060,7 @@
       "score": 90,
       "transactionsCount": 1738961,
       "tokenTransfersCount": 1013,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T02:05:56.657Z"
     },
     {
@@ -2868,7 +3108,7 @@
       "score": 90,
       "transactionsCount": 1384757,
       "tokenTransfersCount": 915,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:56:09.437Z"
     },
     {
@@ -2876,7 +3116,7 @@
       "score": 90,
       "transactionsCount": 1384615,
       "tokenTransfersCount": 907,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T02:06:51.244Z"
     },
     {
@@ -2900,7 +3140,7 @@
       "score": 90,
       "transactionsCount": 1207192,
       "tokenTransfersCount": 1012,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T13:21:20.964Z"
     },
     {
@@ -2908,8 +3148,16 @@
       "score": 90,
       "transactionsCount": 1202032,
       "tokenTransfersCount": 980,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:53:29.279Z"
+    },
+    {
+      "address": "0x33f65908bb298d01b1ee9c980e447f2c908fdfe5",
+      "score": 90,
+      "transactionsCount": 1198283,
+      "tokenTransfersCount": 1035,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:55.681Z"
     },
     {
       "address": "0x211d98242e4c58e9eb17e3cc135a165bd59dd172",
@@ -2924,7 +3172,7 @@
       "score": 90,
       "transactionsCount": 1003218,
       "tokenTransfersCount": 1071,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T19:10:44.103Z"
     },
     {
@@ -2932,7 +3180,7 @@
       "score": 90,
       "transactionsCount": 906897,
       "tokenTransfersCount": 892,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T13:21:27.260Z"
     },
     {
@@ -2980,7 +3228,7 @@
       "score": 90,
       "transactionsCount": 505624,
       "tokenTransfersCount": 995,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T07:11:35.047Z"
     },
     {
@@ -3016,12 +3264,28 @@
       "indexedAt": "2026-08-22T19:33:46.153Z"
     },
     {
+      "address": "0x94ed20c2bbabc8459cf905e8c648c73408fc1c53",
+      "score": 90,
+      "transactionsCount": 367549,
+      "tokenTransfersCount": 1116,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.210Z"
+    },
+    {
       "address": "0xd8354b287ea0f1449fbd0e8e19c27586f83b1677",
       "score": 90,
       "transactionsCount": 366716,
       "tokenTransfersCount": 1118,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-23T13:09:36.525Z"
+    },
+    {
+      "address": "0x560689d93f0e4f5863feb51c1a02bd66a5a9a9b0",
+      "score": 90,
+      "transactionsCount": 366217,
+      "tokenTransfersCount": 953,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.325Z"
     },
     {
       "address": "0xbcb2f3d435e63f24ac15caaaa08734a5258413cf",
@@ -3144,6 +3408,14 @@
       "indexedAt": "2026-08-23T07:11:25.596Z"
     },
     {
+      "address": "0xc7ad319cee0d92b607d07fa9847cbde08fff4528",
+      "score": 90,
+      "transactionsCount": 8390,
+      "tokenTransfersCount": 1439,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.612Z"
+    },
+    {
       "address": "0xd7a4c486ace2209f8e3e40d292a1056ae94e9b26",
       "score": 90,
       "transactionsCount": 6989,
@@ -3176,6 +3448,14 @@
       "indexedAt": "2026-08-23T13:09:28.651Z"
     },
     {
+      "address": "0xb7cef0cbc7bfba22c953c49f0192415fcd1ea062",
+      "score": 90,
+      "transactionsCount": 6242,
+      "tokenTransfersCount": 1875,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.159Z"
+    },
+    {
       "address": "0x4d43154bb2f6c8201603bbd13125d559190b5ecd",
       "score": 90,
       "transactionsCount": 6233,
@@ -3192,6 +3472,14 @@
       "indexedAt": "2026-08-23T18:56:29.038Z"
     },
     {
+      "address": "0xe0ddb32f95b2ef013f38bdeced134fb622209b2b",
+      "score": 90,
+      "transactionsCount": 6059,
+      "tokenTransfersCount": 2110,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:01.500Z"
+    },
+    {
       "address": "0x81cb7a3b214af3c397575d175c29dc5b92211895",
       "score": 90,
       "transactionsCount": 3826,
@@ -3204,7 +3492,7 @@
       "score": 89,
       "transactionsCount": 10650004,
       "tokenTransfersCount": 888,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.556Z"
     },
     {
@@ -3244,7 +3532,7 @@
       "score": 89,
       "transactionsCount": 3202822,
       "tokenTransfersCount": 735,
-      "lastSeenBlock": 50339650,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T20:47:29.935Z"
     },
     {
@@ -3252,7 +3540,7 @@
       "score": 89,
       "transactionsCount": 3175772,
       "tokenTransfersCount": 761,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T02:06:36.562Z"
     },
     {
@@ -3388,7 +3676,7 @@
       "score": 89,
       "transactionsCount": 1431071,
       "tokenTransfersCount": 873,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:53:41.119Z"
     },
     {
@@ -3412,7 +3700,7 @@
       "score": 89,
       "transactionsCount": 1382540,
       "tokenTransfersCount": 878,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-22T19:33:42.925Z"
     },
     {
@@ -3480,11 +3768,35 @@
       "indexedAt": "2026-08-24T13:22:07.872Z"
     },
     {
+      "address": "0xf01bc37de1409dd845b2bd0d5ffe243d34317d20",
+      "score": 89,
+      "transactionsCount": 691263,
+      "tokenTransfersCount": 825,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:47.632Z"
+    },
+    {
+      "address": "0x71a9820eebf9e9058af26623343125f1639de52e",
+      "score": 89,
+      "transactionsCount": 690700,
+      "tokenTransfersCount": 864,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.278Z"
+    },
+    {
+      "address": "0xf2e5bee447d8a8173ac60153b439875e2057e5de",
+      "score": 89,
+      "transactionsCount": 689770,
+      "tokenTransfersCount": 832,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.218Z"
+    },
+    {
       "address": "0x48c9ea00b628afa7425de96a1714998bca6e3bbe",
       "score": 89,
       "transactionsCount": 677083,
       "tokenTransfersCount": 814,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:53:53.130Z"
     },
     {
@@ -3492,7 +3804,7 @@
       "score": 89,
       "transactionsCount": 660774,
       "tokenTransfersCount": 818,
-      "lastSeenBlock": 50318855,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:54.847Z"
     },
     {
@@ -3516,7 +3828,7 @@
       "score": 89,
       "transactionsCount": 574987,
       "tokenTransfersCount": 739,
-      "lastSeenBlock": 50388086,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:53:54.737Z"
     },
     {
@@ -3540,7 +3852,7 @@
       "score": 89,
       "transactionsCount": 548683,
       "tokenTransfersCount": 797,
-      "lastSeenBlock": 50388086,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T18:56:33.021Z"
     },
     {
@@ -3548,7 +3860,7 @@
       "score": 89,
       "transactionsCount": 415958,
       "tokenTransfersCount": 728,
-      "lastSeenBlock": 50318855,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:33:43.435Z"
     },
     {
@@ -3580,8 +3892,16 @@
       "score": 89,
       "transactionsCount": 328297,
       "tokenTransfersCount": 809,
-      "lastSeenBlock": 50388085,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T07:11:36.163Z"
+    },
+    {
+      "address": "0x8a2aa5dfa43a75608da2d552ae8eae728cd11a39",
+      "score": 89,
+      "transactionsCount": 314863,
+      "tokenTransfersCount": 767,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:47.578Z"
     },
     {
       "address": "0xc191378159dc8b480d4714bb0eb156574a83a812",
@@ -3612,7 +3932,7 @@
       "score": 89,
       "transactionsCount": 277429,
       "tokenTransfersCount": 812,
-      "lastSeenBlock": 50320804,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:47.592Z"
     },
     {
@@ -3660,7 +3980,7 @@
       "score": 89,
       "transactionsCount": 265609,
       "tokenTransfersCount": 740,
-      "lastSeenBlock": 50388086,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T07:11:22.571Z"
     },
     {
@@ -3668,7 +3988,7 @@
       "score": 89,
       "transactionsCount": 254884,
       "tokenTransfersCount": 852,
-      "lastSeenBlock": 50350461,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T13:09:32.469Z"
     },
     {
@@ -3676,7 +3996,7 @@
       "score": 89,
       "transactionsCount": 250357,
       "tokenTransfersCount": 793,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:59.464Z"
     },
     {
@@ -3828,8 +4148,24 @@
       "score": 89,
       "transactionsCount": 60807,
       "tokenTransfersCount": 786,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T13:09:33.112Z"
+    },
+    {
+      "address": "0xa595e66fe3fd3d845c407246a522c52d19680072",
+      "score": 89,
+      "transactionsCount": 54138,
+      "tokenTransfersCount": 750,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.813Z"
+    },
+    {
+      "address": "0xf8a319bcd9fff599c191f30eb7b2c876067cb2ad",
+      "score": 89,
+      "transactionsCount": 35565,
+      "tokenTransfersCount": 725,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.066Z"
     },
     {
       "address": "0x2fb0e918833551e8ca0cdafb3467b6e5c570a5b1",
@@ -3854,6 +4190,14 @@
       "tokenTransfersCount": 1781,
       "lastSeenBlock": 50350462,
       "indexedAt": "2026-08-23T13:09:25.189Z"
+    },
+    {
+      "address": "0x03a8aa58e53aaeb41a8ffac26a498d79a706c523",
+      "score": 89,
+      "transactionsCount": 2855,
+      "tokenTransfersCount": 5034,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.303Z"
     },
     {
       "address": "0x4748b7a94efc35574805be19cd7088ce87c0dc0c",
@@ -3908,7 +4252,7 @@
       "score": 88,
       "transactionsCount": 1563868,
       "tokenTransfersCount": 639,
-      "lastSeenBlock": 50360824,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:53:38.261Z"
     },
     {
@@ -3940,7 +4284,7 @@
       "score": 88,
       "transactionsCount": 518457,
       "tokenTransfersCount": 690,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:53:40.063Z"
     },
     {
@@ -3988,7 +4332,7 @@
       "score": 88,
       "transactionsCount": 371698,
       "tokenTransfersCount": 663,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-24T10:04:53.453Z"
     },
     {
@@ -3996,7 +4340,7 @@
       "score": 88,
       "transactionsCount": 345911,
       "tokenTransfersCount": 660,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T19:12:45.681Z"
     },
     {
@@ -4068,7 +4412,7 @@
       "score": 88,
       "transactionsCount": 188556,
       "tokenTransfersCount": 601,
-      "lastSeenBlock": 50339650,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T07:11:30.813Z"
     },
     {
@@ -4132,7 +4476,7 @@
       "score": 88,
       "transactionsCount": 147429,
       "tokenTransfersCount": 675,
-      "lastSeenBlock": 50350457,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T07:11:34.157Z"
     },
     {
@@ -4264,6 +4608,14 @@
       "indexedAt": "2026-08-23T13:09:31.620Z"
     },
     {
+      "address": "0x2eb81c82ba365193343767c5e3b6f99dcff0d3e8",
+      "score": 88,
+      "transactionsCount": 52130,
+      "tokenTransfersCount": 628,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.747Z"
+    },
+    {
       "address": "0x2a39e7691ef31af9dc1007a3cc0fbcadd681279f",
       "score": 88,
       "transactionsCount": 36971,
@@ -4340,7 +4692,7 @@
       "score": 87,
       "transactionsCount": 2247607,
       "tokenTransfersCount": 467,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-24T13:21:37.916Z"
     },
     {
@@ -4356,7 +4708,7 @@
       "score": 87,
       "transactionsCount": 1282084,
       "tokenTransfersCount": 487,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T13:09:33.954Z"
     },
     {
@@ -4428,7 +4780,7 @@
       "score": 87,
       "transactionsCount": 303272,
       "tokenTransfersCount": 545,
-      "lastSeenBlock": 50318855,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:33:44.855Z"
     },
     {
@@ -4468,7 +4820,7 @@
       "score": 87,
       "transactionsCount": 159064,
       "tokenTransfersCount": 500,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T10:05:31.842Z"
     },
     {
@@ -4476,7 +4828,7 @@
       "score": 87,
       "transactionsCount": 155333,
       "tokenTransfersCount": 496,
-      "lastSeenBlock": 50318854,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:34:20.113Z"
     },
     {
@@ -4484,7 +4836,7 @@
       "score": 87,
       "transactionsCount": 145033,
       "tokenTransfersCount": 497,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:53:30.524Z"
     },
     {
@@ -4520,6 +4872,14 @@
       "indexedAt": "2026-08-23T18:56:39.276Z"
     },
     {
+      "address": "0x6136530fcc6e40354c89e5a112a4b47b391852df",
+      "score": 87,
+      "transactionsCount": 105454,
+      "tokenTransfersCount": 533,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.720Z"
+    },
+    {
       "address": "0xbc0d477b1c0d2c5a449d9c90394a85ef7fb7d05f",
       "score": 87,
       "transactionsCount": 104728,
@@ -4542,6 +4902,14 @@
       "tokenTransfersCount": 481,
       "lastSeenBlock": 50339651,
       "indexedAt": "2026-08-23T07:11:21.480Z"
+    },
+    {
+      "address": "0xd996e05dadd05a7d1dfebec04350f26d9dec349e",
+      "score": 87,
+      "transactionsCount": 32579,
+      "tokenTransfersCount": 482,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:55.900Z"
     },
     {
       "address": "0x260d3177bf27b92fb54182e3e56882b1e59bf50c",
@@ -4636,7 +5004,7 @@
       "score": 86,
       "transactionsCount": 757347,
       "tokenTransfersCount": 357,
-      "lastSeenBlock": 50350462,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T13:09:27.166Z"
     },
     {
@@ -4724,7 +5092,7 @@
       "score": 86,
       "transactionsCount": 124229,
       "tokenTransfersCount": 403,
-      "lastSeenBlock": 50388086,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-24T10:07:27.718Z"
     },
     {
@@ -4732,7 +5100,7 @@
       "score": 86,
       "transactionsCount": 122202,
       "tokenTransfersCount": 382,
-      "lastSeenBlock": 50360826,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T18:56:22.842Z"
     },
     {
@@ -4756,7 +5124,7 @@
       "score": 86,
       "transactionsCount": 119237,
       "tokenTransfersCount": 429,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-26T07:15:43.833Z"
     },
     {
@@ -4774,6 +5142,14 @@
       "tokenTransfersCount": 401,
       "lastSeenBlock": 50460102,
       "indexedAt": "2026-08-26T02:02:30.309Z"
+    },
+    {
+      "address": "0x3dc038d8e7770c2abc3e90127014db1d03cabbd4",
+      "score": 86,
+      "transactionsCount": 117020,
+      "tokenTransfersCount": 381,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.934Z"
     },
     {
       "address": "0xecd83cf92f4977a6a0926da965b0028040531190",
@@ -4796,7 +5172,7 @@
       "score": 86,
       "transactionsCount": 114277,
       "tokenTransfersCount": 385,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T07:11:40.560Z"
     },
     {
@@ -4824,12 +5200,28 @@
       "indexedAt": "2026-08-26T13:23:54.133Z"
     },
     {
+      "address": "0x66d60e991d09447245d668671d079b57eb48f58e",
+      "score": 86,
+      "transactionsCount": 78379,
+      "tokenTransfersCount": 416,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.170Z"
+    },
+    {
       "address": "0x47a2685734ad8407f704495db10c62414feedb7d",
       "score": 86,
       "transactionsCount": 77931,
       "tokenTransfersCount": 379,
       "lastSeenBlock": 50393981,
       "indexedAt": "2026-08-24T13:21:30.052Z"
+    },
+    {
+      "address": "0x3f75d2bfef9f7cd7d138367b3056d2a67327f7f3",
+      "score": 86,
+      "transactionsCount": 61587,
+      "tokenTransfersCount": 412,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.076Z"
     },
     {
       "address": "0xe5fcbb61ecd215152a38db309ccdddbf1c7e5a37",
@@ -4872,6 +5264,14 @@
       "indexedAt": "2026-08-23T18:56:25.247Z"
     },
     {
+      "address": "0xafc86767086481e7d23f647ee0a97bba18b66ec1",
+      "score": 86,
+      "transactionsCount": 31265,
+      "tokenTransfersCount": 398,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.554Z"
+    },
+    {
       "address": "0x473287c7f2b9c2c179dd4c971d371d57df5e03ee",
       "score": 86,
       "transactionsCount": 24384,
@@ -4908,7 +5308,7 @@
       "score": 86,
       "transactionsCount": 4326,
       "tokenTransfersCount": 1310,
-      "lastSeenBlock": 50330562,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T02:06:50.155Z"
     },
     {
@@ -4940,7 +5340,7 @@
       "score": 85,
       "transactionsCount": 1521072,
       "tokenTransfersCount": 298,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.333Z"
     },
     {
@@ -4948,7 +5348,7 @@
       "score": 85,
       "transactionsCount": 610684,
       "tokenTransfersCount": 341,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T13:22:09.441Z"
     },
     {
@@ -5012,7 +5412,7 @@
       "score": 85,
       "transactionsCount": 94060,
       "tokenTransfersCount": 333,
-      "lastSeenBlock": 50318854,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:34:07.148Z"
     },
     {
@@ -5028,7 +5428,7 @@
       "score": 85,
       "transactionsCount": 85042,
       "tokenTransfersCount": 320,
-      "lastSeenBlock": 50318855,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:33:53.451Z"
     },
     {
@@ -5196,7 +5596,7 @@
       "score": 84,
       "transactionsCount": 1336548,
       "tokenTransfersCount": 267,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:56.742Z"
     },
     {
@@ -5220,7 +5620,7 @@
       "score": 84,
       "transactionsCount": 895460,
       "tokenTransfersCount": 232,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T18:56:35.687Z"
     },
     {
@@ -5228,7 +5628,7 @@
       "score": 84,
       "transactionsCount": 786400,
       "tokenTransfersCount": 229,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:54:28.512Z"
     },
     {
@@ -5252,7 +5652,7 @@
       "score": 84,
       "transactionsCount": 662520,
       "tokenTransfersCount": 241,
-      "lastSeenBlock": 50360823,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:41.297Z"
     },
     {
@@ -5268,7 +5668,7 @@
       "score": 84,
       "transactionsCount": 458664,
       "tokenTransfersCount": 252,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:34:05.508Z"
     },
     {
@@ -5336,11 +5736,27 @@
       "indexedAt": "2026-08-24T10:04:52.237Z"
     },
     {
+      "address": "0xf9a7e4fe095a81f6a419aa510d35777d4e641044",
+      "score": 84,
+      "transactionsCount": 247696,
+      "tokenTransfersCount": 249,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.730Z"
+    },
+    {
+      "address": "0x7422d468d8dd38c5950a8f36aff678adedbe7bb3",
+      "score": 84,
+      "transactionsCount": 243971,
+      "tokenTransfersCount": 238,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:59.009Z"
+    },
+    {
       "address": "0xe69c60abbf2b0631358c5227997b1f431f819f9c",
       "score": 84,
       "transactionsCount": 243677,
       "tokenTransfersCount": 262,
-      "lastSeenBlock": 50360824,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:34:09.275Z"
     },
     {
@@ -5384,11 +5800,19 @@
       "indexedAt": "2026-08-24T10:04:54.283Z"
     },
     {
+      "address": "0x65b9abf051ea72895d01fc1bde7c5d63f47c2642",
+      "score": 84,
+      "transactionsCount": 162115,
+      "tokenTransfersCount": 265,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.110Z"
+    },
+    {
       "address": "0x929e9eeed8b17c4f85b7246911064d5e985e7994",
       "score": 84,
       "transactionsCount": 159332,
       "tokenTransfersCount": 242,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-24T10:04:57.737Z"
     },
     {
@@ -5396,7 +5820,7 @@
       "score": 84,
       "transactionsCount": 139006,
       "tokenTransfersCount": 228,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T13:21:24.838Z"
     },
     {
@@ -5444,7 +5868,7 @@
       "score": 84,
       "transactionsCount": 106028,
       "tokenTransfersCount": 231,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T02:05:56.561Z"
     },
     {
@@ -5460,7 +5884,7 @@
       "score": 84,
       "transactionsCount": 66960,
       "tokenTransfersCount": 238,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-24T13:21:34.895Z"
     },
     {
@@ -5470,6 +5894,14 @@
       "tokenTransfersCount": 273,
       "lastSeenBlock": 50339650,
       "indexedAt": "2026-08-23T07:11:31.715Z"
+    },
+    {
+      "address": "0x0793c0c4af59baf17538f63d11ba3008b6c1529e",
+      "score": 84,
+      "transactionsCount": 66665,
+      "tokenTransfersCount": 237,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.284Z"
     },
     {
       "address": "0x35286f064dc568b9e42ea6e9ffc322c6e295b04d",
@@ -5508,7 +5940,7 @@
       "score": 84,
       "transactionsCount": 64444,
       "tokenTransfersCount": 240,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-26T13:23:50.864Z"
     },
     {
@@ -5636,7 +6068,7 @@
       "score": 83,
       "transactionsCount": 176011,
       "tokenTransfersCount": 185,
-      "lastSeenBlock": 50360825,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T20:46:56.560Z"
     },
     {
@@ -5760,12 +6192,28 @@
       "indexedAt": "2026-08-24T10:04:52.872Z"
     },
     {
+      "address": "0xc0ffee49332f85fbc89fb1bfaa14d13bf42e8da9",
+      "score": 83,
+      "transactionsCount": 55303,
+      "tokenTransfersCount": 193,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:53.323Z"
+    },
+    {
       "address": "0x2b5eab064f8b4db23aaab03365d120c839124413",
       "score": 83,
       "transactionsCount": 49481,
       "tokenTransfersCount": 199,
       "lastSeenBlock": 50393981,
       "indexedAt": "2026-08-24T13:22:11.848Z"
+    },
+    {
+      "address": "0x07335c5e823e2c2c8be5a7c4d91fb09cd39c28d7",
+      "score": 83,
+      "transactionsCount": 49271,
+      "tokenTransfersCount": 203,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.351Z"
     },
     {
       "address": "0x5fca00fdaad9e4b8c6ae8a4264c61df54e022833",
@@ -5800,6 +6248,14 @@
       "indexedAt": "2026-08-24T13:21:29.668Z"
     },
     {
+      "address": "0xd563e14b112df46d1db3a75d6d4970692d4515fb",
+      "score": 83,
+      "transactionsCount": 11273,
+      "tokenTransfersCount": 195,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:53.464Z"
+    },
+    {
       "address": "0xb6acc54792ff30e73b32ab63b7d931940ca951ae",
       "score": 83,
       "transactionsCount": 8565,
@@ -5816,11 +6272,19 @@
       "indexedAt": "2026-08-22T19:33:42.219Z"
     },
     {
+      "address": "0xfeb912d334ec6e30995d36cc71e7a3ccc7486f79",
+      "score": 83,
+      "transactionsCount": 2219,
+      "tokenTransfersCount": 2012,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:55.520Z"
+    },
+    {
       "address": "0x4506de02071dcd46a22638aab6cd19e57e252e22",
       "score": 82,
       "transactionsCount": 1250353,
       "tokenTransfersCount": 162,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:39.044Z"
     },
     {
@@ -5828,7 +6292,7 @@
       "score": 82,
       "transactionsCount": 810521,
       "tokenTransfersCount": 164,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:40.086Z"
     },
     {
@@ -5836,7 +6300,7 @@
       "score": 82,
       "transactionsCount": 810390,
       "tokenTransfersCount": 163,
-      "lastSeenBlock": 50404351,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:40.221Z"
     },
     {
@@ -5884,7 +6348,7 @@
       "score": 82,
       "transactionsCount": 240452,
       "tokenTransfersCount": 150,
-      "lastSeenBlock": 50437087,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:40.351Z"
     },
     {
@@ -5892,7 +6356,7 @@
       "score": 82,
       "transactionsCount": 239923,
       "tokenTransfersCount": 151,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:41.962Z"
     },
     {
@@ -5966,6 +6430,14 @@
       "tokenTransfersCount": 170,
       "lastSeenBlock": 50404351,
       "indexedAt": "2026-08-24T19:12:25.590Z"
+    },
+    {
+      "address": "0xd6360c95caf27fa708df97c1694c6008ae9ae1e2",
+      "score": 82,
+      "transactionsCount": 74648,
+      "tokenTransfersCount": 175,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:59.176Z"
     },
     {
       "address": "0xfb00523eefc146bfa233251d0b07ea285196e2ce",
@@ -6064,6 +6536,14 @@
       "indexedAt": "2026-08-23T02:06:05.315Z"
     },
     {
+      "address": "0xea975a17d68f0e76308ef52098f9d17fae2412ba",
+      "score": 82,
+      "transactionsCount": 2585,
+      "tokenTransfersCount": 1298,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.355Z"
+    },
+    {
       "address": "0x7041c0c33cbfb66a62fef458f5cb40abc2290305",
       "score": 82,
       "transactionsCount": 1520,
@@ -6156,7 +6636,7 @@
       "score": 81,
       "transactionsCount": 60046,
       "tokenTransfersCount": 137,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T10:04:53.955Z"
     },
     {
@@ -6352,12 +6832,28 @@
       "indexedAt": "2026-08-23T02:05:56.075Z"
     },
     {
+      "address": "0xa95e6b462c019a197ee5bf251ee0f10d436f8ac5",
+      "score": 80,
+      "transactionsCount": 41924,
+      "tokenTransfersCount": 91,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:53.146Z"
+    },
+    {
       "address": "0x36302759759f8c93f8924e966ffb02200301a2bf",
       "score": 80,
       "transactionsCount": 12322,
       "tokenTransfersCount": 95,
       "lastSeenBlock": 50393982,
       "indexedAt": "2026-08-24T13:21:24.007Z"
+    },
+    {
+      "address": "0xdff332ce80642a432bb355c42d0002ce6f490880",
+      "score": 80,
+      "transactionsCount": 11112,
+      "tokenTransfersCount": 108,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.691Z"
     },
     {
       "address": "0xd884fee3de0779cef5ebd8e21a3cd087d040e4b6",
@@ -6388,7 +6884,7 @@
       "score": 79,
       "transactionsCount": 281360,
       "tokenTransfersCount": 74,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T20:45:45.963Z"
     },
     {
@@ -6404,7 +6900,7 @@
       "score": 79,
       "transactionsCount": 164903,
       "tokenTransfersCount": 86,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T07:11:26.339Z"
     },
     {
@@ -6420,7 +6916,7 @@
       "score": 79,
       "transactionsCount": 78341,
       "tokenTransfersCount": 73,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:34:14.004Z"
     },
     {
@@ -6430,6 +6926,14 @@
       "tokenTransfersCount": 71,
       "lastSeenBlock": 50393982,
       "indexedAt": "2026-08-24T13:21:22.092Z"
+    },
+    {
+      "address": "0xac97471d355073d39eb81449d4f9f1528410b462",
+      "score": 79,
+      "transactionsCount": 71522,
+      "tokenTransfersCount": 84,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:47.317Z"
     },
     {
       "address": "0xa480139fc5ca41c94d992d452398c1ba04195fb1",
@@ -6540,7 +7044,7 @@
       "score": 78,
       "transactionsCount": 82770,
       "tokenTransfersCount": 69,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-22T19:53:46.205Z"
     },
     {
@@ -6612,7 +7116,7 @@
       "score": 77,
       "transactionsCount": 1955355,
       "tokenTransfersCount": 52,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T13:21:30.724Z"
     },
     {
@@ -6752,6 +7256,14 @@
       "indexedAt": "2026-08-23T07:11:37.176Z"
     },
     {
+      "address": "0x6fe926240abed8fb5abd22fcb0619c58b505577f",
+      "score": 76,
+      "transactionsCount": 17467,
+      "tokenTransfersCount": 41,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.205Z"
+    },
+    {
       "address": "0xbae8533e16545eceb9c66e5266cd3f91baa8ba92",
       "score": 76,
       "transactionsCount": 16667,
@@ -6828,7 +7340,7 @@
       "score": 75,
       "transactionsCount": 13732,
       "tokenTransfersCount": 30,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-23T07:11:36.722Z"
     },
     {
@@ -6944,6 +7456,22 @@
       "indexedAt": "2026-08-22T19:53:33.995Z"
     },
     {
+      "address": "0x9893cfe8e458ed58a84cc90d6a4536dd71f9c9dd",
+      "score": 74,
+      "transactionsCount": 773,
+      "tokenTransfersCount": 1198,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:00.319Z"
+    },
+    {
+      "address": "0xca9cf12da7f833acc225dbbdcdfa50d97a2a0019",
+      "score": 73,
+      "transactionsCount": 46834,
+      "tokenTransfersCount": 18,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.771Z"
+    },
+    {
       "address": "0x5ec9350199212596f361ebd274878ece6fc4d0e8",
       "score": 73,
       "transactionsCount": 25099,
@@ -7004,7 +7532,7 @@
       "score": 72,
       "transactionsCount": 27347,
       "tokenTransfersCount": 16,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:41.560Z"
     },
     {
@@ -7046,6 +7574,14 @@
       "tokenTransfersCount": 555,
       "lastSeenBlock": 50350459,
       "indexedAt": "2026-08-23T13:09:39.738Z"
+    },
+    {
+      "address": "0xc24b17ccf22b56b8b268e7b8d49f72d16e13bc00",
+      "score": 70,
+      "transactionsCount": 9281,
+      "tokenTransfersCount": 9,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.716Z"
     },
     {
       "address": "0xd0f974c509be90784027dde961f9532da63e5152",
@@ -7102,6 +7638,14 @@
       "tokenTransfersCount": 10,
       "lastSeenBlock": 50393982,
       "indexedAt": "2026-08-23T07:11:19.932Z"
+    },
+    {
+      "address": "0x460a715022465648db0db29f674e1ee9faea814a",
+      "score": 69,
+      "transactionsCount": 2924,
+      "tokenTransfersCount": 50,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:51.700Z"
     },
     {
       "address": "0xe944d5c55265671513ab485cad4e508bcbf0f98e",
@@ -7240,12 +7784,28 @@
       "indexedAt": "2026-08-24T13:21:24.131Z"
     },
     {
+      "address": "0x1e21e478d47332a21c68051fc22ee338e7051cf8",
+      "score": 66,
+      "transactionsCount": 2294,
+      "tokenTransfersCount": 36,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.311Z"
+    },
+    {
       "address": "0x29eab5eef3f18343779ad76ec4a9ed6f3731d683",
       "score": 66,
       "transactionsCount": 1121,
       "tokenTransfersCount": 104,
       "lastSeenBlock": 50360824,
       "indexedAt": "2026-08-23T18:56:40.075Z"
+    },
+    {
+      "address": "0xe1b1d0b47756a55a3de39118f4297bdaee1bcf0a",
+      "score": 66,
+      "transactionsCount": 994,
+      "tokenTransfersCount": 120,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:00.131Z"
     },
     {
       "address": "0x9e61c43d33773cb642d40bb70c5f3d01228f4e3e",
@@ -7278,6 +7838,14 @@
       "tokenTransfersCount": 357,
       "lastSeenBlock": 50350459,
       "indexedAt": "2026-08-23T13:09:35.155Z"
+    },
+    {
+      "address": "0x77851692f654be08b2d1f56722b084354459c332",
+      "score": 65,
+      "transactionsCount": 415,
+      "tokenTransfersCount": 359,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.481Z"
     },
     {
       "address": "0x45a3f70f5c77cda8f8b5ea104098a7b3a18256bb",
@@ -7344,6 +7912,14 @@
       "indexedAt": "2026-08-23T02:05:53.764Z"
     },
     {
+      "address": "0x5266646ed1d1a3e087de4866ea5abbf6cf0215db",
+      "score": 64,
+      "transactionsCount": 139,
+      "tokenTransfersCount": 1374,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:01.663Z"
+    },
+    {
       "address": "0x6b83007be304a23700e00b788a1995bccf7c03e9",
       "score": 63,
       "transactionsCount": 2241,
@@ -7366,6 +7942,14 @@
       "tokenTransfersCount": 456,
       "lastSeenBlock": 50426219,
       "indexedAt": "2026-08-25T07:13:03.558Z"
+    },
+    {
+      "address": "0x691685db9d8db916f305dc9fb01d23fefa8101da",
+      "score": 62,
+      "transactionsCount": 448,
+      "tokenTransfersCount": 167,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:00.600Z"
     },
     {
       "address": "0x6b2a0a124d9f20dc1cf2e7d1749b22b1f173da43",
@@ -7406,6 +7990,14 @@
       "tokenTransfersCount": 440,
       "lastSeenBlock": 50339650,
       "indexedAt": "2026-08-23T07:11:30.783Z"
+    },
+    {
+      "address": "0x874d197a934b8c9c0513b035f3b342dec3db74b1",
+      "score": 61,
+      "transactionsCount": 41,
+      "tokenTransfersCount": 4371,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:55.947Z"
     },
     {
       "address": "0xf5ff0f650f1403640402f80ef06a40aefea5302e",
@@ -7464,6 +8056,14 @@
       "indexedAt": "2026-08-23T18:56:27.075Z"
     },
     {
+      "address": "0xb16fb53590109da1672f7fd2b962f65e8d555612",
+      "score": 55,
+      "transactionsCount": 107,
+      "tokenTransfersCount": 271,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.096Z"
+    },
+    {
       "address": "0x449f4af35c05e723b0518284b42c97af789b3937",
       "score": 54,
       "transactionsCount": 186,
@@ -7502,6 +8102,22 @@
       "tokenTransfersCount": 118,
       "lastSeenBlock": 50339651,
       "indexedAt": "2026-08-23T07:11:27.015Z"
+    },
+    {
+      "address": "0xe0250689ec14927f47e09140090be65ade2c01c9",
+      "score": 52,
+      "transactionsCount": 87,
+      "tokenTransfersCount": 207,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.901Z"
+    },
+    {
+      "address": "0xb6887fb0d06d9926b49df4a0042ad764d5ce3b79",
+      "score": 50,
+      "transactionsCount": 379,
+      "tokenTransfersCount": 12,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.747Z"
     },
     {
       "address": "0x0e543933353d33e2448182d90697546eb69fe50c",
@@ -7560,6 +8176,14 @@
       "indexedAt": "2026-08-23T02:06:29.117Z"
     },
     {
+      "address": "0xdeb0ccd4b09c02fac846fd25d3bb697ca28bc778",
+      "score": 43,
+      "transactionsCount": 53,
+      "tokenTransfersCount": 45,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:47.619Z"
+    },
+    {
       "address": "0xd2eee8731a2923d65af2a42f66919ada8f3f67d8",
       "score": 41,
       "transactionsCount": 79,
@@ -7576,11 +8200,19 @@
       "indexedAt": "2026-08-24T10:09:56.154Z"
     },
     {
+      "address": "0xcd8327b325a31211b8717941728c7ebb830c89f5",
+      "score": 40,
+      "transactionsCount": 45,
+      "tokenTransfersCount": 33,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.460Z"
+    },
+    {
       "address": "0x4f6f3142a4fbfab9b0827252c24e217efad7829f",
       "score": 40,
       "transactionsCount": 36,
       "tokenTransfersCount": 46,
-      "lastSeenBlock": 50388086,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-24T10:09:33.739Z"
     },
     {
@@ -7800,6 +8432,14 @@
       "indexedAt": "2026-08-23T02:06:50.442Z"
     },
     {
+      "address": "0x01834d335e2c419aebc887385b134e930acd5cbf",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.607Z"
+    },
+    {
       "address": "0x0186341cd07081835904f11356d611cec58aeb28",
       "score": 0,
       "transactionsCount": 0,
@@ -7868,7 +8508,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T13:21:29.215Z"
     },
     {
@@ -7886,6 +8526,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50447492,
       "indexedAt": "2026-08-25T19:08:05.641Z"
+    },
+    {
+      "address": "0x04ca15d6f146a4209e9455c3614353d809078ccc",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.912Z"
     },
     {
       "address": "0x05187b88a8ba06b56ced5fac1992aa5655417f08",
@@ -7992,6 +8640,14 @@
       "indexedAt": "2026-08-24T19:13:02.133Z"
     },
     {
+      "address": "0x07e22fa249462e6bc6d7d5f7b727ddcbf1dc4bf0",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.227Z"
+    },
+    {
       "address": "0x08a7a477c5f4aa74e61c8635dd24f532979287f9",
       "score": 0,
       "transactionsCount": 0,
@@ -8014,6 +8670,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50339650,
       "indexedAt": "2026-08-23T07:11:33.845Z"
+    },
+    {
+      "address": "0x09cd7b81e144e7849d6f0864e3eb4b324f739019",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.554Z"
     },
     {
       "address": "0x09e4470196ff9a14e49ff7bf65aa265ee848e708",
@@ -8248,6 +8912,14 @@
       "indexedAt": "2026-08-23T13:09:28.434Z"
     },
     {
+      "address": "0x0f4bd68ce0fc9db6dbc9d66e9cdd10f35a802426",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.719Z"
+    },
+    {
       "address": "0x0f5bb3668d8688468fc4d5f9198f023a8295d370",
       "score": 0,
       "transactionsCount": 0,
@@ -8308,7 +8980,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50330562,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:53:31.334Z"
     },
     {
@@ -8376,6 +9048,14 @@
       "indexedAt": "2026-08-24T13:21:31.275Z"
     },
     {
+      "address": "0x127cf689163b4b0b101e9738d91e71f4923a2037",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:47.148Z"
+    },
+    {
       "address": "0x12bbd602e4276bd1004b1f1c66432259bca4ce0e",
       "score": 0,
       "transactionsCount": 0,
@@ -8414,6 +9094,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50480423,
       "indexedAt": "2026-08-22T20:47:14.209Z"
+    },
+    {
+      "address": "0x13d5fdde3f139a6464179e9195aba424cdfa8cec",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:47.432Z"
     },
     {
       "address": "0x1416a79debbb1abc2b6c1fa3b1db729c2a6bdec3",
@@ -8524,7 +9212,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50339650,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-23T07:11:38.870Z"
     },
     {
@@ -8600,6 +9288,14 @@
       "indexedAt": "2026-08-23T13:09:39.012Z"
     },
     {
+      "address": "0x18bbd4bdc32fa13ca0213cd9a25b9babd9c0fa36",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.863Z"
+    },
+    {
       "address": "0x1924ba991958b81706a7a18f56af412cd88b049d",
       "score": 0,
       "transactionsCount": 0,
@@ -8660,7 +9356,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50319312,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:53:33.804Z"
     },
     {
@@ -8684,7 +9380,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:53:32.611Z"
     },
     {
@@ -8720,6 +9416,14 @@
       "indexedAt": "2026-08-26T13:23:56.140Z"
     },
     {
+      "address": "0x1d07e028160365abe87593162b4812b469f36327",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.695Z"
+    },
+    {
       "address": "0x1d2cac1e21176b9b3bdffd97eb46f467ec572037",
       "score": 0,
       "transactionsCount": 0,
@@ -8750,6 +9454,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50330564,
       "indexedAt": "2026-08-22T19:33:41.945Z"
+    },
+    {
+      "address": "0x1dcc8cab48804940e01b2aced78554a861e61ae8",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:59.347Z"
     },
     {
       "address": "0x1e45b83a82a13646954149bef9dd80b6188ce39e",
@@ -8964,8 +9676,16 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50437087,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-25T13:15:49.154Z"
+    },
+    {
+      "address": "0x2405d4d5d703dff7e6958fb779d905341f78bfe9",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:58.176Z"
     },
     {
       "address": "0x241c2123df9f631e8e285f9c99b7b6aa0c893425",
@@ -9000,6 +9720,14 @@
       "indexedAt": "2026-08-22T19:33:45.924Z"
     },
     {
+      "address": "0x24e20b0ce0ad792f6b12262347a834b2b807747b",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.377Z"
+    },
+    {
       "address": "0x24e5146a8134b9e99196470bf15efde2382716ce",
       "score": 0,
       "transactionsCount": 0,
@@ -9014,6 +9742,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50480423,
       "indexedAt": "2026-08-26T13:24:19.794Z"
+    },
+    {
+      "address": "0x255aa0efe2e12ad7fcd8dedd31aeb0be88d8af96",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.661Z"
     },
     {
       "address": "0x255b7be2ea7890bde2e7a3cbc94c54857b7c89be",
@@ -9046,6 +9782,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50350459,
       "indexedAt": "2026-08-23T13:09:35.941Z"
+    },
+    {
+      "address": "0x260ed11ff6cfe0ce5d1f91a8f8e2aadce3fe05d3",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.894Z"
     },
     {
       "address": "0x263b5998b06bf2b03524db0ed122913b567c39cc",
@@ -9088,6 +9832,14 @@
       "indexedAt": "2026-08-26T13:23:50.539Z"
     },
     {
+      "address": "0x27a677e71772da3babf243d9bd2938e90e2f7655",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.672Z"
+    },
+    {
       "address": "0x27b4b956f4bb06ed972bded37c631c8968ba1ced",
       "score": 0,
       "transactionsCount": 0,
@@ -9110,6 +9862,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50339651,
       "indexedAt": "2026-08-23T07:11:23.141Z"
+    },
+    {
+      "address": "0x282537d9acb3255e374298b7ddf322d10f5c39ea",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.741Z"
     },
     {
       "address": "0x282b398927b663594b9abb115ad12d2774a4f096",
@@ -9228,7 +9988,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-25T19:07:58.086Z"
     },
     {
@@ -9238,6 +9998,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50388087,
       "indexedAt": "2026-08-24T10:04:59.983Z"
+    },
+    {
+      "address": "0x2d1916d8ddc97cad4aa98d1e327f2cca1cb84904",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:58.525Z"
     },
     {
       "address": "0x2dadeaa72afb593185ac5daa283719efd2ef417b",
@@ -9488,6 +10256,14 @@
       "indexedAt": "2026-08-25T19:09:01.507Z"
     },
     {
+      "address": "0x3493ffcf256d0f8564cd4c9803042a245190dab7",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:58.081Z"
+    },
+    {
       "address": "0x34a0f0a0f9c187d26da14124592a3d9643d1c33b",
       "score": 0,
       "transactionsCount": 0,
@@ -9526,6 +10302,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50480423,
       "indexedAt": "2026-08-26T13:23:57.775Z"
+    },
+    {
+      "address": "0x359bd4c479afb0482a72efbbf24cb21a1ad2f706",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:11:59.670Z"
     },
     {
       "address": "0x35ad859d439d786ac26be1cd6ca743f6144ba072",
@@ -9620,7 +10404,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:34:04.515Z"
     },
     {
@@ -9728,6 +10512,14 @@
       "indexedAt": "2026-08-24T13:22:03.679Z"
     },
     {
+      "address": "0x3abe4181be859bc1d5c7542e6f94c58f861b0f0c",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:47.127Z"
+    },
+    {
       "address": "0x3b21a88275b2ca8a70cae39d277f43c2e9e5f750",
       "score": 0,
       "transactionsCount": 0,
@@ -9748,7 +10540,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50318855,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:33:48.192Z"
     },
     {
@@ -9766,6 +10558,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50330564,
       "indexedAt": "2026-08-23T02:05:56.631Z"
+    },
+    {
+      "address": "0x3d08396ca979c8e650122d2f0e290739ea97ab5d",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:47.819Z"
     },
     {
       "address": "0x3d3c8379374b5f7773fe2cc5f1342770a6ffef5a",
@@ -9828,7 +10628,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:49.625Z"
     },
     {
@@ -9888,6 +10688,14 @@
       "indexedAt": "2026-08-26T13:23:59.229Z"
     },
     {
+      "address": "0x402b6f6ab13d5b2f0e7a8b7e0a1284a487c1db22",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:51.947Z"
+    },
+    {
       "address": "0x40643742ee8e65a1ec3aed699f00d91a1e265204",
       "score": 0,
       "transactionsCount": 0,
@@ -9908,7 +10716,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50339648,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:53:31.332Z"
     },
     {
@@ -10228,7 +11036,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50339651,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T02:06:07.925Z"
     },
     {
@@ -10294,6 +11102,22 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50447492,
       "indexedAt": "2026-08-25T19:08:49.942Z"
+    },
+    {
+      "address": "0x4a393cf2531e10ca4fed99c605b01ac5242b3128",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.784Z"
+    },
+    {
+      "address": "0x4a502ec9de41177492e43634b4248bd9c61cb6b7",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.751Z"
     },
     {
       "address": "0x4a6d0c6b5f121153992035c46f685a5d7b155a3c",
@@ -10384,6 +11208,14 @@
       "indexedAt": "2026-08-23T02:06:06.086Z"
     },
     {
+      "address": "0x4d190ef1abb2e8d625b03bf13c67a0f7547062b1",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:55.439Z"
+    },
+    {
       "address": "0x4d196a37da464c2b77f13a03f4bc2237ac9d178a",
       "score": 0,
       "transactionsCount": 0,
@@ -10460,7 +11292,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T13:21:24.391Z"
     },
     {
@@ -10502,6 +11334,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50339651,
       "indexedAt": "2026-08-23T07:11:22.655Z"
+    },
+    {
+      "address": "0x5254c10f214b10ebe17455d508e52802dd7da27c",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.751Z"
     },
     {
       "address": "0x52614a456614750707da72117da77de952dcedd6",
@@ -10686,6 +11526,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50480423,
       "indexedAt": "2026-08-26T13:23:51.287Z"
+    },
+    {
+      "address": "0x55a802a16ea9a6b061b9624849fd9c5c237ee743",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.678Z"
     },
     {
       "address": "0x55ac50c95552bd2b1f969f70707cde47792f189e",
@@ -10912,6 +11760,14 @@
       "indexedAt": "2026-08-24T13:21:18.615Z"
     },
     {
+      "address": "0x5b61255a9e1e815e1621bea1e790dd13a2bbd0da",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.108Z"
+    },
+    {
       "address": "0x5b7812906710fed3fad83378f8a2df829a2050c1",
       "score": 0,
       "transactionsCount": 0,
@@ -10960,11 +11816,19 @@
       "indexedAt": "2026-08-26T13:24:05.615Z"
     },
     {
+      "address": "0x5c8cd3c6224f659aa5688c9e432036adafa81226",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.769Z"
+    },
+    {
       "address": "0x5cc333a8f92689e60d142e24ce1e76555106a611",
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:50.892Z"
     },
     {
@@ -10988,7 +11852,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-24T13:21:20.459Z"
     },
     {
@@ -11012,7 +11876,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T13:21:23.562Z"
     },
     {
@@ -11086,6 +11950,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50480423,
       "indexedAt": "2026-08-26T13:23:50.269Z"
+    },
+    {
+      "address": "0x60f4d5abe7e499317f6c71928953965b89b84977",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.791Z"
     },
     {
       "address": "0x610bebc50b5faa42e4b08b2a22eb0e3877d6acc0",
@@ -11358,6 +12230,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50339650,
       "indexedAt": "2026-08-23T07:11:35.828Z"
+    },
+    {
+      "address": "0x67768adf57aa4262f91b470025fc0cc78eb36fd2",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.508Z"
     },
     {
       "address": "0x67af916db5a580a9f7e93828436db3a3753aca95",
@@ -11736,6 +12616,22 @@
       "indexedAt": "2026-08-24T10:09:48.543Z"
     },
     {
+      "address": "0x6ffe0690e1ebfbcd101a46e6a20ba2debbdb22f6",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:47.916Z"
+    },
+    {
+      "address": "0x7016ade82460af4a081d80eaef51d686f79dfce7",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.170Z"
+    },
+    {
       "address": "0x701c67d323e6c4dfdef9658665deee887165f6ce",
       "score": 0,
       "transactionsCount": 0,
@@ -11744,11 +12640,19 @@
       "indexedAt": "2026-08-22T19:33:47.090Z"
     },
     {
+      "address": "0x7067cd653af183fc7b88fcf60a0460be68ace81a",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.891Z"
+    },
+    {
       "address": "0x70760e24164360898d2051febb7f55cd6270da55",
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50350462,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:59.140Z"
     },
     {
@@ -11764,7 +12668,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50350458,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T02:05:54.766Z"
     },
     {
@@ -11776,12 +12680,28 @@
       "indexedAt": "2026-08-22T19:33:43.557Z"
     },
     {
+      "address": "0x71616b1918bfe632a6400834042d9128cb80a9c7",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.534Z"
+    },
+    {
       "address": "0x719d5de1bc995725a4c69b8cd2de8f62a08ccf7a",
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50480423,
       "indexedAt": "2026-08-22T20:44:56.995Z"
+    },
+    {
+      "address": "0x723217c273713989417a5ba8a09a183e97b3fbb9",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:53.407Z"
     },
     {
       "address": "0x7237bbd2f6b0415abc4d22fe8571d388050604cd",
@@ -11852,7 +12772,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-24T13:21:29.145Z"
     },
     {
@@ -11876,7 +12796,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50447492,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T20:44:56.886Z"
     },
     {
@@ -11892,7 +12812,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-26T13:23:51.458Z"
     },
     {
@@ -12068,7 +12988,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T19:55:39.610Z"
     },
     {
@@ -12416,6 +13336,14 @@
       "indexedAt": "2026-08-26T07:15:42.586Z"
     },
     {
+      "address": "0x82c75250489d7ed490033300fe88e82d31e797c1",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:11:59.713Z"
+    },
+    {
       "address": "0x8338c4fc7b115c987b748fc813749b11c60e4982",
       "score": 0,
       "transactionsCount": 0,
@@ -12504,6 +13432,14 @@
       "indexedAt": "2026-08-22T19:53:35.136Z"
     },
     {
+      "address": "0x84f9a8bb0fbb1010e4c53b0f3b766e1da0f01760",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.391Z"
+    },
+    {
       "address": "0x850f3ff7bf6421d89bb2a01f728ad7c6bbb1133a",
       "score": 0,
       "transactionsCount": 0,
@@ -12526,6 +13462,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50350462,
       "indexedAt": "2026-08-23T13:09:27.637Z"
+    },
+    {
+      "address": "0x856086594145354dc5f1c665f6805c0aa2b949c7",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.719Z"
     },
     {
       "address": "0x85627f5051f1bcae9bd4ed233f5096f59167c788",
@@ -12588,7 +13532,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50393982,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T20:44:54.673Z"
     },
     {
@@ -12704,6 +13648,14 @@
       "indexedAt": "2026-08-24T10:04:59.736Z"
     },
     {
+      "address": "0x88dfdeb00bc9ef5dd446127a6a316e6c21b2aabf",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.741Z"
+    },
+    {
       "address": "0x8952a84aa52f0c43176742207d70d3996286e4b6",
       "score": 0,
       "transactionsCount": 0,
@@ -12776,6 +13728,14 @@
       "indexedAt": "2026-08-23T07:11:22.280Z"
     },
     {
+      "address": "0x8c193324ce858d9bc02a06fde0a53449805613fc",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:01.346Z"
+    },
+    {
       "address": "0x8c303d47c716b8df5f866a3f8e225817a7c74aa9",
       "score": 0,
       "transactionsCount": 0,
@@ -12832,6 +13792,14 @@
       "indexedAt": "2026-08-25T13:16:32.430Z"
     },
     {
+      "address": "0x8f3b1485c891fe3c3dbc2e63810d633bdb19adc0",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.098Z"
+    },
+    {
       "address": "0x8f3cae3c74bb4a54268d4f162508ef60021be8fa",
       "score": 0,
       "transactionsCount": 0,
@@ -12880,6 +13848,14 @@
       "indexedAt": "2026-08-24T13:21:26.220Z"
     },
     {
+      "address": "0x907386242cb597eed92ec3de3e22a2208b831c6c",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:58.879Z"
+    },
+    {
       "address": "0x91163c8152e6d8b1b39d2ac0647b0fd6be9c94e8",
       "score": 0,
       "transactionsCount": 0,
@@ -12916,7 +13892,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50318854,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:34:12.372Z"
     },
     {
@@ -13112,6 +14088,14 @@
       "indexedAt": "2026-08-24T10:05:26.467Z"
     },
     {
+      "address": "0x973c468fd245c91ccc34d6a90f0fe3de1268f6b4",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.341Z"
+    },
+    {
       "address": "0x973cb464721f53cb96a0199216555d7772016b6f",
       "score": 0,
       "transactionsCount": 0,
@@ -13136,11 +14120,27 @@
       "indexedAt": "2026-08-26T13:24:27.424Z"
     },
     {
+      "address": "0x97f662debaff3f45b25f108d009d66b8a9152431",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.371Z"
+    },
+    {
+      "address": "0x980682108e55793401100057ab5c920975187d55",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:01.127Z"
+    },
+    {
       "address": "0x98179b93962ecce8190548d3329c89f217d007f4",
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50360824,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T18:56:40.483Z"
     },
     {
@@ -13150,6 +14150,22 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50447492,
       "indexedAt": "2026-08-25T19:07:43.195Z"
+    },
+    {
+      "address": "0x98787c3e1b941ecd5dada4e00766a3e93d9fed3a",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.624Z"
+    },
+    {
+      "address": "0x9881b1c358d3b1a9c00cf063cf657f1df66b2ddf",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.464Z"
     },
     {
       "address": "0x98d1947a5dacab8ac86b49f78c8b35b61c3ad3ef",
@@ -13172,7 +14188,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50460102,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:54:43.460Z"
     },
     {
@@ -13278,6 +14294,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50460102,
       "indexedAt": "2026-08-26T02:02:54.012Z"
+    },
+    {
+      "address": "0x9bac8489195b23974a7a4fbe492e07fa3ab49f9c",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:59.579Z"
     },
     {
       "address": "0x9bbe4f9fee65f46f22ba87132d6a3a377124d2d5",
@@ -13576,11 +14600,19 @@
       "indexedAt": "2026-08-22T20:47:22.709Z"
     },
     {
+      "address": "0xa3c62f08a9f19857c66da30b6e064b3af3297051",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:47.537Z"
+    },
+    {
       "address": "0xa4687a65a4f679c55f68eaf6ea88cd7c48b61228",
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T13:22:19.762Z"
     },
     {
@@ -13598,6 +14630,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50480423,
       "indexedAt": "2026-08-24T10:06:49.165Z"
+    },
+    {
+      "address": "0xa534a795eb623f19413aaf306157396f3c5ba5c2",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:58.734Z"
     },
     {
       "address": "0xa5775bc946f5b0d72c54044b51d9953740bdf51d",
@@ -13636,7 +14676,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T07:11:26.286Z"
     },
     {
@@ -13654,6 +14694,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50360823,
       "indexedAt": "2026-08-23T18:56:42.600Z"
+    },
+    {
+      "address": "0xa6a330fb568796ab1a2eb10de3f775a898de4129",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.436Z"
     },
     {
       "address": "0xa6e41e6a53cb7a5e44e0b20b134a0433a1bfa312",
@@ -13676,7 +14724,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50350459,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T13:09:35.765Z"
     },
     {
@@ -13702,6 +14750,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50330563,
       "indexedAt": "2026-08-23T02:06:00.700Z"
+    },
+    {
+      "address": "0xa7c679c1f98f595ff81226dea74103641f32715a",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.576Z"
     },
     {
       "address": "0xa80c528af82037adf9f573fba5e8047a12c14dd8",
@@ -13734,6 +14790,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50350462,
       "indexedAt": "2026-08-23T13:09:27.640Z"
+    },
+    {
+      "address": "0xa8b79e28d2a0be98a592b5e6b6cfaf8c44c9a990",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.756Z"
     },
     {
       "address": "0xa918330e37ec69f95a07ed3f15e5264e04b31911",
@@ -13784,6 +14848,14 @@
       "indexedAt": "2026-08-23T18:56:29.867Z"
     },
     {
+      "address": "0xaac35553336b0ccced034c899885999ba4cfcf9b",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.958Z"
+    },
+    {
       "address": "0xaaf4dfd92c31352585fee976a7fa45fb3222b2a7",
       "score": 0,
       "transactionsCount": 0,
@@ -13804,7 +14876,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:52.369Z"
     },
     {
@@ -13896,6 +14968,14 @@
       "indexedAt": "2026-08-26T13:24:42.974Z"
     },
     {
+      "address": "0xae40513ce6bf6d08de543c12ba1b30046bcc0fe0",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:01.846Z"
+    },
+    {
       "address": "0xaf867661735cd60444762dcf7b34b4f4be6921b7",
       "score": 0,
       "transactionsCount": 0,
@@ -13980,7 +15060,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50393981,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T13:21:26.731Z"
     },
     {
@@ -14160,6 +15240,22 @@
       "indexedAt": "2026-08-24T13:21:20.976Z"
     },
     {
+      "address": "0xb41a440fd000e0ce6d51ecbea381f45369eee0ac",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:51.913Z"
+    },
+    {
+      "address": "0xb42e9dca4b7d451cee6acc307d1f366cf257494e",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.529Z"
+    },
+    {
       "address": "0xb42f68d0b715fbf413209e7281753272ae050197",
       "score": 0,
       "transactionsCount": 0,
@@ -14190,6 +15286,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50393982,
       "indexedAt": "2026-08-24T13:21:21.426Z"
+    },
+    {
+      "address": "0xb5e568c586f294d33b9c10d503742c54d512fa96",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.023Z"
     },
     {
       "address": "0xb60b955e6ac386da1674e819152294946ecd3ef8",
@@ -14254,6 +15358,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50330563,
       "indexedAt": "2026-08-23T02:05:58.862Z"
+    },
+    {
+      "address": "0xb7bb3e8402260d1a8cd527354ed627f97141fe2c",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.528Z"
     },
     {
       "address": "0xb875c10376b061a833696be0a6451c96ce817dc2",
@@ -14340,7 +15452,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50339650,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-23T07:11:39.355Z"
     },
     {
@@ -14480,6 +15592,14 @@
       "indexedAt": "2026-08-24T10:09:53.779Z"
     },
     {
+      "address": "0xbb27574a988c4be9192040fd2c8009de718ff909",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:52.394Z"
+    },
+    {
       "address": "0xbb7b6c1e9fa22538a0b0263a0e4d4f55b6c08425",
       "score": 0,
       "transactionsCount": 0,
@@ -14500,7 +15620,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50360826,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T18:56:26.386Z"
     },
     {
@@ -14624,6 +15744,14 @@
       "indexedAt": "2026-08-23T07:11:35.955Z"
     },
     {
+      "address": "0xbf15db72752f877c20168502f18a91ba991d3fb6",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:55.752Z"
+    },
+    {
       "address": "0xbf4ae6bcad9200c187e002f7fa05e18f97d69af3",
       "score": 0,
       "transactionsCount": 0,
@@ -14660,8 +15788,16 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50469425,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T19:33:51.568Z"
+    },
+    {
+      "address": "0xc038ac5364375941906e04a91bd53760c714d368",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492682,
+      "indexedAt": "2026-08-26T20:12:02.078Z"
     },
     {
       "address": "0xc06524c49b5ac5ae84c4e189500aabc0e96f878a",
@@ -14696,6 +15832,14 @@
       "indexedAt": "2026-08-23T18:56:22.701Z"
     },
     {
+      "address": "0xc0ffeeec990e2e50d1589bc9120769455a104d6d",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:54.096Z"
+    },
+    {
       "address": "0xc11c05bc68afd6674c042e3eaee77545c04b887f",
       "score": 0,
       "transactionsCount": 0,
@@ -14726,6 +15870,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50339651,
       "indexedAt": "2026-08-23T07:11:23.775Z"
+    },
+    {
+      "address": "0xc1858386479779533f11fc046313155c7f6f3be4",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.150Z"
     },
     {
       "address": "0xc1c36fe7398681767a74f6b1896a492bf2dbad44",
@@ -14816,6 +15968,14 @@
       "indexedAt": "2026-08-23T07:11:21.434Z"
     },
     {
+      "address": "0xc37fe3dfc99f8b7604e5dbf798de1d058fccd344",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.208Z"
+    },
+    {
       "address": "0xc3b65f5252ceb62c30becd4e075738e95dbab0bb",
       "score": 0,
       "transactionsCount": 0,
@@ -14904,6 +16064,14 @@
       "indexedAt": "2026-08-22T19:53:29.126Z"
     },
     {
+      "address": "0xc5aabb3b8f055a6431801b0d24100913872ae29c",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:59.002Z"
+    },
+    {
       "address": "0xc5fc23c8f5c2f16220e13f84f15c802bd9629a1e",
       "score": 0,
       "transactionsCount": 0,
@@ -14918,6 +16086,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50388087,
       "indexedAt": "2026-08-24T10:04:54.012Z"
+    },
+    {
+      "address": "0xc6744dc21d46e8e75cd55d1dfd8747542e542861",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.313Z"
     },
     {
       "address": "0xc67edd5f94e180120f00e46e412c1a64e47efcd1",
@@ -14996,8 +16172,16 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50426219,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:52.832Z"
+    },
+    {
+      "address": "0xc7ed7936a8afc5557de81c58f0fa9f3f9e166705",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:48.230Z"
     },
     {
       "address": "0xc7f84733bdb59bafc68793256f5203a8d37b34be",
@@ -15006,6 +16190,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50330561,
       "indexedAt": "2026-08-22T19:33:47.001Z"
+    },
+    {
+      "address": "0xc7f8c128b72d66eae5199abbb2047b5888d59405",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.546Z"
     },
     {
       "address": "0xc80142ee844448201ef09b38962ce7affb85e72e",
@@ -15036,7 +16228,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:52.310Z"
     },
     {
@@ -15142,6 +16334,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50393982,
       "indexedAt": "2026-08-24T13:21:21.746Z"
+    },
+    {
+      "address": "0xcaf53a8e1f125cdf7ca9524d6d754f2ea2afc29c",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492684,
+      "indexedAt": "2026-08-26T20:11:52.697Z"
     },
     {
       "address": "0xcafd8bdee80355a4313fdc3f246f87ccce08ca1b",
@@ -15292,7 +16492,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50320807,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-22T20:44:57.255Z"
     },
     {
@@ -15356,7 +16556,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-24T10:06:58.318Z"
     },
     {
@@ -15414,6 +16614,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50339651,
       "indexedAt": "2026-08-23T07:11:28.551Z"
+    },
+    {
+      "address": "0xd2e1464c33bc271f495955e74b15d0bdc5768095",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:56.321Z"
     },
     {
       "address": "0xd2f39683e9978e2930ac3c604014c05a6a92f498",
@@ -15492,8 +16700,24 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50350462,
+      "lastSeenBlock": 50492682,
       "indexedAt": "2026-08-22T19:54:00.186Z"
+    },
+    {
+      "address": "0xd4486f422165bf9d5ab1ea4b273d83eab43b2d6b",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.847Z"
+    },
+    {
+      "address": "0xd4cbd9ee29e3ee43aec2d725783354645bbdf0a6",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:51.566Z"
     },
     {
       "address": "0xd51857e637e0678c311e37b47effbd30102785c9",
@@ -15532,7 +16756,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50360826,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-23T18:56:23.024Z"
     },
     {
@@ -15598,6 +16822,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50339650,
       "indexedAt": "2026-08-23T07:11:38.836Z"
+    },
+    {
+      "address": "0xd942a322fa7d360f22c525a652f51ca0fc4af012",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:49.235Z"
     },
     {
       "address": "0xd96d1d6fd3e5446ded3ce4bad78528bebaf639b2",
@@ -15780,7 +17012,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50480423,
+      "lastSeenBlock": 50492683,
       "indexedAt": "2026-08-23T07:11:28.582Z"
     },
     {
@@ -15838,6 +17070,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50393982,
       "indexedAt": "2026-08-22T19:34:06.630Z"
+    },
+    {
+      "address": "0xe224221104b3ea8d77aed250d9a43c1208574707",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:51.780Z"
     },
     {
       "address": "0xe23e5b5077b741810a6155f0b147776e99b7c4ba",
@@ -15916,7 +17156,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50318855,
+      "lastSeenBlock": 50492685,
       "indexedAt": "2026-08-22T19:33:49.513Z"
     },
     {
@@ -16060,7 +17300,7 @@
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50320807,
+      "lastSeenBlock": 50492686,
       "indexedAt": "2026-08-22T20:45:06.738Z"
     },
     {
@@ -16224,6 +17464,14 @@
       "indexedAt": "2026-08-24T13:21:30.712Z"
     },
     {
+      "address": "0xecdffd14804b12565021877a125b0b2c51bc5f8f",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:46.318Z"
+    },
+    {
       "address": "0xed38e7c29710ec400c77a1834ea3bd4d34151adc",
       "score": 0,
       "transactionsCount": 0,
@@ -16248,12 +17496,28 @@
       "indexedAt": "2026-08-23T02:05:52.853Z"
     },
     {
+      "address": "0xedf368bb6d89ed5812938f505f841d8ebad3f50f",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.498Z"
+    },
+    {
       "address": "0xee3e4b33308f1a3ed93e2a0ccf7ea835a708869b",
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50388087,
       "indexedAt": "2026-08-24T10:06:01.109Z"
+    },
+    {
+      "address": "0xee4ae2b6e6045f98183a151c743917a37c591288",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.155Z"
     },
     {
       "address": "0xee557eba0f35f6f19cdbb979971ad094bd77d09c",
@@ -16326,6 +17590,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50360825,
       "indexedAt": "2026-08-22T20:45:27.579Z"
+    },
+    {
+      "address": "0xf103f043b3aa617ad094556fadd579619c71831a",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:57.776Z"
     },
     {
       "address": "0xf147b5c5265715bcfbc801c840801456fbd8de35",
@@ -16472,11 +17744,19 @@
       "indexedAt": "2026-08-24T19:10:05.126Z"
     },
     {
+      "address": "0xf7b3cd53ad18e83253469c9125cb3685e628e081",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492685,
+      "indexedAt": "2026-08-26T20:11:50.270Z"
+    },
+    {
       "address": "0xf7cb1d1be24ff290556598543d04a6d3b1a25701",
       "score": 0,
       "transactionsCount": 0,
       "tokenTransfersCount": 0,
-      "lastSeenBlock": 50388087,
+      "lastSeenBlock": 50492684,
       "indexedAt": "2026-08-24T10:04:56.261Z"
     },
     {
@@ -16672,6 +17952,22 @@
       "indexedAt": "2026-08-25T13:15:46.511Z"
     },
     {
+      "address": "0xfc202b49abe3fcefa2d1f2a04f834b070aee15a3",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492683,
+      "indexedAt": "2026-08-26T20:11:55.878Z"
+    },
+    {
+      "address": "0xfc997cbefdb4cc3e9641c3b9af875c0b99f8d824",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:45.746Z"
+    },
+    {
       "address": "0xfc99a7fafae0543e08d48d03688dbdc4cd351355",
       "score": 0,
       "transactionsCount": 0,
@@ -16702,6 +17998,14 @@
       "tokenTransfersCount": 0,
       "lastSeenBlock": 50360826,
       "indexedAt": "2026-08-23T07:11:23.324Z"
+    },
+    {
+      "address": "0xfd99243e6e36732aa2c4e94d0f6902c175b1418e",
+      "score": 0,
+      "transactionsCount": 0,
+      "tokenTransfersCount": 0,
+      "lastSeenBlock": 50492686,
+      "indexedAt": "2026-08-26T20:11:44.551Z"
     },
     {
       "address": "0xfdda1842f12da1422d5048f9620871bac139e1bd",
