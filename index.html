@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#06090f" />
   <meta name="description" content="A read-only Base mainnet portfolio, activity and wallet-behavior explorer. No wallet connection, signatures, approvals, or transactions." />
 <meta name="base:app_id" content="6a8c312c39d7d26f4bad1a4f" />
   <title>Base Portfolio Explorer</title>
@@ -12,7 +14,7 @@
 <body>
   <div class="page-shell">
     <header class="topbar">
-      <a class="brand" href="./" aria-label="Base Portfolio Explorer home"><span class="base-dot">—</span><span>BASE PORTFOLIO</span></a>
+      <a class="brand" href="./" aria-label="Base Portfolio Explorer home"><span class="base-mark" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><circle cx="16" cy="16" r="16" fill="currentColor"/><rect x="5.5" y="13.25" width="21" height="5.5" rx="2.75" fill="#ffffff"/></svg></span><span>BASE PORTFOLIO</span></a>
       <div class="creator-links">
         <a href="https://x.com/1kipcak" target="_blank" rel="noreferrer">@1kipcak</a>
         <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a>
@@ -27,13 +29,13 @@
           <p class="lead">Portfolio, wallet behavior, app relationships, activity, gas, NFTs, milestones and a shareable Base card — all from a public address.</p>
           <div class="trust-pill">🔒 Read-only — No wallet connection. No signatures. No approvals.</div>
         </div>
-        <div class="hero-orb" aria-hidden="true"><div class="orb-mark">—</div></div>
+        <div class="hero-mark" aria-hidden="true"><svg class="hero-glyph" viewBox="0 0 32 32" focusable="false"><circle cx="16" cy="16" r="16" fill="currentColor"/><rect x="5.5" y="13.25" width="21" height="5.5" rx="2.75" fill="#ffffff"/></svg></div>
       </section>
 
       <section class="search-panel card">
         <label for="addressInput">Base address</label>
         <div class="search-row">
-          <input id="addressInput" autocomplete="off" spellcheck="false" placeholder="0x…" aria-label="Base address" />
+          <input id="addressInput" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="text" enterkeyhint="search" placeholder="0x…" aria-label="Base address" />
           <button id="analyzeBtn" class="primary">Analyze</button>
         </div>
         <div id="status" class="status">Paste any public EVM address. Nothing is signed or sent.</div>
