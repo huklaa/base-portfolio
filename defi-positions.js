@@ -13,7 +13,7 @@
     if((typeof state!=='undefined'&&state.loading)||!/^0x[a-fA-F0-9]{40}$/.test(address)||address===last)return;
     last=address;const ticket=++request;
     out.textContent='Loading Morpho positions…';
-    const query='query ($address:String!){userByAddress(address:$address,chainId:8453){marketPositions{market{marketId collateralAsset{symbol} loanAsset{symbol}} state{collateral collateralUsd borrowAssets borrowAssetsUsd supplyAssets supplyAssetsUsd}} vaultPositions{vault{name} state{assets assetsUsd shares}} vaultV2Positions{vault{name} assets assetsUsd shares}}}';
+    const query='query ($address:String!){userByAddress(address:$address,chainId:8453){marketPositions{market{marketId collateralAsset{address symbol decimals} loanAsset{address symbol decimals}} state{collateral collateralUsd borrowAssets borrowAssetsUsd supplyAssets supplyAssetsUsd}} vaultPositions{vault{name} state{assets assetsUsd shares}} vaultV2Positions{vault{name} assets assetsUsd shares}}}';
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
     try{
       const response=await fetch('https://api.morpho.org/graphql',{method:'POST',signal:controller.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({query,variables:{address}})});
@@ -23,11 +23,12 @@
       if(ticket!==request)return;
       const u=data.data?.userByAddress;
       const rows=[];
-      const add=(type,asset,amount,value)=>{if(Number(amount)>0)rows.push({type,asset,amount:String(amount),value:Number(value)});};
+      const fallback=globalThis.BaseStockContracts||new Map();
+      const add=(type,asset,amount,value,contract,decimals)=>{if(Number(amount)>0){const verified=typeof contract==='string'&&fallback.has(contract.toLowerCase());const d=Number(decimals);const human=Number.isInteger(d)&&d>=0&&d<=36?Number(amount)/Math.pow(10,d):null;rows.push({type,asset,amount:String(amount),value:Number(value),verified,displayAmount:Number.isFinite(human)?human.toLocaleString(undefined,{maximumFractionDigits:6}):null});}};
       for(const p of u?.marketPositions||[]){
-        add('Collateral',p.market?.collateralAsset?.symbol,p.state?.collateral,p.state?.collateralUsd);
-        add('Borrowed',p.market?.loanAsset?.symbol,p.state?.borrowAssets,p.state?.borrowAssetsUsd);
-        add('Supplied',p.market?.loanAsset?.symbol,p.state?.supplyAssets,p.state?.supplyAssetsUsd);
+        add('Collateral',p.market?.collateralAsset?.symbol,p.state?.collateral,p.state?.collateralUsd,p.market?.collateralAsset?.address,p.market?.collateralAsset?.decimals);
+        add('Borrowed',p.market?.loanAsset?.symbol,p.state?.borrowAssets,p.state?.borrowAssetsUsd,p.market?.loanAsset?.address,p.market?.loanAsset?.decimals);
+        add('Supplied',p.market?.loanAsset?.symbol,p.state?.supplyAssets,p.state?.supplyAssetsUsd,p.market?.loanAsset?.address,p.market?.loanAsset?.decimals);
       }
       for(const p of u?.vaultPositions||[])add('Vault deposit',p.vault?.name,p.state?.assets,p.state?.assetsUsd);
       for(const p of u?.vaultV2Positions||[])add('Vault deposit',p.vault?.name,p.assets,p.assetsUsd);
@@ -35,8 +36,8 @@
       if(!rows.length){out.textContent='No Morpho positions reported for this address. Other DeFi protocols are not checked.';return;}
       for(const p of rows.slice(0,30)){
         const el=document.createElement('div');el.className='token-row';
-        const title=document.createElement('strong');title.textContent=p.type+' · '+(p.asset||'Unknown asset');
-        const sub=document.createElement('small');sub.textContent=p.amount+' raw asset units'+(Number.isFinite(p.value)&&p.value>0?' · ≈ $'+p.value.toFixed(2):'');
+        const title=document.createElement('strong');title.textContent=p.type+' · '+(p.asset||'Unknown asset')+(p.verified?' · Tokenized stock contract match':'');
+        const sub=document.createElement('small');sub.textContent=(p.displayAmount??p.amount+' raw asset units')+(Number.isFinite(p.value)&&p.value>0?' · ≈ $'+p.value.toFixed(2):'');
         const wrap=document.createElement('div');wrap.className='token-name';wrap.append(title,sub);el.append(wrap);out.append(el);
       }
     }catch(e){if(ticket===request){out.textContent='Morpho position data unavailable. No balances have been inferred.';last='';}}finally{clearTimeout(timer)}
