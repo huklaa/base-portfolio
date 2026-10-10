@@ -18,3 +18,15 @@ test('issuer payload missing, empty, malformed or mismatched is rejected',()=>{f
 test('prices must be fresh, live and unpaused; multiplier never applied twice',()=>{const now=Date.parse('2026-10-10T12:00:00Z');const t={nav_price:230,multiplier:2,nav_price_updated_at:'2026-10-10T11:00:00Z',is_live:true,redeem_paused:false};assert.equal(s.nav(t,now).price,230);for(const patch of [{nav_price:null},{nav_price:'230'},{nav_price:-1},{nav_price:Infinity},{nav_price_updated_at:'2026-10-08T11:00:00Z'},{nav_price_updated_at:'2026-10-11T11:00:00Z'},{redeem_paused:true},{is_live:false},{nav_price_updated_at:'invalid'}])assert.equal(s.nav({...t,...patch},now),null);});
 test('wallet holdings use raw balances and address, reject decimal mismatches',()=>{const t={token:{address_hash:asset.address,symbol:'FAKE',decimals:'8'},value:'1729729'};assert.equal(s.holdings([t],registry)[0].holding.amount,'0.01729729');assert.deepEqual(s.holdings([{...t,token:{...t.token,address_hash:usd.address}}],registry),[]);assert.deepEqual(s.holdings([],registry),[]);assert.throws(()=>s.holdings(undefined,registry));assert.throws(()=>s.holdings([{...t,token:{...t.token,decimals:'18'}}],registry));});
 test('captured live Base wallet includes real stock collateral and vaults',()=>{const p=m.parseResponse(fs.readFileSync(new URL('./fixtures/morpho-base-2026-10-10.json',import.meta.url),'utf8'));const r=m.normalize(p,registry);assert.ok(r.some(x=>x.asset==='NVDAc'&&x.displayAmount==='0.01729729'&&x.verified));for(const type of ['Collateral','Borrowed','Supplied','Vault deposit'])assert.ok(r.some(x=>x.type===type),type);assert.ok(r.length>30,'do not silently truncate positions');});
+
+test('issuer proxy reports missing HTTP APIs, bad JSON and upstream failures',async()=>{
+ const code=fs.readFileSync(new URL('../functions/api/tokenized-stocks.js',import.meta.url),'utf8');
+ const {onRequestGet}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+ const original=globalThis.fetch;
+ try{
+  for(const response of [new Response('',{status:404}),new Response('not json'),new Response('{"tokens":[]}')]){globalThis.fetch=async()=>response;assert.equal((await onRequestGet()).status,502);}
+  globalThis.fetch=async()=>{throw Error('Network unavailable')};assert.equal((await onRequestGet()).status,502);
+  globalThis.fetch=async(url)=>{assert.equal(url,'https://api.coinbase.com/v1/tokenized-stocks');return Response.json({tokens:[{...stock,decimals:8}]});};
+  const response=await onRequestGet();assert.equal(response.status,200);assert.equal(response.headers.get('Cache-Control'),'no-store');assert.equal((await response.json()).tokens[0].contract_address,stock.contract_address);
+ }finally{globalThis.fetch=original;}
+});

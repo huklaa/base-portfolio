@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const API='https://api.coinbase.com/v1/tokenized-stocks';
+  const API=typeof location!=='undefined'&&location.hostname.endsWith('github.io')?'https://api.coinbase.com/v1/tokenized-stocks':'/api/tokenized-stocks';
   const FALLBACK=[["NVDAc","78ee7ce2fE4908108C"],["METAc","8bC8786B856E61707C"],["AAPLc","C2e324d24d7eEcd1fb"],["GOOGLc","2D0BA3164cc74f58B7"],["AMZNc","d9192b6B456483C2E8"],["MSFTc","Ab99cFa739E253872B"],["MSTRc","4884b426556b92883d"],["SNDKc","397293Cb8cda9a10c5"],["SPCXc","7b9fcbd005511aCBd5"],["TSLAc","1e800a7f5189430cD0"]];
   const fallbackRegistry=()=>new Map(FALLBACK.map(([symbol,suffix])=>{const contract_address='0xb200000000000000000000'+suffix;return [contract_address.toLowerCase(),{symbol,name:symbol,contract_address}]}));
   // Source: https://www.base.org/stocks, checked 2026-10-10.
@@ -26,7 +26,7 @@
     return tokens.flatMap(item=>{
       const token=registry.get(String(item.token?.address_hash||'').toLowerCase());if(!token)return [];
       const decimals=token.decimals??8; // Official B20 assets use 8 decimals.
-      if(!/^\d+$/.test(String(item.value))||Number(item.token.decimals)!==decimals)throw Error('Stock balance or decimals mismatch');
+      if((typeof item.value==='number'&&!Number.isSafeInteger(item.value))||!/^\d+$/.test(String(item.value))||Number(item.token.decimals)!==decimals)throw Error('Stock balance or decimals mismatch');
       const raw=BigInt(item.value);if(raw===0n)return [];
       const padded=raw.toString().padStart(decimals+1,'0');
       const amount=decimals?padded.slice(0,-decimals)+'.'+padded.slice(-decimals):padded;
@@ -48,7 +48,6 @@
   const root=card.querySelector('#stocksPositions');
   const count=card.querySelector('#stocksCount');
   let registry=null, registryFailure='', renderId=0;
-  const validAddress=a=>/^0x[0-9a-fA-F]{40}$/.test(String(a||''));
   const fmt=n=>Number(n).toLocaleString(undefined,{maximumFractionDigits:6});
   function render(){
     if(typeof state==='undefined'||!state.address) return;
