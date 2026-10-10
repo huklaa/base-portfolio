@@ -1,6 +1,8 @@
 (function(){
   'use strict';
   const API='https://api.coinbase.com/v1/tokenized-stocks';
+  const FALLBACK=[["NVDAc","78ee7ce2fE4908108C"],["METAc","8bC8786B856E61707C"],["AAPLc","C2e324d24d7eEcd1fb"],["GOOGLc","2D0BA3164cc74f58B7"],["AMZNc","d9192b6B456483C2E8"],["MSFTc","Ab99cFa739E253872B"],["MSTRc","4884b426556b92883d"],["SNDKc","397293Cb8cda9a10c5"],["SPCXc","7b9fcbd005511aCBd5"],["TSLAc","1e800a7f5189430cD0"]];
+  const fallbackRegistry=()=>new Map(FALLBACK.map(([symbol,suffix])=>{const contract_address='0xb200000000000000000000'+suffix;return [contract_address.toLowerCase(),{symbol,name:symbol,contract_address}]}));
   const dashboard=document.getElementById('dashboard');
   if(!dashboard) return;
   const card=document.createElement('article');
@@ -23,7 +25,7 @@
     const positions=(state.portfolio||[]).filter(t=>validAddress(t.address)).map(t=>({holding:t,token:registry.get(t.address.toLowerCase())})).filter(x=>x.token);
     count.textContent=positions.length+' B20 assets';
     if(!positions.length){ note.textContent='No verified Coinbase tokenized-stock wallet balances detected in the explorer response.'; return;}
-    note.textContent='Issuer-matched balances only. Reference values are indicative, not executable trade quotes.';
+    note.textContent=registryFailure?'Matched against a dated Base contract list. Live price and issuance status unavailable.':'Issuer-matched balances only. Reference values are indicative, not executable trade quotes.';
     for(const {holding,token} of positions){
       if(myId!==renderId)return;
       const item=document.createElement('div');item.className='token-row';
@@ -32,10 +34,10 @@
       const details=document.createElement('small');details.textContent=String(token.name||holding.name||'Verified token')+' · '+fmt(holding.amount)+' tokens';
       left.append(title,details);
       const right=document.createElement('div');right.className='token-value';
-      const price=Number(token.nav_price)*Number(token.multiplier);const updated=Date.parse(token.nav_price_updated_at||'');
+      const price=Number(token.nav_price);const updated=Date.parse(token.nav_price_updated_at||'');
       const hours=Number.isFinite(updated)?(Date.now()-updated)/3600000:Infinity;
-      const fresh=hours>=0&&hours<=24&&Number(token.multiplier)>0;
-      if(Number.isFinite(price)&&price>0&&fresh){
+      const fresh=hours>=0&&hours<=24&&token.nav_price!=null;
+      if(!registryFailure&&Number.isFinite(price)&&price>0&&fresh){
         const value=document.createElement('strong');value.textContent='≈ $'+fmt(holding.amount*price);
         const caption=document.createElement('small');caption.textContent='Indicative feed NAV · '+new Date(updated).toLocaleString();
         right.append(value,caption);
@@ -58,7 +60,7 @@
       if(!Array.isArray(payload.tokens))throw new Error('Unexpected registry format');
       registry=new Map(payload.tokens.filter(t=>validAddress(t.contract_address)).map(t=>[t.contract_address.toLowerCase(),t]));
       registryFailure='';
-    }catch(e){registryFailure='Issuer registry unavailable ('+String(e.message||'network error')+'). Stock classifications are hidden rather than guessed.';}
+    }catch(e){registryFailure='Issuer registry unavailable ('+String(e.message||'network error')+'). Using a dated Base contract snapshot; no live prices.';registry=fallbackRegistry();}
     render();
   }
   // The core explorer reveals its results by removing dashboard.hidden after analysis.
