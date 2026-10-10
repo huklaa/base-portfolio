@@ -36,6 +36,7 @@ async function loadAddress(address){
   const val = (x,fallback) => x.status==='fulfilled' ? x.value : fallback;
   state.info=val(info,{});
   state.tokens=val(tokens,[]);
+  state.tokenDataAvailable=tokens.status==='fulfilled'&&Array.isArray(tokens.value);
   const nftPayload=val(nfts,{items:[]}); state.nfts=nftPayload.items||[];
   const recentPayload=val(recent,{items:[]}); state.recent=(recentPayload.items||[]).slice(0,20);
   const txPayload=val(txs,{result:[]}); state.txs=Array.isArray(txPayload.result)?txPayload.result:[];

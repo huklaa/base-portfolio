@@ -70,3 +70,5 @@ jobs:
           node --check growth-tools.js
           node --check defi-positions.js
           node --check tokenized-stocks.js
+      - name: Financial data regression tests
+        run: node --test tests/defi-data.test.mjs
