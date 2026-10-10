@@ -12,7 +12,7 @@
   async function fetchSummary(address){
     const url=`${BLOCKSCOUT}/api?module=account&action=txlist&address=${encodeURIComponent(address)}&startblock=0&endblock=99999999&sort=asc&page=1&offset=10000`;
     const r=await fetch(url,{headers:{accept:'application/json'}});if(!r.ok)throw new Error(`Explorer ${r.status}`);
-    const j=await r.json();return summarizeTxs(Array.isArray(j.result)?j.result:[]);
+    const j=await r.json();if(!Array.isArray(j.result))throw new Error('Explorer returned unavailable transaction data');return summarizeTxs(j.result);
   }
   function short(a){return `${a.slice(0,8)}…${a.slice(-6)}`}
   function ensureUI(){
@@ -27,6 +27,7 @@
   }
   async function compare(){
     const a=document.getElementById('compareA')?.value.trim()||'',b=document.getElementById('compareB')?.value.trim()||'',status=document.getElementById('compareStatus'),root=document.getElementById('compareResults'),btn=document.getElementById('compareBtn');
+    root.classList.add('hidden');
     if(!ADDRESS_RE.test(a)||!ADDRESS_RE.test(b)){status.textContent='Enter two valid 0x addresses.';status.classList.add('error');return}
     status.classList.remove('error');status.textContent='Reading indexed Base activity for both addresses…';btn.disabled=true;btn.setAttribute('aria-busy','true');
     try{

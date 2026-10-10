@@ -61,3 +61,12 @@ jobs:
         run: node tests/wallet-health.test.mjs
       - name: Deploy smoke tests
         run: node tests/deploy-smoke.test.mjs
+      - name: Name resolution regression tests
+        run: node tests/name-search.test.mjs
+      - name: Additional browser module syntax
+        run: |
+          node --check basename-search.js
+          node --check activity-charts.js
+          node --check growth-tools.js
+          node --check defi-positions.js
+          node --check tokenized-stocks.js

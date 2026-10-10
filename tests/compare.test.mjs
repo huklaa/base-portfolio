@@ -15,3 +15,10 @@ assert.equal(s.contracts,2,'plain transfers must not count as contract destinati
 assert.equal(s.firstSeen,1700000000);
 assert.deepEqual(summarizeTxs(null),{transactions:0,activeDays:0,contracts:0,firstSeen:0});
 console.log('comparison tests passed');
+const originalFetch=globalThis.fetch;
+try {
+ globalThis.fetch=async()=>({ok:true,json:async()=>({status:'0',result:'Max rate limit reached'})});
+ await assert.rejects(globalThis.BaseCompare.fetchSummary('0x1111111111111111111111111111111111111111'),/unavailable/);
+ globalThis.fetch=async()=>({ok:true,json:async()=>({status:'0',message:'No transactions found',result:[]})});
+ assert.equal((await globalThis.BaseCompare.fetchSummary('0x1111111111111111111111111111111111111111')).transactions,0);
+} finally {globalThis.fetch=originalFetch}

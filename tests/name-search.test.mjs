@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+await import('../basename-search.js');
+const {resolveWithClients}=globalThis.BaseNameSearch;
+const address='0x1234567890123456789012345678901234567890';
+const resolver='0x9876543210987654321098765432109876543210';
+const zero='0x0000000000000000000000000000000000000000';
+const calls=[];
+const deps={normalize:n=>n.toLowerCase(),namehash:n=>n,baseClient:{readContract:async c=>{calls.push(c);return c.functionName==='resolver'?resolver:address}},mainnetClient:{getEnsAddress:async ({name})=>{assert.equal(name,'vitalik.eth');return address}}};
+assert.equal(await resolveWithClients('FIZZLER.base.eth',deps),address);
+assert.equal(calls[0].functionName,'resolver');
+assert.equal(calls[1].address,resolver,'use the name’s registered resolver, including migrated/custom resolvers');
+assert.equal(calls[1].functionName,'addr');
+assert.equal(await resolveWithClients('VITALIK.eth',deps),address);
+await assert.rejects(resolveWithClients('missing.base.eth',{...deps,baseClient:{readContract:async()=>zero}}),/No resolver/);
+await assert.rejects(resolveWithClients('vitalik.eth',{...deps,mainnetClient:{getEnsAddress:async()=>zero}}),/No address/);
+console.log('name resolution tests passed');

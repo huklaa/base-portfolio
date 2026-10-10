@@ -11,14 +11,14 @@ const status=area.querySelector('#baseQuickStatus'),input=document.getElementByI
 const setStatus=x=>{status.textContent=x};
 const key='basePortfolioWatchlistV1';
 function read(){try{const a=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(a)?a.filter(x=>RE.test(x)).slice(0,30):[]}catch{return []}}
-function write(a){try{localStorage.setItem(key,JSON.stringify(a))}catch{setStatus('Browser storage is not available.')}}
+function write(a){try{localStorage.setItem(key,JSON.stringify(a))}catch{setStatus('Browser storage is not available.');return false}return true}
 function show(){const root=area.querySelector('#baseWatchList');root.replaceChildren();const addresses=read();if(!addresses.length)return;const title=document.createElement('strong');title.textContent='Saved watchlist ('+addresses.length+'/30)';root.append(title);for(const a of addresses){const line=document.createElement('div');line.className='recent-head';const b=document.createElement('button');b.type='button';b.className='link-button';b.textContent=a.slice(0,10)+'…'+a.slice(-6);b.addEventListener('click',()=>{input.value=a;document.getElementById('analyzeBtn')?.click()});const rm=document.createElement('button');rm.type='button';rm.className='link-button';rm.textContent='Remove';rm.setAttribute('aria-label','Remove '+a);rm.addEventListener('click',()=>{write(read().filter(x=>x.toLowerCase()!==a.toLowerCase()));show()});line.append(b,rm);root.append(line)}}
 area.querySelector('#tryExampleBase').addEventListener('click',()=>{input.value=EXAMPLE;setStatus('Showing an independent public Base address. Balances and activity are live, not mock data.');document.getElementById('analyzeBtn')?.click()});
-area.querySelector('#saveBaseWatch').addEventListener('click',()=>{const a=input.value.trim();if(!RE.test(a)){setStatus('Enter a valid public 0x address before saving.');return}const list=read();write([a,...list.filter(x=>x.toLowerCase()!==a.toLowerCase())].slice(0,30));show();setStatus('Saved locally on this device.')});
+area.querySelector('#saveBaseWatch').addEventListener('click',()=>{const a=input.value.trim();if(!RE.test(a)){setStatus('Enter a valid public 0x address before saving.');return}const list=read();if(!write([a,...list.filter(x=>x.toLowerCase()!==a.toLowerCase())].slice(0,30)))return;show();setStatus('Saved locally on this device.')});
 const csvCell=v=>'"'+String(v??'').replaceAll('"','""')+'"';
 area.querySelector('#exportBaseCsv').addEventListener('click',()=>{
  const st=typeof state!=='undefined'?state:null;
- if(!st||!RE.test(st.address)||!Array.isArray(st.txs)||!st.txs.length){setStatus('Analyze an address with indexed transactions before exporting.');return}
+ if(!st||st.loading||!RE.test(st.address)||!Array.isArray(st.txs)||!st.txs.length){setStatus('Analyze an address with indexed transactions before exporting.');return}
  const columns=['hash','timeStamp','from','to','value','gasUsed','gasPrice','isError'];
  const lines=[columns.join(','),...st.txs.map(tx=>columns.map(k=>csvCell(tx[k])).join(','))];
  const blob=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});

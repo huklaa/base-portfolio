@@ -294,20 +294,24 @@ function drawShareCard(){
 function downloadCard(){ drawShareCard(); const a=document.createElement('a');a.href=$('shareCanvas').toDataURL('image/png');a.download=`base-card-${state.address.slice(2,8)}.png`;a.click(); }
 
 async function analyze(){
+  if(state.loading)return;
   const address=$('addressInput').value.trim();
   if(!ADDRESS_RE.test(address)){ setStatus('Enter a valid 0x address (40 hexadecimal characters).',true); return; }
+  state.loading=true;$('dashboard').classList.add('hidden');state.txs=[];
   $('analyzeBtn').disabled=true; setStatus('Reading public Base data…');
   try{
     state.address=address; await loadAddress(address); buildPortfolio(); buildMetrics(); buildFingerprint();
     $('explorerAddress').href=`${BLOCKSCOUT}/address/${address}`;
     renderMetrics();renderFingerprint();renderTokens();renderRecent();renderTimeline();renderNFTs();drawShareCard();
+    state.loading=false;
     $('dashboard').classList.remove('hidden');
+    window.dispatchEvent(new CustomEvent('base-analysis-complete'));
     history.replaceState(null,'',`${location.pathname}?address=${encodeURIComponent(address)}`);
     const partial = state.txs.length>=10000?' Activity metrics are capped at the explorer’s first 10,000 indexed transactions.':'';
     setStatus(`Loaded public Base data for ${short(address)}.${partial}`);
     $('dashboard').scrollIntoView({behavior:'smooth',block:'start'});
   }catch(e){ console.error(e); setStatus(e.message||'Could not load Base data.',true); }
-  finally{$('analyzeBtn').disabled=false;}
+  finally{state.loading=false;$('analyzeBtn').disabled=false;}
 }
 
 $('analyzeBtn').addEventListener('click',analyze);

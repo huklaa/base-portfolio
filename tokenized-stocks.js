@@ -5,7 +5,7 @@
   if(!dashboard) return;
   const card=document.createElement('article');
   card.className='card section-card'; card.id='tokenizedStocksPanel';
-  card.innerHTML='<div class="card-head"><div><div class="eyebrow">BASE REAL-WORLD ASSETS</div><h3>Tokenized stocks & DeFi exposure</h3></div><span class="badge" id="stocksCount">Read-only</span></div><p class="section-intro">Issuer-verified B20 token balances and indicative reference values. No wallet connection, trading or eligibility inference. DeFi protocol deposits and debt require separate verified position data; ordinary wallet balances are not proof of a lending position.</p><div id="stocksNotice" class="empty" role="status">Loading issuer token registry…</div><div id="stocksPositions" class="token-list"></div><div id="stocksDefiNotice" class="section-intro">DeFi position coverage: not indexed yet. Collateral, debt, lending APY and liquidation risk are excluded rather than estimated.</div><p class="section-intro"><a href="https://www.base.org/stocks" target="_blank" rel="noopener noreferrer">Verified Base stock assets ↗</a> · <a href="https://www.coinbase.com/tokenize" target="_blank" rel="noopener noreferrer">Issuer terms and eligibility ↗</a></p>';
+  card.innerHTML='<div class="card-head"><div><div class="eyebrow">BASE REAL-WORLD ASSETS</div><h3>Tokenized stocks & DeFi exposure</h3></div><span class="badge" id="stocksCount">Read-only</span></div><p class="section-intro">Issuer-verified B20 token balances and indicative reference values. No wallet connection, trading or eligibility inference. DeFi protocol deposits and debt require separate verified position data; ordinary wallet balances are not proof of a lending position.</p><div id="stocksNotice" class="empty" role="status">Loading issuer token registry…</div><div id="stocksPositions" class="token-list"></div><div id="stocksDefiNotice" class="section-intro">Morpho positions are shown separately below. Other DeFi protocols, lending APY and liquidation risk are not covered.</div><p class="section-intro"><a href="https://www.base.org/stocks" target="_blank" rel="noopener noreferrer">Verified Base stock assets ↗</a> · <a href="https://www.coinbase.com/tokenize" target="_blank" rel="noopener noreferrer">Issuer terms and eligibility ↗</a></p>';
   const allocation=dashboard.querySelector('.two-col');
   if(allocation) allocation.insertAdjacentElement('afterend',card);
   else dashboard.appendChild(card);
@@ -19,7 +19,7 @@
     if(typeof state==='undefined'||!state.address) return;
     const myId=++renderId;
     root.replaceChildren();
-    if(!registry){note.textContent=registryFailure||'Fetching verified token registry…';count.textContent='Registry pending';return;}
+    if(!registry){note.textContent=registryFailure||'Fetching verified token registry…';count.textContent=registryFailure?'Registry unavailable':'Registry pending';return;}
     const positions=(state.portfolio||[]).filter(t=>validAddress(t.address)).map(t=>({holding:t,token:registry.get(t.address.toLowerCase())})).filter(x=>x.token);
     count.textContent=positions.length+' B20 assets';
     if(!positions.length){ note.textContent='No verified Coinbase tokenized-stock wallet balances detected in the explorer response.'; return;}
