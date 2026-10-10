@@ -18,9 +18,12 @@ function setStatus(text, error=false){ $('status').textContent=text; $('status')
 function clamp(v,min=0,max=100){ return Math.max(min,Math.min(max,Number(v)||0)); }
 
 async function getJSON(url){
-  const r=await fetch(url,{headers:{accept:'application/json'}});
-  if(!r.ok) throw new Error(`API ${r.status}`);
-  return r.json();
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+  try{
+    const r=await fetch(url,{signal:controller.signal,headers:{accept:'application/json'}});
+    if(!r.ok) throw new Error(`API ${r.status}`);
+    return await r.json();
+  }finally{clearTimeout(timer);}
 }
 
 async function loadAddress(address){
@@ -36,6 +39,7 @@ async function loadAddress(address){
   const val = (x,fallback) => x.status==='fulfilled' ? x.value : fallback;
   state.info=val(info,{});
   state.tokens=val(tokens,[]);
+  state.tokenDataAvailable=tokens.status==='fulfilled'&&Array.isArray(tokens.value);
   const nftPayload=val(nfts,{items:[]}); state.nfts=nftPayload.items||[];
   const recentPayload=val(recent,{items:[]}); state.recent=(recentPayload.items||[]).slice(0,20);
   const txPayload=val(txs,{result:[]}); state.txs=Array.isArray(txPayload.result)?txPayload.result:[];
