@@ -11,8 +11,8 @@
   }
   async function fetchSummary(address){
     const url=`${BLOCKSCOUT}/api?module=account&action=txlist&address=${encodeURIComponent(address)}&startblock=0&endblock=99999999&sort=asc&page=1&offset=10000`;
-    const r=await fetch(url,{headers:{accept:'application/json'}});if(!r.ok)throw new Error(`Explorer ${r.status}`);
-    const j=await r.json();if(!Array.isArray(j.result))throw new Error('Explorer returned unavailable transaction data');return summarizeTxs(j.result);
+    const j=await BaseApi.readJSON(url,{headers:{accept:'application/json'}},JSON.parse,30000);
+    return summarizeTxs(BaseApi.transactionRows(j));
   }
   function short(a){return `${a.slice(0,8)}…${a.slice(-6)}`}
   function ensureUI(){

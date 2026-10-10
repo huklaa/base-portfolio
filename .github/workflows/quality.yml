@@ -72,3 +72,8 @@ jobs:
           node --check tokenized-stocks.js
       - name: Financial data regression tests
         run: node --test tests/defi-data.test.mjs
+      - name: Explorer access regression tests
+        run: |
+          node --check blockscout-rate-limit.js
+          node --check api-fetch.js
+          node --test tests/explorer-access.test.mjs
