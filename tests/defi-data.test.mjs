@@ -38,3 +38,10 @@ test('hard deadline releases caller when fetch ignores AbortSignal',async()=>{
  await assert.rejects(readJSON('https://example.invalid',{},JSON.parse,100,async()=>new Response('broken')),SyntaxError);
  assert.deepEqual(await readJSON('https://example.invalid',{},JSON.parse,100,async()=>Response.json({ok:true})),{ok:true});
 });
+
+test('failed transaction history cannot masquerade as an empty wallet',()=>{
+ const {transactionRows}=require('../api-fetch.js');
+ for(const value of [undefined,{}, {result:'rate limit'}, {status:'0',message:'error',result:[]}])assert.throws(()=>transactionRows(value));
+ assert.deepEqual(transactionRows({status:'0',message:'No transactions found',result:[]}),[]);
+ assert.deepEqual(transactionRows({status:'1',result:[{hash:'tx'}]}),[{hash:'tx'}]);
+});

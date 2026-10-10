@@ -18,7 +18,7 @@ function setStatus(text, error=false){ $('status').textContent=text; $('status')
 function clamp(v,min=0,max=100){ return Math.max(min,Math.min(max,Number(v)||0)); }
 
 async function getJSON(url){
-  return BaseApi.readJSON(url,{headers:{accept:'application/json'}});
+  return BaseApi.readJSON(url,{headers:{accept:'application/json'}},JSON.parse,url.includes('action=txlist')?45000:15000);
 }
 
 async function loadAddress(address){
@@ -37,7 +37,8 @@ async function loadAddress(address){
   state.tokenDataAvailable=tokens.status==='fulfilled'&&Array.isArray(tokens.value);
   const nftPayload=val(nfts,{items:[]}); state.nfts=nftPayload.items||[];
   const recentPayload=val(recent,{items:[]}); state.recent=(recentPayload.items||[]).slice(0,20);
-  const txPayload=val(txs,{result:[]}); state.txs=Array.isArray(txPayload.result)?txPayload.result:[];
+  if(txs.status==='rejected')throw new Error('Transaction history unavailable. The explorer timed out or failed; no activity totals have been inferred. Please retry.');
+  state.txs=BaseApi.transactionRows(txs.value);
   if(info.status==='rejected' && txs.status==='rejected') throw new Error('Base explorer data could not be loaded. Try again in a moment.');
 }
 
