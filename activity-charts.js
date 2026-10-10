@@ -11,7 +11,7 @@ function paint(canvas,values,labels,unit){
  const scale=window.devicePixelRatio||1,box=canvas.getBoundingClientRect(),width=Math.max(280,box.width||360),height=230;
  canvas.width=Math.round(width*scale);canvas.height=Math.round(height*scale);
  const ctx=canvas.getContext('2d');ctx.scale(scale,scale);ctx.clearRect(0,0,width,height);
- const left=48,right=12,top=22,bottom=35,plot=width-left-right,avail=height-top-bottom;
+ const left=unit==='ETH'?72:48,right=12,top=22,bottom=35,plot=width-left-right,avail=height-top-bottom;
  const peak=Math.max(0,...values);const max=peak>0?peak:1;ctx.font='12px system-ui';ctx.fillStyle='#a7bde0';
  for(let i=0;i<=4;i++){const y=top+avail*i/4;ctx.strokeStyle='#26344b';ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(width-right,y);ctx.stroke();ctx.fillText((max*(4-i)/4).toLocaleString(undefined,{maximumSignificantDigits:3}),3,y+4);}
  const barWidth=plot/Math.max(1,values.length);
