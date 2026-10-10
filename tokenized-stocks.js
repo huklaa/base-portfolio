@@ -32,9 +32,9 @@
       const details=document.createElement('small');details.textContent=String(token.name||holding.name||'Verified token')+' · '+fmt(holding.amount)+' tokens';
       left.append(title,details);
       const right=document.createElement('div');right.className='token-value';
-      const price=Number(token.nav_price);const updated=Date.parse(token.nav_price_updated_at||'');
+      const price=Number(token.nav_price)*Number(token.multiplier);const updated=Date.parse(token.nav_price_updated_at||'');
       const hours=Number.isFinite(updated)?(Date.now()-updated)/3600000:Infinity;
-      const fresh=hours>=0&&hours<=24;
+      const fresh=hours>=0&&hours<=24&&Number(token.multiplier)>0;
       if(Number.isFinite(price)&&price>0&&fresh){
         const value=document.createElement('strong');value.textContent='≈ $'+fmt(holding.amount*price);
         const caption=document.createElement('small');caption.textContent='Indicative feed NAV · '+new Date(updated).toLocaleString();
