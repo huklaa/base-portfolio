@@ -3,6 +3,7 @@
   const API='https://api.coinbase.com/v1/tokenized-stocks';
   const FALLBACK=[["NVDAc","78ee7ce2fE4908108C"],["METAc","8bC8786B856E61707C"],["AAPLc","C2e324d24d7eEcd1fb"],["GOOGLc","2D0BA3164cc74f58B7"],["AMZNc","d9192b6B456483C2E8"],["MSFTc","Ab99cFa739E253872B"],["MSTRc","4884b426556b92883d"],["SNDKc","397293Cb8cda9a10c5"],["SPCXc","7b9fcbd005511aCBd5"],["TSLAc","1e800a7f5189430cD0"]];
   const fallbackRegistry=()=>new Map(FALLBACK.map(([symbol,suffix])=>{const contract_address='0xb200000000000000000000'+suffix;return [contract_address.toLowerCase(),{symbol,name:symbol,contract_address}]}));
+  globalThis.BaseStockContracts=fallbackRegistry();
   const dashboard=document.getElementById('dashboard');
   if(!dashboard) return;
   const card=document.createElement('article');
@@ -60,6 +61,7 @@
       if(!Array.isArray(payload.tokens))throw new Error('Unexpected registry format');
       registry=new Map(payload.tokens.filter(t=>validAddress(t.contract_address)).map(t=>[t.contract_address.toLowerCase(),t]));
       registryFailure='';
+      globalThis.BaseStockContracts=registry;
     }catch(e){registryFailure='Issuer registry unavailable ('+String(e.message||'network error')+'). Using a dated Base contract snapshot; no live prices.';registry=fallbackRegistry();}
     render();
   }
