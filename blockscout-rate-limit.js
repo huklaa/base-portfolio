@@ -1,109 +1,63 @@
-(() => {
-  const nativeFetch = globalThis.fetch?.bind(globalThis);
-  if (!nativeFetch || globalThis.__baseBlockscoutQueueInstalled) return;
-  globalThis.__baseBlockscoutQueueInstalled = true;
-
-  const HOST = 'base.blockscout.com';
-  const MIN_GAP_MS = 850;
-  const CACHE_MS = 120000;
-  const MAX_ATTEMPTS = 8;
-  const cache = new Map();
-  let queue = Promise.resolve();
-  let lastStartedAt = 0;
-  let cooldownUntil = 0;
-
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-  function isBlockscout(input) {
-    try {
-      const raw = typeof input === 'string' ? input : input?.url;
-      return new URL(raw, location.href).hostname === HOST;
-    } catch {
-      return false;
-    }
-  }
-
-  function retryDelay(response, attempt) {
-    const header = response?.headers?.get?.('retry-after');
-    const seconds = Number(header);
-    if (Number.isFinite(seconds) && seconds > 0) return Math.min(60000, seconds * 1000);
-    if (response?.status === 429) return Math.min(30000, 3000 * Math.pow(2, attempt));
-    return Math.min(12000, 1000 * Math.pow(2, attempt));
-  }
-
-  function announceWaiting(delay) {
-    try {
-      window.dispatchEvent(new CustomEvent('base-blockscout-wait', { detail: { delay, until: Date.now() + delay } }));
-    } catch {}
-  }
-
-  async function runSerialized(task) {
-    const previous = queue;
-    let release;
-    queue = new Promise(resolve => { release = resolve; });
-    await previous;
-    try {
-      const waitForGap = Math.max(0, MIN_GAP_MS - (Date.now() - lastStartedAt));
-      const waitForCooldown = Math.max(0, cooldownUntil - Date.now());
-      const wait = Math.max(waitForGap, waitForCooldown);
-      if (wait) await sleep(wait);
-      lastStartedAt = Date.now();
-      return await task();
-    } finally {
-      release();
-    }
-  }
-
-  async function blockscoutFetch(input, init = {}) {
-    if (!isBlockscout(input)) return nativeFetch(input, init);
-
-    const method = String(init?.method || 'GET').toUpperCase();
-    const url = typeof input === 'string' ? input : input.url;
-    const key = method === 'GET' ? url : null;
-    const hit = key && cache.get(key);
-    if (hit && hit.expires > Date.now()) return hit.response.clone();
-
-    return runSerialized(async () => {
-      const secondHit = key && cache.get(key);
-      if (secondHit && secondHit.expires > Date.now()) return secondHit.response.clone();
-
-      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-        const waitForCooldown = Math.max(0, cooldownUntil - Date.now());
-        if (waitForCooldown) await sleep(waitForCooldown);
-
-        let response;
-        try {
-          response = await nativeFetch(input, init);
-        } catch (error) {
-          if (attempt === MAX_ATTEMPTS - 1) throw error;
-          const delay = Math.min(12000, 1000 * Math.pow(2, attempt));
-          announceWaiting(delay);
-          await sleep(delay);
-          continue;
-        }
-
-        if (response.ok) {
-          if (key) cache.set(key, { expires: Date.now() + CACHE_MS, response: response.clone() });
+(function(root){
+  'use strict';
+  function createGate(nativeFetch,{origin='https://base-portfolio.xyz',gapMs=250,timeoutMs=12000,cacheMs=120000,configured=async()=>false}={}){
+    const cache=new Map();let queue=Promise.resolve(),lastStarted=0;
+    const abortError=()=>new DOMException('Request aborted','AbortError');
+    function wait(ms,signal){return new Promise((resolve,reject)=>{if(signal?.aborted)return reject(abortError());const finish=()=>{signal?.removeEventListener('abort',abort);resolve();};const timer=setTimeout(finish,ms);const abort=()=>{clearTimeout(timer);signal.removeEventListener('abort',abort);reject(abortError());};signal?.addEventListener('abort',abort,{once:true});});}
+    async function gatedFetch(input,init={}){
+      let url;try{url=new URL(typeof input==='string'?input:input.url,origin);}catch{return nativeFetch(input,init);}
+      if(url.hostname!=='base.blockscout.com'||(init.method||input?.method||'GET').toUpperCase()!=='GET')return nativeFetch(input,init);
+      const signal=init.signal||input?.signal;if(signal?.aborted)throw abortError();
+      const key=url.href,hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.response.clone();
+      const previous=queue;let release;queue=new Promise(r=>{release=r;});
+      await previous;
+      try{
+        if(signal?.aborted)throw abortError();
+        const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.response.clone();
+        await wait(Math.max(0,gapMs-(Date.now()-lastStarted)),signal);
+        const useProxy=await configured();if(signal?.aborted)throw abortError();
+        const target=useProxy?new URL('/api/explorer?path='+encodeURIComponent(url.pathname+url.search),origin).href:url.href;
+        lastStarted=Date.now();
+        const controller=new AbortController();let timer,abort;
+        const deadline=new Promise((_,reject)=>{
+          timer=setTimeout(()=>{reject(Error('Explorer request timed out'));controller.abort();},timeoutMs);
+          abort=()=>{reject(abortError());controller.abort();};signal?.addEventListener('abort',abort,{once:true});
+          if(signal?.aborted)abort();
+        });
+        try{
+          const request=(async()=>{
+            const response=await nativeFetch(target,{...init,signal:controller.signal});
+            // Buffer the body inside the deadline: a stalled body must release the queue too.
+            const bytes=await response.arrayBuffer();
+            return new Response(bytes,{status:response.status,statusText:response.statusText,headers:response.headers});
+          })();
+          const response=await Promise.race([request,deadline]);
+          // Never retry 403/challenges, authentication errors, cancellations or rate limits.
+          if(response.ok&&response.headers.get('content-type')?.includes('application/json')){
+            cache.set(key,{expires:Date.now()+cacheMs,response:response.clone()});
+            if(cache.size>100)cache.delete(cache.keys().next().value);
+          }
           return response;
-        }
-
-        if (![429, 502, 503, 504].includes(response.status) || attempt === MAX_ATTEMPTS - 1) return response;
-
-        const delay = retryDelay(response, attempt);
-        if (response.status === 429) cooldownUntil = Math.max(cooldownUntil, Date.now() + delay);
-        announceWaiting(delay);
-        await sleep(delay);
-        lastStartedAt = Date.now();
-      }
-
-      return nativeFetch(input, init);
-    });
+        }finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);}
+      }finally{release();}
+    }
+    return {fetch:gatedFetch,cache};
   }
-
-  globalThis.BaseBlockscoutGate = {
-    cache,
-    get cooldownUntil() { return cooldownUntil; },
-    get queued() { return queue; }
-  };
-  globalThis.fetch = blockscoutFetch;
-})();
+  if(typeof module!=='undefined')module.exports={createGate};
+  if(typeof window==='undefined'||!root.fetch||root.__baseBlockscoutQueueInstalled)return;
+  root.__baseBlockscoutQueueInstalled=true;
+  const nativeFetch=root.fetch.bind(root);let configuration;
+  async function configured(){
+    if(!configuration)configuration=(async()=>{
+      if(location.hostname.endsWith('github.io'))return false;
+      const controller=new AbortController();let timer;
+      try{return await Promise.race([
+        nativeFetch('/api/explorer-config',{signal:controller.signal}).then(async r=>r.ok&&(await r.json()).configured===true),
+        new Promise(resolve=>{timer=setTimeout(()=>{controller.abort();resolve(false);},2500);})
+      ]);}catch{return false;}finally{clearTimeout(timer);}
+    })();
+    return configuration;
+  }
+  const gate=createGate(nativeFetch,{origin:location.origin,configured});
+  root.BaseBlockscoutGate=gate;root.fetch=gate.fetch;
+})(globalThis);

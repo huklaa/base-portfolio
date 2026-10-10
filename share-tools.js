@@ -46,7 +46,7 @@
     if(!document.querySelector('link[href="./product-polish.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./product-polish.css';document.head.appendChild(l)}
     if(!document.querySelector('.skip-link')){const a=document.createElement('a');a.className='skip-link';a.href='#addressInput';a.textContent='Skip to address search';document.body.prepend(a)}
     const status=document.getElementById('status');if(status){status.setAttribute('role','status');status.setAttribute('aria-live','polite')}
-    ['./product-polish.js','./compare.js?v=20261011-3'].forEach(src=>{if(document.querySelector(`script[src="${src}"]`))return;const s=document.createElement('script');s.src=src;s.defer=true;document.body.appendChild(s)});
+    ['./product-polish.js','./compare.js?v=20261011-4'].forEach(src=>{if(document.querySelector(`script[src="${src}"]`))return;const s=document.createElement('script');s.src=src;s.defer=true;document.body.appendChild(s)});
   }
   function init(){
     ensureStyles();ensureUI();loadPolishAssets();
