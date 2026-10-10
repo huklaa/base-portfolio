@@ -53,11 +53,8 @@
     if((typeof state!=='undefined'&&state.loading)||!/^0x[a-fA-F0-9]{40}$/.test(address)||address===last)return;
     last=address;const ticket=++request;
     out.textContent='Loading Morpho positions…';
-    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
     try{
-      const response=await fetch('https://api.morpho.org/graphql',{method:'POST',signal:controller.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({query:QUERY,variables:{address}})});
-      if(!response.ok)throw Error('API '+response.status);
-      const data=parseResponse(await response.text());
+      const data=await BaseApi.readJSON('https://api.morpho.org/graphql',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:QUERY,variables:{address}})},parseResponse);
       if(data.errors?.length)throw Error('API query unavailable');
       if(ticket!==request)return;
       const rows=normalize(data,globalThis.BaseStockContracts||new Map());
@@ -69,7 +66,7 @@
         const sub=document.createElement('small');sub.textContent=p.displayAmount+(p.value!==null?' · ≈ $'+p.value.toFixed(2):' · USD value unavailable');
         const wrap=document.createElement('div');wrap.className='token-name';wrap.append(title,sub);el.append(wrap);out.append(el);
       }
-    }catch(e){if(ticket===request){out.textContent='Morpho position data unavailable. No balances have been inferred.';last='';}}finally{clearTimeout(timer)}
+    }catch(e){if(ticket===request){out.textContent='Morpho position data unavailable. No balances have been inferred.';last='';}}
   }
   new MutationObserver(()=>{if(!dashboard.classList.contains('hidden'))load()}).observe(dashboard,{attributes:true,attributeFilter:['class']});
   window.addEventListener('base-analysis-complete',()=>{last='';load()});
