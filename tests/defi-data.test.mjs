@@ -30,3 +30,11 @@ test('issuer proxy reports missing HTTP APIs, bad JSON and upstream failures',as
   const response=await onRequestGet();assert.equal(response.status,200);assert.equal(response.headers.get('Cache-Control'),'no-store');assert.equal((await response.json()).tokens[0].contract_address,stock.contract_address);
  }finally{globalThis.fetch=original;}
 });
+
+test('hard deadline releases caller when fetch ignores AbortSignal',async()=>{
+ const {readJSON}=require('../api-fetch.js');
+ await assert.rejects(readJSON('https://example.invalid',{},JSON.parse,5,()=>new Promise(()=>{})),/timed out/);
+ await assert.rejects(readJSON('https://example.invalid',{},JSON.parse,100,async()=>new Response('',{status:503})),/503/);
+ await assert.rejects(readJSON('https://example.invalid',{},JSON.parse,100,async()=>new Response('broken')),SyntaxError);
+ assert.deepEqual(await readJSON('https://example.invalid',{},JSON.parse,100,async()=>Response.json({ok:true})),{ok:true});
+});

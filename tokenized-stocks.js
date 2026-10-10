@@ -82,12 +82,7 @@
   }
   async function loadRegistry(){
     try{
-      const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),9000);
-      let response;
-      try{response=await fetch(API,{signal:controller.signal,headers:{Accept:'application/json'}});}
-      finally{clearTimeout(timer);}
-      if(!response.ok)throw new Error('HTTP '+response.status);
-      const payload=await response.json();
+      const payload=await BaseApi.readJSON(API,{headers:{Accept:'application/json'}},JSON.parse,9000);
       registry=validatedRegistry(payload);
       registryFailure='';
       globalThis.BaseStockContracts=registry;

@@ -18,12 +18,7 @@ function setStatus(text, error=false){ $('status').textContent=text; $('status')
 function clamp(v,min=0,max=100){ return Math.max(min,Math.min(max,Number(v)||0)); }
 
 async function getJSON(url){
-  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
-  try{
-    const r=await fetch(url,{signal:controller.signal,headers:{accept:'application/json'}});
-    if(!r.ok) throw new Error(`API ${r.status}`);
-    return await r.json();
-  }finally{clearTimeout(timer);}
+  return BaseApi.readJSON(url,{headers:{accept:'application/json'}});
 }
 
 async function loadAddress(address){
