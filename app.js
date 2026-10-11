@@ -30,7 +30,7 @@ async function loadAddress(address){
     recent:`${BLOCKSCOUT}/api/v2/addresses/${encoded}/transactions`,
     txs:`${BLOCKSCOUT}/api?module=account&action=txlist&address=${encoded}&startblock=0&endblock=99999999&sort=asc&page=1&offset=10000`
   };
-  const [info,tokens,nfts,recent,txs]=await Promise.allSettled(Object.values(urls).map(getJSON));
+  const [info,tokens,nfts,recent,txs]=await Promise.allSettled(Object.entries(urls).map(([key,url])=>key==='txs'?BaseApi.history(address):getJSON(url)));
   const val = (x,fallback) => x.status==='fulfilled' ? x.value : fallback;
   state.info=val(info,{});
   state.tokens=val(tokens,[]);
