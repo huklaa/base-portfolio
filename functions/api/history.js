@@ -44,7 +44,7 @@ export async function onRequestGet({request,env}){
   const controller=new AbortController();let timer,stage='connection';
   try{
     const work=(async()=>{
-      const response=await fetch('https://base.hypersync.xyz/query',{method:'POST',redirect:'error',signal:controller.signal,
+      const response=await fetch('https://base.hypersync.xyz/query',{method:'POST',redirect:'manual',signal:controller.signal,
         headers:{'Content-Type':'application/json',Authorization:'Bearer '+token,Accept:'application/json'},
         body:JSON.stringify({from_block:from,...(to===undefined?{}:{to_block:to}),transactions:[{from:[address]},{to:[address]}],max_num_transactions:1000,
           field_selection:{block:['number','timestamp'],transaction:['block_number','transaction_index','hash','from','to','input','value','gas_used','effective_gas_price','status','l1_fee']}})});
