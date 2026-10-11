@@ -39,6 +39,7 @@ async function loadAddress(address){
   const recentPayload=val(recent,{items:[]}); state.recent=(recentPayload.items||[]).slice(0,20);
   if(txs.status==='rejected')throw new Error('Transaction history unavailable. No activity totals have been inferred. '+(txs.reason?.message||'Please retry.'));
   state.txs=BaseApi.transactionRows(txs.value);
+  state.historyCoverage={provider:txs.value.provider==='envio'?'envio':'blockscout',complete:typeof txs.value.complete==='boolean'?txs.value.complete:null,truncated:txs.value.truncated===true||(txs.value.complete!==true&&state.txs.length>=10000),endBlock:txs.value.endBlock??null};
   if(info.status==='rejected' && txs.status==='rejected') throw new Error('Base explorer data could not be loaded. Try again in a moment.');
 }
 
@@ -297,7 +298,7 @@ async function analyze(){
   if(state.loading)return;
   const address=$('addressInput').value.trim();
   if(!ADDRESS_RE.test(address)){ setStatus('Enter a valid 0x address (40 hexadecimal characters).',true); return; }
-  state.loading=true;$('dashboard').classList.add('hidden');state.txs=[];
+  state.loading=true;$('dashboard').classList.add('hidden');state.txs=[];state.historyCoverage=null;
   $('analyzeBtn').disabled=true; setStatus('Reading public Base data…');
   try{
     state.address=address; await loadAddress(address); buildPortfolio(); buildMetrics(); buildFingerprint();
@@ -307,7 +308,7 @@ async function analyze(){
     $('dashboard').classList.remove('hidden');
     window.dispatchEvent(new CustomEvent('base-analysis-complete'));
     history.replaceState(null,'',`${location.pathname}?address=${encodeURIComponent(address)}`);
-    const partial = state.txs.length>=10000?' Activity metrics are capped at the explorer’s first 10,000 indexed transactions.':'';
+    const partial = state.historyCoverage?.truncated?' Activity metrics cover only the first 10,000 fetched transactions; later activity is not included.':'';
     setStatus(`Loaded public Base data for ${short(address)}.${partial}`);
     $('dashboard').scrollIntoView({behavior:'smooth',block:'start'});
   }catch(e){ console.error(e); setStatus(e.message||'Could not load Base data.',true); }
