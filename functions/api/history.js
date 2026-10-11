@@ -47,7 +47,8 @@ export async function onRequestGet({request,env}){
         body:JSON.stringify({from_block:from,...(to===undefined?{}:{to_block:to}),transactions:[{from:[address]},{to:[address]}],max_num_transactions:1000,
           field_selection:{block:['number','timestamp'],transaction:['block_number','transaction_index','hash','from','to','input','value','gas_used','effective_gas_price','status','l1_fee']}})});
       if(!response.ok)return reply({error:'Envio request failed',upstreamStatus:response.status},response.status===429?429:502);
-      return reply(normalize(await response.json(),address,from,to));
+      const payload=await response.json();
+      try{return reply(normalize(payload,address,from,to));}catch(e){return reply({error:'Invalid Envio history',reason:['Unsafe integer','Invalid integer','Invalid number','Invalid pagination','Invalid batch','Invalid transaction','Response too large'].includes(e.message)?e.message:'Invalid schema'},502);}
     })();
     return await Promise.race([work,new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error('Timeout'));},12000);})]);
   }catch{return reply({error:'Envio returned unavailable or invalid history'},502);}finally{clearTimeout(timer);}
