@@ -14,7 +14,7 @@ test('empty completed scan is valid',()=>{assert.deepEqual(normalize({archive_he
 test('missing credential never contacts provider',async()=>{assert.equal((await onRequestGet({request:new Request('https://example.com/api/history?address='+address),env:{}})).status,503);});
 test('invalid parameters rejected before upstream',async()=>{for(const query of ['address=x','address='+address+'&url=https://evil.test','address='+address+'&from=-1'])assert.equal((await onRequestGet({request:new Request('https://example.com/?'+query),env:{}})).status,400);});
 test('provider auth and rate limit failures are sanitized',async()=>{const old=globalThis.fetch;try{for(const status of [401,403,429]){globalThis.fetch=async(url,options)=>{assert.equal(url,'https://base.hypersync.xyz/query');assert.equal(options.redirect,'manual');assert.equal(options.headers.Authorization,'Bearer secret');return new Response('secret',{status});};const r=await onRequestGet({request:new Request('https://example.com/?address='+address),env:{ENVIO_API_TOKEN:'secret'}});assert.equal(r.status,status===429?429:424);assert.equal((await r.text()).includes('secret'),false);}}finally{globalThis.fetch=old;}});
-test('client scans all pages and pins end block',async()=>{const urls=[];const responses=[{historyProvider:'envio'},{result:[],nextBlock:5,endBlock:10,complete:false},{result:[],nextBlock:10,endBlock:10,complete:true}];const p=await api.history(address,async u=>{urls.push(u);return Response.json(responses.shift());});assert.equal(p.provider,'envio');assert.equal(p.result.length,0);assert.match(urls[2],/from=5&to=10/);});
+test('client scans all pages and pins end block',async()=>{const urls=[];const responses=[{historyProvider:'envio'},{result:[],nextBlock:5,endBlock:10,complete:false},{result:[],nextBlock:10,endBlock:10,complete:true}];const p=await api.history(address,async u=>{urls.push(u);return Response.json(responses.shift());});assert.equal(p.provider,'envio');assert.equal(p.complete,true);assert.equal(p.truncated,false);assert.equal(p.result.length,0);assert.match(urls[2],/from=5&to=10/);});
 test('client rejects partial errors and cursor inconsistencies instead of returning zero',async()=>{for(const page of [{result:[],nextBlock:0,endBlock:10,complete:false},{result:[],nextBlock:5,endBlock:10,complete:true}]){let n=0;await assert.rejects(api.history(address,async()=>Response.json(n++?page:{historyProvider:'envio'})),/pagination/);}});
 
 test('redirect is rejected without forwarding bearer credentials',async()=>{const old=globalThis.fetch;let calls=0;try{globalThis.fetch=async(url,options)=>{calls++;assert.equal(options.redirect,'manual');return new Response(null,{status:307,headers:{Location:'https://other.example/query'}});};const r=await onRequestGet({request:new Request('https://example.com/?address='+address),env:{ENVIO_API_TOKEN:'secret'}});assert.equal(r.status,424);assert.equal((await r.json()).upstreamStatus,307);assert.equal(calls,1);}finally{globalThis.fetch=old;}});
@@ -22,3 +22,17 @@ test('redirect is rejected without forwarding bearer credentials',async()=>{cons
 test('omitted recipient represents contract creation',()=>{const p=fixture();delete p.data[0].transactions[0].to;assert.equal(normalize(p,address,0).result[0].to,'');});
 
 test('high-volume history is explicitly capped and never marked complete',async()=>{let n=0;const txs=Array.from({length:10001},(_,i)=>({hash:String(i),blockNumber:String(i),transactionIndex:'0'}));const p=await api.history(address,async()=>Response.json(n++?{result:txs,nextBlock:10002,endBlock:20000,complete:false}:{historyProvider:'envio'}));assert.equal(p.result.length,10000);assert.equal(p.complete,false);assert.equal(p.truncated,true);});
+
+test('JSON export preserves history provider and partial coverage',async()=>{
+  const {runInNewContext}=await import('node:vm');
+  const code=await readFile(new URL('../public-export.js',import.meta.url),'utf8');
+  const state={address,txs:[],historyCoverage:{provider:'envio',complete:false,truncated:true,endBlock:10}};
+  const context={state};runInNewContext(code,context);
+  const profile=context.BasePublicExport.buildExport();
+  assert.match(profile.limits.source,/Envio HyperSync/);
+  assert.equal(profile.limits.transactionHistory.complete,false);
+  assert.equal(profile.limits.transactionHistory.truncated,true);
+  assert.equal(profile.limits.transactionHistory.endBlock,10);
+  state.historyCoverage=null;
+  assert.equal(context.BasePublicExport.buildExport().limits.transactionHistory,null);
+});
