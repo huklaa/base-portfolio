@@ -11,7 +11,7 @@
   }
   async function fetchSummary(address){
     const url=`${BLOCKSCOUT}/api?module=account&action=txlist&address=${encodeURIComponent(address)}&startblock=0&endblock=99999999&sort=asc&page=1&offset=10000`;
-    const j=await BaseApi.readJSON(url,{headers:{accept:'application/json'}},JSON.parse,30000);
+    const j=await BaseApi.history(address);
     return summarizeTxs(BaseApi.transactionRows(j));
   }
   function short(a){return `${a.slice(0,8)}…${a.slice(-6)}`}

@@ -77,3 +77,6 @@ jobs:
           node --check blockscout-rate-limit.js
           node --check api-fetch.js
           node --test tests/explorer-access.test.mjs
+
+      - name: Envio history regression tests
+        run: node --test tests/envio-history.test.mjs
