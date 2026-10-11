@@ -41,7 +41,7 @@ test('missing API key returns 503 without calling upstream; config exposes only 
  const old=globalThis.fetch;globalThis.fetch=()=>{throw Error('must not fetch');};try{assert.equal((await proxy.onRequestGet({request:request(),env:{}})).status,503);assert.deepEqual(await config.onRequestGet({env:{BLOCKSCOUT_API_KEY:'secret'}}).json(),{configured:true});assert.deepEqual(await config.onRequestGet({env:{}}).json(),{configured:false});}finally{globalThis.fetch=old;}
 });
 test('proxy uses server authorization and preserves large integer JSON',async()=>{
- const old=globalThis.fetch;const body='{"value":900719925474099312345}';globalThis.fetch=async(target,options)=>{assert.equal(target,'https://api.blockscout.com/8453'+path);assert.equal(options.headers.Authorization,'Bearer test-secret');assert.equal(options.redirect,'error');return new Response(body);};
+ const old=globalThis.fetch;const body='{"value":900719925474099312345}';globalThis.fetch=async(target,options)=>{assert.equal(target,'https://api.blockscout.com/8453'+path);assert.equal(options.headers.Authorization,'Bearer test-secret');assert.equal(options.redirect,'manual');return new Response(body);};
  try{const response=await proxy.onRequestGet({request:request(),env:{BLOCKSCOUT_API_KEY:'test-secret'}});assert.equal(response.status,200);assert.equal(await response.text(),body);}finally{globalThis.fetch=old;}
 });
 test('upstream failures and invalid JSON are sanitized',async()=>{

@@ -24,7 +24,7 @@ export async function onRequestGet({request,env}){
   const controller=new AbortController();let timer;
   try{
     const operation=(async()=>{
-      const response=await fetch(url,{headers:{Accept:'application/json',Authorization:'Bearer '+env.BLOCKSCOUT_API_KEY},signal:controller.signal,redirect:'error'});
+      const response=await fetch(url,{headers:{Accept:'application/json',Authorization:'Bearer '+env.BLOCKSCOUT_API_KEY},signal:controller.signal,redirect:'manual'});
       if(!response.ok)return error(response.status===429?429:502,'Explorer provider unavailable');
       const payload=await response.text();
       JSON.parse(payload); // Validate JSON without rounding large integer fields.
