@@ -23,6 +23,8 @@
   <title>Base Portfolio Explorer</title>
 <link rel="stylesheet" href="./styles.css?v=20260821-1" />
   <link rel="stylesheet" href="./mobile.css?v=20260821-1" />
+  <link rel="stylesheet" href="./market-ticker.css?v=20261011-1" />
+  <script defer src="./market-ticker.js?v=20261011-1"></script>
 </head>
 <body>
   <div class="page-shell">
@@ -33,6 +35,14 @@
         <a href="https://github.com/huklaa" target="_blank" rel="noreferrer">github.com/huklaa</a>
       </div>
     </header>
+
+    <section class="market-ticker" aria-label="Market prices" aria-describedby="marketTickerNote">
+      <div class="market-ticker-heading"><span>MARKET WATCH <small>USD</small></span><button id="marketTickerToggle" type="button" aria-pressed="false" disabled>Pause</button></div>
+      <div id="marketTickerHost"><tv-ticker-tape id="marketTape" symbols="COINBASE:BTCUSD,COINBASE:ETHUSD,COINBASE:LINKUSD,NASDAQ:TSLA,NASDAQ:NVDA,NASDAQ:QQQ" theme="dark" hide-chart item-size="compact"></tv-ticker-tape></div>
+      <p id="marketTickerStatus" role="status">Loading market prices…</p>
+      <p id="marketTickerNote">TradingView · Crypto trades 24/7. US stocks &amp; ETF quotes are delayed; when markets are closed, the latest available quote is shown. These are market prices, not tokenized-stock valuations.</p>
+      <noscript>Enable JavaScript to view market prices.</noscript>
+    </section>
 
     <main>
       <section class="hero">
