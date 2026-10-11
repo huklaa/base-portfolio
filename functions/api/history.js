@@ -39,17 +39,19 @@ export async function onRequestGet({request,env}){
     if(from>1e9||(to!==undefined&&(to<=from||to>1e9)))throw Error();
   }catch{return reply({error:'Invalid history query'},400);}
   if(!env.ENVIO_API_TOKEN)return reply({error:'Envio is not configured'},503);
-  const controller=new AbortController();let timer;
+  const token=String(env.ENVIO_API_TOKEN).trim();
+  if(!/^[!-~]+$/.test(token))return reply({error:'Invalid Envio secret format'},503);
+  const controller=new AbortController();let timer,stage='connection';
   try{
     const work=(async()=>{
       const response=await fetch('https://base.hypersync.xyz/query',{method:'POST',redirect:'error',signal:controller.signal,
-        headers:{'Content-Type':'application/json',Authorization:'Bearer '+env.ENVIO_API_TOKEN},
+        headers:{'Content-Type':'application/json',Authorization:'Bearer '+token,Accept:'application/json'},
         body:JSON.stringify({from_block:from,...(to===undefined?{}:{to_block:to}),transactions:[{from:[address]},{to:[address]}],max_num_transactions:1000,
           field_selection:{block:['number','timestamp'],transaction:['block_number','transaction_index','hash','from','to','input','value','gas_used','effective_gas_price','status','l1_fee']}})});
       if(!response.ok)return reply({error:'Envio request failed',upstreamStatus:response.status},response.status===429?429:424);
-      const payload=await response.json();
+      stage='response-json';const payload=await response.json();
       try{return reply(normalize(payload,address,from,to));}catch(e){return reply({error:'Invalid Envio history',reason:['Unsafe integer','Invalid integer','Invalid number','Invalid pagination','Invalid batch','Invalid transaction','Response too large'].includes(e.message)?e.message:'Invalid schema'},424);}
     })();
     return await Promise.race([work,new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error('Timeout'));},12000);})]);
-  }catch{return reply({error:'Envio returned unavailable or invalid history'},424);}finally{clearTimeout(timer);}
+  }catch{return reply({error:'Envio returned unavailable or invalid history',stage:controller.signal.aborted?'timeout':stage},424);}finally{clearTimeout(timer);}
 }
