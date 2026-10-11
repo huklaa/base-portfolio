@@ -37,7 +37,7 @@ async function loadAddress(address){
   state.tokenDataAvailable=tokens.status==='fulfilled'&&Array.isArray(tokens.value);
   const nftPayload=val(nfts,{items:[]}); state.nfts=nftPayload.items||[];
   const recentPayload=val(recent,{items:[]}); state.recent=(recentPayload.items||[]).slice(0,20);
-  if(txs.status==='rejected')throw new Error('Transaction history unavailable. The explorer timed out or failed; no activity totals have been inferred. Please retry.');
+  if(txs.status==='rejected')throw new Error('Transaction history unavailable. No activity totals have been inferred. '+(txs.reason?.message||'Please retry.'));
   state.txs=BaseApi.transactionRows(txs.value);
   if(info.status==='rejected' && txs.status==='rejected') throw new Error('Base explorer data could not be loaded. Try again in a moment.');
 }
