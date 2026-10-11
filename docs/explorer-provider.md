@@ -33,7 +33,8 @@ Set `ENVIO_API_TOKEN` as a production Cloudflare Pages secret and redeploy.
 `/api/explorer-config` exposes only the selected history provider, never the key.
 The read-only `/api/history` adapter queries the fixed Base HyperSync endpoint.
 The browser scans from genesis, pins the first response's end block and rejects
-incomplete scans, more than 10,000 rows, invalid cursors and upstream failures.
+incomplete scans, invalid cursors and upstream failures. At 10,000 rows, the
+existing UI cap is retained with explicit truncated metadata and a partial-history notice.
 Gas metrics retain their existing L2 execution scope; L1 fees are separately
 preserved in history rows, not included in those metrics.
 This provider replaces transaction history only, not token/NFT balance discovery.
