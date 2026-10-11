@@ -25,7 +25,7 @@
          data.complete!==(data.nextBlock===data.endBlock))throw Error('Invalid history pagination');
       end=data.endBlock;from=data.nextBlock;
       for(const tx of data.result){if(seen.has(tx.hash))throw Error('Duplicate history transaction');seen.add(tx.hash);rows.push(tx);}
-      if(rows.length>10000)throw Error('History exceeds 10,000 transactions; totals unavailable');
+      if(rows.length>=10000&&!data.complete||rows.length>10000)return {status:'1',result:rows.sort((a,b)=>Number(a.blockNumber)-Number(b.blockNumber)||Number(a.transactionIndex)-Number(b.transactionIndex)).slice(0,10000),provider:'envio',complete:false,truncated:true,endBlock:end};
       if(data.complete)return {status:'1',result:rows.sort((a,b)=>Number(a.blockNumber)-Number(b.blockNumber)||Number(a.transactionIndex)-Number(b.transactionIndex)),provider:'envio',endBlock:end};
     }
     throw Error('History scan incomplete; totals unavailable');
