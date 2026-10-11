@@ -18,3 +18,5 @@ test('client scans all pages and pins end block',async()=>{const urls=[];const r
 test('client rejects partial errors and cursor inconsistencies instead of returning zero',async()=>{for(const page of [{result:[],nextBlock:0,endBlock:10,complete:false},{result:[],nextBlock:5,endBlock:10,complete:true}]){let n=0;await assert.rejects(api.history(address,async()=>Response.json(n++?page:{historyProvider:'envio'})),/pagination/);}});
 
 test('redirect is rejected without forwarding bearer credentials',async()=>{const old=globalThis.fetch;let calls=0;try{globalThis.fetch=async(url,options)=>{calls++;assert.equal(options.redirect,'manual');return new Response(null,{status:307,headers:{Location:'https://other.example/query'}});};const r=await onRequestGet({request:new Request('https://example.com/?address='+address),env:{ENVIO_API_TOKEN:'secret'}});assert.equal(r.status,424);assert.equal((await r.json()).upstreamStatus,307);assert.equal(calls,1);}finally{globalThis.fetch=old;}});
+
+test('omitted recipient represents contract creation',()=>{const p=fixture();delete p.data[0].transactions[0].to;assert.equal(normalize(p,address,0).result[0].to,'');});

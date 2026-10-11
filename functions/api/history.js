@@ -18,9 +18,12 @@ export function normalize(payload,address,from,to){
   }
   const result=txs.map(t=>{
     const block=number(t.block_number),timestamp=blocks.get(block),status=number(t.status);
-    if(block<from||block>=next||!timestamp||status>1||!HASH.test(t.hash)||!ADDRESS.test(t.from)||
-       (t.to!==null&&!ADDRESS.test(t.to))||!/^0x(?:[a-f0-9]{2})*$/i.test(t.input)||
-       (t.from.toLowerCase()!==address&&t.to?.toLowerCase()!==address))throw Error('Invalid transaction');
+    if(block<from||block>=next)throw Error('Invalid transaction block');
+    if(!timestamp)throw Error('Missing transaction timestamp');
+    if(status>1||!HASH.test(t.hash))throw Error('Invalid transaction identity');
+    if(!ADDRESS.test(t.from)||(t.to!=null&&!ADDRESS.test(t.to)))throw Error('Invalid transaction address');
+    if(!/^0x(?:[a-f0-9]{2})*$/i.test(t.input))throw Error('Invalid transaction input');
+    if(t.from.toLowerCase()!==address&&t.to?.toLowerCase()!==address)throw Error('Transaction wallet mismatch');
     return {hash:t.hash,blockNumber:String(block),transactionIndex:String(number(t.transaction_index)),timeStamp:String(timestamp),
       from:t.from,to:t.to||'',input:t.input,value:integer(t.value),gasUsed:integer(t.gas_used),
       gasPrice:integer(t.effective_gas_price),isError:status===1?'0':'1',
@@ -50,7 +53,7 @@ export async function onRequestGet({request,env}){
           field_selection:{block:['number','timestamp'],transaction:['block_number','transaction_index','hash','from','to','input','value','gas_used','effective_gas_price','status','l1_fee']}})});
       if(!response.ok)return reply({error:'Envio request failed',upstreamStatus:response.status},response.status===429?429:424);
       stage='response-json';const payload=await response.json();
-      try{return reply(normalize(payload,address,from,to));}catch(e){return reply({error:'Invalid Envio history',reason:['Unsafe integer','Invalid integer','Invalid number','Invalid pagination','Invalid batch','Invalid transaction','Response too large'].includes(e.message)?e.message:'Invalid schema'},424);}
+      try{return reply(normalize(payload,address,from,to));}catch(e){return reply({error:'Invalid Envio history',reason:['Unsafe integer','Invalid integer','Invalid number','Invalid pagination','Invalid batch','Invalid transaction','Invalid transaction block','Missing transaction timestamp','Invalid transaction identity','Invalid transaction address','Invalid transaction input','Transaction wallet mismatch','Response too large'].includes(e.message)?e.message:'Invalid schema'},424);}
     })();
     return await Promise.race([work,new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error('Timeout'));},12000);})]);
   }catch{return reply({error:'Envio returned unavailable or invalid history',stage:controller.signal.aborted?'timeout':stage},424);}finally{clearTimeout(timer);}
